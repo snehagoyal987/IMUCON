@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registration Form | IMUCON 2.0</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', system-ui, sans-serif;
+            background: #ffffff;
+            color: #0f3057;
+        }
+
+        .registration-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 25px;
+        }
+
+        /* ===== HEADER ===== */
+
+        .registration-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .registration-header h1 {
+            margin: 0 0 12px;
+            font-size: 42px;
+            font-weight: 800;
+            color: #0f3057;
+        }
+
+        .registration-header p {
+            margin: 0;
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* ===== SECTIONS ===== */
+
+        .form-section {
+            margin-bottom: 45px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .section-heading {
+            margin: 0 0 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e5e5e5;
+
+            color: #0f3057;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        /* ===== FORM GRID ===== */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+
+            border: 1px solid #d5d9df;
+            border-radius: 7px;
+
+            background: #ffffff;
+            color: #333;
+
+            font-family: inherit;
+            font-size: 14px;
+
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #e66a0b;
+            box-shadow: 0 0 0 3px rgba(230, 106, 11, 0.10);
+        }
+
+        /* ===== ATTENDEE BLOCK ===== */
+
+        .attendee-block {
+            margin-bottom: 30px;
+            padding: 25px;
+
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+        }
+
+        .attendee-title {
+            margin: 0 0 22px;
+            color: #0f3057;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* ===== GROUP ATTENDEES ===== */
+
+        #groupOptions {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+
+            background: #fff8f2;
+            border: 1px solid #f3d2b7;
+            border-radius: 8px;
+        }
+
+        /* ===== ADDITIONAL INFORMATION ===== */
+
+        .additional-section {
+            margin-top: 20px;
+        }
+
+        /* ===== PAYMENT ===== */
+
+        .payment-box {
+            padding: 35px 25px;
+
+            background: #f5f7fa;
+            border-radius: 12px;
+
+            text-align: center;
+        }
+
+        .payment-box > p {
+            margin: 0 0 20px;
+            color: #444;
+            font-size: 16px;
+        }
+
+        #paymentMessage {
+            margin-bottom: 20px;
+            color: #e66a0b;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .qr-box {
+            display: none;
+
+            width: fit-content;
+            margin: 20px auto;
+
+            padding: 15px;
+
+            background: #ffffff;
+            border-radius: 10px;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+        }
+
+        .qr-box img {
+            display: block;
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+        }
+
+        /* ===== FILE INPUT ===== */
+
+        .file-wrapper {
+            position: relative;
+        }
+
+        .file-wrapper input[type="file"] {
+            padding: 10px;
+            background: #fff8f2;
+        }
+
+        /* ===== SUBMIT ===== */
+
+        .submit-wrapper {
+            text-align: center;
+            margin: 45px 0;
+        }
+
+        .submit-btn {
+            border: none;
+            border-radius: 30px;
+
+            padding: 14px 40px;
+
+            background: linear-gradient(
+                135deg,
+                #f7941d,
+                #e66a0b
+            );
+
+            color: #ffffff;
+
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 18px rgba(230, 106, 11, 0.25);
+        }
+
+        /* ===== SUCCESS MESSAGE ===== */
+
+        #successMessage {
+            display: none;
+
+            margin-top: 25px;
+            padding: 15px;
+
+            background: #e9f8ef;
+            border: 1px solid #b9e5c8;
+            border-radius: 8px;
+
+            color: #176b36;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* ===== FOOTER CONTACT ===== */
+
+        .contact-section {
+            padding-top: 35px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            margin: 0 0 12px;
+            color: #0f3057;
+            font-size: 18px;
+        }
+
+        .contact-section p {
+            margin: 6px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .contact-section a {
+            color: #e66a0b;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        @media (max-width: 768px) {
+
+            .registration-container {
+                padding: 40px 18px;
+            }
+
+            .registration-header h1 {
+                font-size: 34px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: auto;
+            }
+
+            .attendee-block {
+                padding: 20px 15px;
+            }
+
+            .payment-box {
+                padding: 25px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .registration-header h1 {
+                font-size: 29px;
+            }
+
+            .submit-btn {
+                width: 100%;
+            }
+
+            .qr-box img {
+                width: 190px;
+                height: 190px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="registration-container">
+
+    <!-- ===== HEADER ===== -->
+
+    <div class="registration-header">
+        <h1>Registration Form</h1>
+        <p>Please fill out the details below to secure your spot.</p>
+    </div>
+
+
+    <form id="registrationForm">
+
+        <!-- ===== REGISTRATION DETAILS ===== -->
+
+        <section class="form-section">
+
+            <h2 class="section-heading">
+                Registration Details
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="passCategory">
+                        Pass Category *
+                    </label>
+
+                    <select id="passCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="student">Student</option>
+                        <option value="staff">Staff</option>
+                        <option value="general">General</option>
+                        <option value="vip">VIP</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="registrationType">
+                        Registration Type *
+                    </label>
+
+                    <select id="registrationType" required>
+                        <option value="">Select Type</option>
+                        <option value="single">Single</option>
+                        <option value="group">Group</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <!-- GROUP OPTIONS -->
+
+            <div id="groupOptions">
+
+                <div class="form-group">
+
+                    <label for="attendeeCount">
+                        Number of Attendees *
+                    </label>
+
+                    <select id="attendeeCount">
+                        <option value="">Select Number</option>
+                        <option value="2">2 Attendees</option>
+                        <option value="3">3 Attendees</option>
+                        <option value="4">4 Attendees</option>
+                        <option value="5">5 Attendees</option>
+                        <option value="6">6 Attendees</option>
+                        <option value="7">7 Attendees</option>
+                        <option value="8">8 Attendees</option>
+                        <option value="9">9 Attendees</option>
+                        <option value="10">10 Attendees</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===== ATTENDEE DETAILS ===== -->
+
+        <section class="form-section">
+
+            <h2 class="section-heading">
+                Attendee Details
+            </h2>
+
+            <div id="attendeesContainer"></div>
+
+        </section>
+
+
+        <!-- ===== ADDITIONAL INFORMATION ===== -->
+
+        <section class="form-section additional-section">
+
+            <h2 class="section-heading">
+                Additional Information
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="form-group full-width">
+
+                    <label for="heardFrom">
+                        How did you hear about this conference?
+                    </label>
+
+                    <select id="heardFrom">
+
+                        <option value="">
+                            Select an option
+                        </option>
+
+                        <option>Social Media</option>
+                        <option>Friend</option>
+                        <option>Email</option>
+                        <option>Website</option>
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===== PAYMENT INFORMATION ===== -->
+
+        <section class="form-section">
+
+            <h2 class="section-heading">
+                Payment Information
+            </h2>
+
+            <div class="payment-box">
+
+                <p>
+                    Please scan the QR code below to complete the payment.
+                </p>
+
+                <div id="paymentMessage">
+                    Please select a pass category.
+                </div>
+
+
+                <!-- QR CODE -->
+
+                <div class="qr-box" id="qrBox">
+
+                    <!-- Replace this with your actual QR image -->
+                    <img src="assets/payment-qr.png"
+                         alt="Payment QR Code">
+
+                </div>
+
+
+                <!-- PAYMENT DETAILS -->
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="transactionId">
+                            Transaction ID / UTR No. *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="transactionId"
+                            placeholder="Enter Transaction ID / UTR No."
+                        >
+
+                    </div>
+
+
+                    <div class="form-group file-wrapper">
+
+                        <label for="paymentScreenshot">
+                            Upload Payment Screenshot *
+                        </label>
+
+                        <input
+                            type="file"
+                            id="paymentScreenshot"
+                            accept="image/*"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===== SUBMIT ===== -->
+
+        <div class="submit-wrapper">
+
+            <button
+                type="submit"
+                class="submit-btn">
+
+                Submit Registration
+
+            </button>
+
+        </div>
+
+        <div id="successMessage">
+            Registration details submitted successfully.
+            Our team will contact you for confirmation.
+        </div>
+
+    </form>
+
+
+    <!-- ===== CONTACT ===== -->
+
+    <div class="contact-section">
+
+        <h3>
+            For Any Queries, Contact:
+        </h3>
+
+        <p>
+            For Help Number: <strong>9811044966</strong>
+        </p>
+
+        <p>
+            Technical Support (Online):
+            <a href="mailto:arvindkumar2.singh@sharda.ac.in">
+                arvindkumar2.singh@sharda.ac.in
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const registrationType =
+        document.getElementById("registrationType");
+
+    const groupOptions =
+        document.getElementById("groupOptions");
+
+    const attendeeCount =
+        document.getElementById("attendeeCount");
+
+    const attendeesContainer =
+        document.getElementById("attendeesContainer");
+
+    const passCategory =
+        document.getElementById("passCategory");
+
+    const paymentMessage =
+        document.getElementById("paymentMessage");
+
+    const qrBox =
+        document.getElementById("qrBox");
+
+
+    /* ===== ATTENDEE TEMPLATE ===== */
+
+    function createAttendee(index) {
+
+        return `
+            <div class="attendee-block">
+
+                <h3 class="attendee-title">
+                    Attendee ${index} Details
+                </h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>
+                            Full Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            name="attendee_${index}_name"
+                            required
+                            placeholder="Enter full name">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            Date of Birth *
+                        </label>
+
+                        <input
+                            type="date"
+                            name="attendee_${index}_dob"
+                            required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            Gender *
+                        </label>
+
+                        <select
+                            name="attendee_${index}_gender"
+                            required>
+
+                            <option value="">
+                                Select Gender
+                            </option>
+
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            Email ID *
+                        </label>
+
+                        <input
+                            type="email"
+                            name="attendee_${index}_email"
+                            required
+                            placeholder="Enter email address">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            Mobile Number *
+                        </label>
+
+                        <input
+                            type="tel"
+                            name="attendee_${index}_mobile"
+                            required
+                            pattern="[0-9]{10}"
+                            maxlength="10"
+                            placeholder="10-digit mobile number">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>
+                            Employee ID No. (if applicable)
+                        </label>
+
+                        <input
+                            type="text"
+                            name="attendee_${index}_employee_id"
+                            placeholder="Employee ID">
+                    </div>
+
+
+                    <div class="form-group full-width">
+                        <label>
+                            ID Card No. (for Staff/Student)
+                        </label>
+
+                        <input
+                            type="text"
+                            name="attendee_${index}_id_card"
+                            placeholder="ID Card Number">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    /* ===== INITIAL ATTENDEE ===== */
+
+    function generateAttendees(number) {
+
+        attendeesContainer.innerHTML = "";
+
+        for (let i = 1; i <= number; i++) {
+
+            attendeesContainer.innerHTML +=
+                createAttendee(i);
+
+        }
+    }
+
+    generateAttendees(1);
+
+
+    /* ===== REGISTRATION TYPE ===== */
+
+    registrationType.addEventListener("change", function () {
+
+        if (this.value === "group") {
+
+            groupOptions.style.display = "block";
+
+            attendeeCount.required = true;
+
+            attendeesContainer.innerHTML = "";
+
+        } else {
+
+            groupOptions.style.display = "none";
+
+            attendeeCount.required = false;
+
+            attendeeCount.value = "";
+
+            generateAttendees(1);
+        }
+
+    });
+
+
+    /* ===== GROUP ATTENDEE COUNT ===== */
+
+    attendeeCount.addEventListener("change", function () {
+
+        const count = parseInt(this.value);
+
+        if (count && count >= 2) {
+
+            generateAttendees(count);
+
+        }
+
+    });
+
+
+    /* ===== PAYMENT CATEGORY ===== */
+
+    const prices = {
+
+        student: "Student Pass - Please proceed with the payment using the QR code below.",
+        staff: "Staff Pass - Please proceed with the payment using the QR code below.",
+        general: "General Pass - Please proceed with the payment using the QR code below.",
+        vip: "VIP Pass - Please proceed with the payment using the QR code below."
+
+    };
+
+
+    passCategory.addEventListener("change", function () {
+
+        const category = this.value;
+
+        if (category && prices[category]) {
+
+            paymentMessage.textContent =
+                prices[category];
+
+            qrBox.style.display = "block";
+
+        } else {
+
+            paymentMessage.textContent =
+                "Please select a pass category.";
+
+            qrBox.style.display = "none";
+
+        }
+
+    });
+
+
+    /* ===== FORM VALIDATION ===== */
+
+   document
+    .getElementById("registrationForm")
+    .addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        // Browser validation
+        if (!this.checkValidity()) {
+            this.reportValidity();
+            return;
+        }
+
+        const submitButton =
+            this.querySelector(".submit-btn");
+
+        const successMessage =
+            document.getElementById("successMessage");
+
+
+        // Disable button while submitting
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+
+
+        // Create FormData
+        const formData = new FormData();
+
+
+        // Registration details
+        formData.append(
+            "passCategory",
+            document.getElementById("passCategory").value
+        );
+
+        formData.append(
+            "registrationType",
+            document.getElementById("registrationType").value
+        );
+
+        formData.append(
+            "attendeeCount",
+            document.getElementById("registrationType").value === "single"
+                ? "1"
+                : document.getElementById("attendeeCount").value
+        );
+
+        formData.append(
+            "heardFrom",
+            document.getElementById("heardFrom").value
+        );
+
+        formData.append(
+            "transactionId",
+            document.getElementById("transactionId").value.trim()
+        );
+
+
+        // Payment screenshot
+        const screenshot =
+            document.getElementById("paymentScreenshot").files[0];
+
+        if (screenshot) {
+            formData.append(
+                "paymentScreenshot",
+                screenshot
+            );
+        }
+
+
+        // Collect all attendee fields
+        const attendeeInputs =
+            attendeesContainer.querySelectorAll(
+                "input, select"
+            );
+
+        attendeeInputs.forEach(function (input) {
+
+            if (input.name) {
+
+                formData.append(
+                    input.name,
+                    input.value
+                );
+
+            }
+
+        });
+
+
+        try {
+
+            const response = await fetch(
+                "/api/register",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+            const result = await response.json();
+
+
+            if (result.success) {
+
+                successMessage.innerHTML =
+                    `
+                    <strong>Registration Successful!</strong><br><br>
+                    Your Registration ID is:
+                    <strong>${result.registration_id}</strong>
+                    <br><br>
+                    Please save this Registration ID for future reference.
+                    `;
+
+                successMessage.style.display = "block";
+
+
+                window.scrollTo({
+                    top: successMessage.offsetTop - 100,
+                    behavior: "smooth"
+                });
+
+
+                submitButton.disabled = true;
+                submitButton.textContent = "Registration Submitted";
+
+
+            } else {
+
+                alert(
+                    result.message ||
+                    "Registration failed. Please try again."
+                );
+
+                submitButton.disabled = false;
+                submitButton.textContent = "Submit Registration";
+
+            }
+
+
+        } catch (error) {
+
+            console.error("Error:", error);
+
+            alert(
+                "Unable to connect to the registration server. " +
+                "Please make sure the Python backend is running."
+            );
+
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Registration";
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
