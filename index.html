@@ -1,320 +1,288 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>IMUCON 2.0 | International Medicine Update Conference</title>
-    <meta name="description" content="IMUCON 2.0 – International Medicine Update Conference, 15th-18th December 2026 at SMS&R & Sharda Hospital, Greater Noida.">
-    <!-- Google Font + Icons -->
+
+    <meta name="description"
+        content="IMUCON 2.0 – International Medicine Update Conference, 15th-18th December 2026 at SMS&R & Sharda Hospital, Greater Noida.">
+
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
-        /* ----- RESET & BASE (CHANGED TO IMAGE BACKGROUND) ----- */
+
+        /* ==============================
+           RESET
+        ============================== */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-       body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-    background: #ffffff;
+        html {
+            scroll-behavior: smooth;
+        }
 
-    color: #1e2a41;
-    line-height: 1.5;
-}
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #ffffff;
+            color: #1e2a41;
+            line-height: 1.5;
+        }
 
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-        a { text-decoration: none; color: inherit; }
-        img { max-width: 100%; display: block; }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
-            position: relative;
-            z-index: 1;
         }
 
-        /* ----- BUTTONS (orange accent) ----- */
+
+        /* ==============================
+           BUTTONS
+        ============================== */
+
         .btn {
             display: inline-block;
             background: #e66a0b;
-            color: #fff;
+            color: #ffffff;
             font-weight: 600;
             padding: 12px 32px;
             border-radius: 40px;
             border: none;
             font-size: 1rem;
             cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
+            transition: 0.2s;
             box-shadow: 0 4px 12px rgba(230, 106, 11, 0.25);
-            letter-spacing: 0.3px;
         }
+
         .btn:hover {
             background: #c95c0a;
             transform: translateY(-2px);
         }
+
         .btn-outline {
             background: transparent;
             color: #ffffff;
             border: 2px solid #ffffff;
             box-shadow: none;
         }
+
         .btn-outline:hover {
-            background: #e66a0b;
-            color: #fff;
-        }
-        .btn-white {
-            background: #fff;
+            background: #ffffff;
             color: #e66a0b;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border: 1px solid #e66a0b;
-        }
-        .btn-white:hover {
-            background: #fef3ea;
         }
 
-        /* ----- HEADER (Transparent now instead of white) ----- */
-        .header {
-            background: rgba(255, 255, 255, 0.9); /* Slightly see-through so background shows */
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        .site-header {
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 12px 0;
         }
-        .header .container {
+
+        .nav-wrap {
+            min-height: 78px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            justify-content: center;
         }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+
+        .header-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
         }
-        .logo-area .logo-symbol {
-            font-size: 1.9rem;
-            font-weight: 800;
-            color: #e66a0b;
-            background: #fef3ea;
-            padding: 4px 12px;
-            border-radius: 30px;
-            letter-spacing: -0.5px;
-        }
-        .logo-area .logo-text {
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: #1e2a41;
-        }
-        .logo-area .logo-text span {
-            font-weight: 300;
-            color: #4a5f7a;
-        }
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            list-style: none;
-        }
-        .nav-menu a {
-            font-weight: 500;
-            color: #1e2a41;
-            font-size: 0.95rem;
-            transition: color 0.2s;
+
+
+        /* ==============================
+           HERO
+        ============================== */
+
+        .hero {
+            background-image:
+                linear-gradient(
+                    rgba(40, 25, 15, 0.48),
+                    rgba(40, 25, 15, 0.48)
+                ),
+                url("1563350690r2.webp");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            padding: 85px 0 90px;
             position: relative;
         }
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #e66a0b;
-            transition: width 0.25s;
-        }
-        .nav-menu a:hover { color: #e66a0b; }
-        .nav-menu a:hover::after { width: 100%; }
-        .nav-cta .btn { padding: 8px 24px; font-size: 0.9rem; }
 
-        .hamburger {
-            display: none;
-            font-size: 1.8rem;
-            background: none;
-            border: none;
-            color: #1e2a41;
-            cursor: pointer;
-            padding: 4px 8px;
+        .hero-grid {
+            position: relative;
+            z-index: 2;
+            text-align: center;
         }
 
-        /* ----- HERO (Made transparent) ----- */
-       .hero {
-    background-image:
-        linear-gradient(
-            rgba(60, 35, 20, 0.42),
-            rgba(60, 35, 20, 0.42)
-        ),
-        url('assets/1563350690r2.webp');
-
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-
-    padding: 60px 0 70px;
-    position: relative;
-}
-        .hero::before {
-            display: none; /* REMOVED the orange gradient circle because it conflicts with the image */
-        }
-       .hero-grid {
-    display: block;
-    position: relative;
-    z-index: 2;
-    text-align: center;
-}
         .hero-content h1 {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 800;
             color: #ffffff;
             line-height: 1.1;
-            letter-spacing: -0.02em;
-        }
-        .hero-content h1 span {
-            color: #e66a0b;
-        }
-        .hero-content .sub {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: #ffffff;
-            margin: 8px 0 20px;
-        }
-        .hero-description {
-    max-width: 750px;
-    margin: 18px auto 25px;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: #ffffff;
-    text-align: center;
-}
-        .hero-details {
-            background: rgba(0, 0, 0, 0.20); /* Slight transparency */
-            padding: 20px 24px;
-            border-radius: 24px;
-            display: inline-block;
-            margin: 16px 0 24px;
-            border: 1px solid rgba(255,255,255,0.5);
-            backdrop-filter: blur(5px); /* Glass effect */
-        }
-        .hero-details p {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-            color: #ffffff;
-            margin: 6px 0;
-        }
-        .hero-details i {
-            width: 24px;
-            color: #e66a0b;
-        }
-       .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 14px;
-    margin-top: 8px;
-}
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .hero-image .placeholder-img {
-            width: 100%;
-            max-width: 420px;
-            border-radius: 32px;
-            background: rgba(255, 255, 255, 0.85);
-            padding: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
-            aspect-ratio: 4/3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4a5f7a;
-            font-weight: 500;
-            font-size: 1.1rem;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.5);
-            backdrop-filter: blur(5px);
-        }
-        .hero-image .placeholder-img i {
-            font-size: 3rem;
-            margin-right: 12px;
-            color: #e66a0b;
-            opacity: 0.5;
         }
 
-        /* ----- SECTION GENERIC (Made transparent) ----- */
-        .section {
-            padding: 70px 0;
-            background:#ffffff; /* REMOVED the white background */
+        .hero-content h1 span {
+            color: #ff8a25;
         }
-       .section-alt {
-    background: #f2f2f2;
-    padding: 70px 0;
-    width: 100%;
-}
+
+        .hero-content .sub {
+            font-size: 1.45rem;
+            color: #ffffff;
+            margin: 12px 0 20px;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            max-width: 760px;
+            margin: 18px auto 28px;
+            font-size: 1.08rem;
+            line-height: 1.7;
+            color: #ffffff;
+        }
+
+        .hero-details {
+            background: rgba(0, 0, 0, 0.30);
+            padding: 20px 25px;
+            border-radius: 22px;
+            display: inline-block;
+            margin: 12px 0 28px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            text-align: left;
+        }
+
+        .hero-details p {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #ffffff;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+
+        .hero-details i {
+            width: 22px;
+            color: #ff8a25;
+            margin-top: 3px;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+
+        /* ==============================
+           SECTIONS
+        ============================== */
+
+        .section {
+            padding: 75px 0;
+            background: #ffffff;
+        }
+
+        .section-alt {
+            background: #f3f3f3;
+            padding: 75px 0;
+        }
+
         .section-title {
             font-size: 2.4rem;
             font-weight: 700;
             color: #1e2a41;
             margin-bottom: 16px;
-            letter-spacing: -0.01em;
         }
+
         .section-title .highlight {
             color: #e66a0b;
         }
+
         .section-sub {
             color: #4a5f7a;
-            max-width: 680px;
+            max-width: 700px;
             margin-bottom: 40px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
-        .text-center { text-align: center; }
-        .mx-auto { margin-left: auto; margin-right: auto; }
 
-        /* ----- CARDS (Made Glassy) ----- */
+        .text-center {
+            text-align: center;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        /* ==============================
+           WHY CONFERENCE
+        ============================== */
+
         .card-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 28px;
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
         }
+
         .card {
-            background: rgba(255, 255, 255, 0.85); /* Glass effect */
-            border-radius: 28px;
-            padding: 32px 24px 28px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            border: 1px solid rgba(255,255,255,0.5);
-            backdrop-filter: blur(5px);
-            transition: transform 0.25s, box-shadow 0.3s;
+            background: #ffffff;
+            border-radius: 25px;
+            padding: 32px 24px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            border: 1px solid #eeeeee;
             text-align: center;
+            transition: 0.25s;
         }
+
         .card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(230, 106, 11, 0.06);
-            border-color: #fddcc9;
+            box-shadow: 0 15px 35px rgba(230, 106, 11, 0.12);
         }
+
         .card .icon {
-            font-size: 2.4rem;
+            font-size: 2.3rem;
             color: #e66a0b;
-            margin-bottom: 12px;
             background: #fef3ea;
             width: 64px;
             height: 64px;
@@ -322,20 +290,15 @@
             align-items: center;
             justify-content: center;
             border-radius: 20px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto 14px;
         }
+
         .card h4 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #1e2a41;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
         }
-        .card p {
-            color: #4a5f7a;
-            font-size: 0.95rem;
-        }
-        .card .coming-soon-badge {
+
+        .coming-soon-badge {
             background: #fef3ea;
             color: #e66a0b;
             padding: 6px 20px;
@@ -343,1000 +306,1284 @@
             font-weight: 700;
             font-size: 0.9rem;
             display: inline-block;
-            margin-top: 12px;
-            letter-spacing: 0.5px;
         }
 
-        /* ----- WHO SHOULD ATTEND (Made Glassy) ----- */
+
+        /* ==============================
+           UNIQUE
+        ============================== */
+
+        .unique-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-width: 850px;
+            margin: 35px auto 0;
+        }
+
+        .unique-card {
+            background: #ffffff;
+            padding: 20px 24px;
+            border-radius: 10px;
+            border-left: 5px solid #ff6b0b;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0b2a4a;
+            min-height: 65px;
+        }
+
+        .unique-card i {
+            color: #ff6b0b;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+
+        /* ==============================
+           ATTENDEES
+        ============================== */
+
         .attendee-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
+
         .attendee-item {
-            background: rgba(255, 255, 255, 0.85);
+            background: #ffffff;
             padding: 24px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.5);
-            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            border: 1px solid #eeeeee;
             text-align: center;
             font-weight: 600;
             color: #1e2a41;
-            transition: background 0.2s;
+            transition: 0.2s;
         }
+
         .attendee-item:hover {
             background: #fef3ea;
             border-color: #fddcc9;
         }
+
         .attendee-item i {
             color: #e66a0b;
             margin-right: 8px;
         }
 
-        /* ----- COMING SOON BLOCK (Made Glassy) ----- */
-        .coming-soon-block {
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 32px;
-            padding: 48px 32px;
-            border: 1px solid rgba(255,255,255,0.5);
-            backdrop-filter: blur(5px);
-            text-align: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.01);
-        }
-        .coming-soon-block .cs-icon {
-            font-size: 2.8rem;
-            color: #e66a0b;
-            opacity: 0.3;
-            margin-bottom: 12px;
-        }
-        .coming-soon-block h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1e2a41;
-        }
-        .coming-soon-block p {
-            color: #4a5f7a;
-            max-width: 400px;
-            margin: 8px auto 0;
+
+        /* ==============================
+           GUESTS
+        ============================== */
+
+        .guest-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            width: 100%;
+            margin: 25px auto 0;
         }
 
-        /* ----- COMMITTEE OFFICERS (Made Glassy) ----- */
-        .officer-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 20px;
-        }
-        .officer-card {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 32px 20px;
-            border-radius: 28px;
-            border: 1px solid rgba(255,255,255,0.5);
-            backdrop-filter: blur(5px);
+        .guest-card {
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .officer-card .avatar {
-            width: 80px;
-            height: 80px;
-            background: #fef3ea;
-            border-radius: 40px;
-            margin: 0 auto 16px;
+
+        .category-badge {
+            background: #0f3057;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 10px 15px;
+            border-radius: 7px;
+            margin-bottom: 15px;
+        }
+
+        .guest-photo {
+            width: 180px;
+            height: 180px;
+            border: 3px solid #f5c518;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            background: #f5f6f8;
+        }
+
+        .guest-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .guest-card h3 {
+            margin: 5px 0 6px;
+            color: #1565c0;
+            font-size: 19px;
+        }
+
+        .guest-card p {
+            color: #0f3057;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        .coming-soon-photo {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+        }
+
+
+        /* ==============================
+           AGENDA
+        ============================== */
+
+        .agenda-section {
+            background: #f5f7fa;
+            padding: 75px 20px;
+        }
+
+        .agenda-container {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .agenda-title {
+            text-align: center;
+            color: #1a1a2e;
+            font-size: 44px;
+            font-weight: 800;
+        }
+
+        .agenda-subtext {
+            max-width: 700px;
+            margin: 18px auto 40px;
+            text-align: center;
+            color: #666666;
+            font-size: 17px;
+        }
+
+        .agenda-list {
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+        }
+
+        .agenda-row {
+            width: 100%;
+            min-height: 78px;
+            padding: 20px 25px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .agenda-badge {
+            min-width: 145px;
+            padding: 11px 20px;
+            background: linear-gradient(135deg, #f7941d, #ed6c1f);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 30px;
+        }
+
+        .agenda-text {
+            color: #0f3057;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+
+        /* ==============================
+           REGISTRATION SECTION
+        ============================== */
+
+        .register-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto 40px;
+        }
+
+        .register-card {
+            background: #ffffff;
+            padding: 30px 20px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .register-number {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #e66a0b;
+            opacity: 0.25;
+            margin-bottom: 8px;
+        }
+
+        .register-card h4 {
+            color: #1e2a41;
+            margin-bottom: 8px;
+        }
+
+        .register-card p {
+            color: #4a5f7a;
+        }
+
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        .final-footer {
+            background: #e66a0b;
+            padding: 55px 20px;
+            text-align: center;
+        }
+
+        .final-footer h2 {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .final-footer p {
+            color: #ffffff;
+            font-size: 17px;
+            margin-bottom: 28px;
+        }
+
+        .final-footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .final-footer-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 25px;
+            min-height: 48px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .footer-register-btn {
+            background: #ffffff;
             color: #e66a0b;
         }
 
-        /* ----- FOOTER (dark) ----- */
-        .footer {
-            background: #1a1a1a;
-            color: #cbd6e6;
-            padding: 48px 0 30px;
-            margin-top: 20px;
-        }
-        .footer .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 30px;
-        }
-        .footer-col h4 {
-            color: #fff;
-            font-weight: 600;
-            margin-bottom: 14px;
-            font-size: 1.1rem;
-        }
-        .footer-col p { font-size: 0.95rem; line-height: 1.7; }
-        .footer-social a {
-            color: #cbd6e6;
-            margin-right: 16px;
-            font-size: 1.4rem;
-            transition: color 0.2s;
-        }
-        .footer-social a:hover { color: #e66a0b; }
-        .footer-bottom {
-            border-top: 1px solid #333;
-            padding-top: 24px;
-            margin-top: 30px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #8fa0bb;
-        }
-        /* ===== WHAT MAKES IMUCON UNIQUE ===== */
-
-.unique-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    max-width: 850px;
-    margin: 35px auto 0;
-    padding: 0;
-}
-.unique-card {
-    background: #ffffff;
-    padding: 20px 24px;
-    border-radius: 10px;
-    border-left: 5px solid #ff6b0b;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 12px;
-
-    font-size: 1rem;
-    font-weight: 500;
-    color: #0b2a4a;
-
-    min-height: 65px;
-    box-sizing: border-box;
-    text-align: left;
-}
-
-.unique-card i {
-    color: #ff6b0b;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-}
-/* ===== CHIEF GUEST / PROFILE CARDS ===== */
-
-.chief-guest-section {
-    background: #ffffff;
-}
-
-.guest-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    width: 100%;
-    margin: 45px auto 0;
-    align-items: start;
-}
-
-.guest-card {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.category-badge {
-    background: #0f3057;
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 10px 20px;
-    border-radius: 7px;
-    margin-bottom: 15px;
-}
-
-.guest-photo {
-    width: 180px;
-    height: 180px;
-    border: 3px solid #f5c518;
-    border-radius: 14px;
-    overflow: hidden;
-    margin-bottom: 15px;
-    background: #f5f6f8;
-}
-
-.guest-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.guest-card h3 {
-    margin: 5px 0 6px;
-    color: #1565c0;
-    font-size: 19px;
-    font-weight: 700;
-}
-
-.guest-card p {
-    margin: 0;
-    color: #0f3057;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.5;
-    text-align: center;
-}
-
-.coming-soon-photo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.coming-soon-photo span {
-    color: #0f3057;
-    font-size: 18px;
-    font-weight: 700;
-}
-/* Organizing Committee */
-/* ===== ORGANIZING COMMITTEE ===== */
-
-.organizing-section {
-    padding-top: 5px;
-    padding-bottom: 55px;
-    background: #ffffff;
-}
-
-.organizing-grid {
-    width: 100%;
-    max-width: 1000px;
-    margin: 35px auto 0;
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-
-    align-items: stretch;
-}
-
-.organizing-card {
-    min-height: 220px;
-    padding: 25px 20px;
-
-    background: #ffffff;
-    border-radius: 14px;
-
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-
-    text-align: center;
-    box-sizing: border-box;
-}
-
-.organizing-card .category-badge {
-    min-height: 42px;
-    margin-bottom: 25px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-    line-height: 1.2;
-}
-
-.organizing-card h3 {
-    margin: 0 0 10px;
-
-    color: #1565c0;
-    font-size: 19px;
-    font-weight: 700;
-
-    line-height: 1.3;
-}
-
-.organizing-card p {
-    margin: 0;
-
-    color: #0f3057;
-    font-size: 14px;
-    font-weight: 700;
-
-    line-height: 1.5;
-    text-align: center;
-}
-/* ===== NEW FOOTER ===== */
-
-.final-footer {
-    background: #e66a0b ;
-    padding: 55px 20px;
-    text-align: center;
-}
-
-.final-footer h2 {
-    margin: 0 0 12px;
-    color: #ffffff;
-    font-size: 32px;
-    font-weight: 800;
-}
-
-.final-footer p {
-    margin: 0 auto 28px;
-    color: #ffffff;
-    font-size: 17px;
-    line-height: 1.5;
-}
-
-.final-footer-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.final-footer-buttons a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 13px 25px;
-    min-height: 48px;
-    border-radius: 7px;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 700;
-}
-
-.footer-register-btn {
-    background: #ffffff ;
-    color: #e66a0b ;
-}
-
-.footer-call-btn {
-    background: #e66a0b ;
-    color: #ffffff ;
-}
-
-.footer-call-btn i {
-    margin-right: 8px;
-}
-/* ===== CONFERENCE AGENDA ===== */
-
-.agenda-section {
-    background: #f5f7fa;
-    padding: 75px 20px;
-}
-
-.agenda-container {
-    max-width: 950px;
-    margin: 0 auto;
-}
-
-.agenda-title {
-    margin: 0;
-    text-align: center;
-    color: #1a1a2e;
-    font-size: 44px;
-    font-weight: 800;
-    line-height: 1.2;
-}
-
-.agenda-subtext {
-    max-width: 700px;
-    margin: 18px auto 40px;
-    text-align: center;
-    color: #666666;
-    font-size: 17px;
-    line-height: 1.6;
-}
-
-.agenda-list {
-    display: flex;
-    flex-direction: column;
-    gap: 17px;
-}
-
-.agenda-row {
-    width: 100%;
-    min-height: 78px;
-    padding: 20px 25px;
-
-    background: #ffffff;
-    border-radius: 12px;
-
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-
-    display: flex;
-    align-items: center;
-    gap: 25px;
-
-    box-sizing: border-box;
-}
-
-.agenda-badge {
-    min-width: 145px;
-    padding: 11px 20px;
-
-    background: linear-gradient(
-        135deg,
-        #f7941d,
-        #ed6c1f
-    );
-
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 700;
-
-    text-align: center;
-    border-radius: 30px;
-
-    box-sizing: border-box;
-}
-
-.agenda-text {
-    color: #0f3057;
-    font-size: 17px;
-    font-weight: 500;
-    line-height: 1.5;
-}
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .hero-grid { grid-template-columns: 1fr; text-align: center; }
-            .hero-content .hero-details { display: inline-block; text-align: left; }
-            .hero-actions { justify-content: center; }
-            .hero-image .placeholder-img { max-width: 300px; margin: 0 auto; }
-            .officer-grid { grid-template-columns: repeat(2, 1fr); }
+        .footer-call-btn {
+            background: #c95c0a;
+            color: #ffffff;
         }
 
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background: rgba(255, 255, 255, 0.95);
-                padding: 20px 0;
-                gap: 16px;
-                border-top: 1px solid #eee;
-                margin-top: 12px;
-            }
-            .nav-menu.open { display: flex; }
-            .hamburger { display: block; }
-            .nav-cta { display: none; }
-            .hero-content h1 { font-size: 2.4rem; }
-            .hero-content .sub { font-size: 1.2rem; }
-            .section-title { font-size: 2rem; }
-            .card-grid { grid-template-columns: 1fr; max-width: 400px; }
-            .attendee-grid { grid-template-columns: 1fr 1fr; }
-            .officer-grid { grid-template-columns: 1fr; }
-            .footer .container { flex-direction: column; }
+        .footer-call-btn i {
+            margin-right: 8px;
         }
 
-        @media (max-width: 480px) {
-            .hero { padding: 40px 0 50px; }
-            .hero-details { padding: 16px; }
-            .hero-details p { font-size: 0.9rem; flex-wrap: wrap; }
-            .btn { padding: 10px 24px; font-size: 0.9rem; }
-            .attendee-grid { grid-template-columns: 1fr; }
-            .container { padding: 0 16px; }
-        }
-        @media (max-width: 900px) {
-    .organizing-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
 
-@media (max-width: 600px) {
-    .organizing-grid {
-        grid-template-columns: 1fr;
-    }
+        /* ==============================
+           ANIMATION
+        ============================== */
 
-    .organizing-card {
-        min-height: auto;
-    }
-}
-@media (max-width: 700px) {
-
-    .agenda-section {
-        padding: 55px 15px;
-    }
-
-    .agenda-title {
-        font-size: 34px;
-    }
-
-    .agenda-subtext {
-        font-size: 15px;
-        margin-bottom: 30px;
-    }
-
-    .agenda-row {
-        padding: 18px;
-        gap: 15px;
-        align-items: flex-start;
-    }
-
-    .agenda-badge {
-        min-width: 115px;
-        padding: 9px 12px;
-        font-size: 13px;
-    }
-
-    .agenda-text {
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 500px) {
-
-    .agenda-row {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .agenda-badge {
-        min-width: auto;
-    }
-}
-
-        /* ===== ANIMATIONS ===== */
         .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
             animation: fadeUp 0.8s ease forwards;
         }
+
         @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
+
+
+        /* ==============================
+           TABLET
+        ============================== */
+
+        @media (max-width: 1000px) {
+
+            .guest-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .attendee-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 768px) {
+
+            .header-logo {
+                height: 50px;
+            }
+
+            .hero {
+                padding: 60px 0 65px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .sub {
+                font-size: 1.15rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .hero-details {
+                width: 100%;
+                text-align: left;
+            }
+
+            .hero-details p {
+                font-size: 0.9rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .section {
+                padding: 55px 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .attendee-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guest-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .register-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .agenda-title {
+                font-size: 34px;
+            }
+
+            .agenda-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+            }
+
+            .agenda-badge {
+                min-width: auto;
+            }
+
+            .unique-card {
+                align-items: flex-start;
+            }
+
+            .final-footer h2 {
+                font-size: 25px;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.1rem;
+            }
+
+            .hero-details {
+                padding: 16px;
+            }
+
+            .hero-details p {
+                font-size: 0.82rem;
+            }
+
+            .btn {
+                padding: 11px 22px;
+            }
+
+            .guest-photo {
+                width: 160px;
+                height: 160px;
+            }
+
+            .final-footer-buttons {
+                flex-direction: column;
+            }
+
+            .final-footer-buttons a {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+
     </style>
 </head>
+
+
 <body>
-    <!-- ===== HEADER ===== -->
-  <header class="site-header">
-    <div class="container nav-wrap">
-        <img src="assets/imucon-logo.jpeg" alt="IMUCON 2.0 Logo" class="header-logo">
-    </div>
-</header>
 
-    <!-- ===== HERO ===== -->
+
+    <!-- ==============================
+         HEADER
+    ============================== -->
+
+    <header class="site-header">
+
+        <div class="container nav-wrap">
+
+            <a href="index.html">
+
+                <img
+                    src="imucon-logo.jpeg.jpeg"
+                    alt="IMUCON 2.0 Logo"
+                    class="header-logo"
+                >
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==============================
+         HERO
+    ============================== -->
+
     <section class="hero" id="home">
+
         <div class="container hero-grid">
+
             <div class="hero-content fade-in">
-                <h1>IMUCON <span>2.0</span></h1>
-                <p class="sub">International Medicine Update Conference 
-                    
+
+                <h1>
+                    IMUCON <span>2.0</span>
+                </h1>
+
+                <p class="sub">
+                    International Medicine Update Conference
                 </p>
 
-    <p class="hero-description">
-        Join us at Sharda Hospital &amp; SMS&amp;R for an enriching four-day
-        journey of medical advancements, innovation, and meaningful
-        professional connections.
-    </p>
+                <p class="hero-description">
+
+                    Join us at Sharda Hospital &amp; SMS&amp;R for an enriching
+                    four-day journey of medical advancements, innovation,
+                    and meaningful professional connections.
+
+                </p>
+
+
                 <div class="hero-details">
-                    <p><i class="fas fa-calendar-alt"></i> 15th – 18th December 2026</p>
-                    <p><i class="fas fa-clock"></i> 9:00 AM – 4:00 PM</p>
-                    <p><i class="fas fa-map-pin"></i> College Council Room, 5th Floor, SMS&R & Sharda Hospital, Greater Noida</p>
+
+                    <p>
+                        <i class="fas fa-calendar-alt"></i>
+                        15th – 18th December 2026
+                    </p>
+
+                    <p>
+                        <i class="fas fa-clock"></i>
+                        9:00 AM – 4:00 PM
+                    </p>
+
+                    <p>
+                        <i class="fas fa-map-pin"></i>
+                        College Council Room, 5th Floor, SMS&amp;R &amp;
+                        Sharda Hospital, Greater Noida
+                    </p>
+
                 </div>
+
+
                 <div class="hero-actions">
-                    <a href="/registration" class="btn">Register Now</a>
-                    <a href="#about" class="btn btn-outline">Contact Conference Helpdesk: 9811044966</a>
+
+                    <a href="registration.html" class="btn">
+                        Register Now
+                    </a>
+
+                    <a href="tel:9811044966" class="btn btn-outline">
+                        <i class="fas fa-phone"></i>
+                        Contact Helpdesk: 9811044966
+                    </a>
+
                 </div>
+
             </div>
-         
+
         </div>
+
     </section>
 
-    <!-- ===== WHY THIS CONFERENCE? (2 per row) ===== -->
+
+
+    <!-- ==============================
+         WHY CONFERENCE
+    ============================== -->
+
     <section class="section" id="about">
+
         <div class="container">
-            <h2 class="section-title text-center">Why This <span class="highlight">Conference?</span></h2>
-            <p class="section-sub text-center mx-auto">IMUCON 2.0 brings together clinicians, academicians, researchers, and students to discuss advancements and untouched areas in medicine that are frequently encountered in daily practice but rarely spotlighted. Key focus areas include:.</p>
+
+            <h2 class="section-title text-center">
+                Why This <span class="highlight">Conference?</span>
+            </h2>
+
+            <p class="section-sub text-center mx-auto">
+
+                IMUCON 2.0 brings together clinicians, academicians,
+                researchers, and students to discuss advancements and
+                untouched areas in medicine that are frequently encountered
+                in daily practice but rarely spotlighted.
+
+            </p>
+
+
             <div class="card-grid">
+
                 <div class="card fade-in">
-                    <div class="icon"><i class="fas fa-stethoscope"></i></div>
+
+                    <div class="icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+
                     <h4>COMING SOON</h4>
-                    <div class="coming-soon-badge">Coming Soon</div>
+
+                    <div class="coming-soon-badge">
+                        Coming Soon
+                    </div>
+
                 </div>
-                <div class="card fade-in delay-1">
-                    <div class="icon"><i class="fas fa-microscope"></i></div>
+
+
+                <div class="card fade-in">
+
+                    <div class="icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+
                     <h4>COMING SOON</h4>
-                    <div class="coming-soon-badge">Coming Soon</div>
+
+                    <div class="coming-soon-badge">
+                        Coming Soon
+                    </div>
+
                 </div>
-                <div class="card fade-in delay-2">
-                    <div class="icon"><i class="fas fa-hand-holding-heart"></i></div>
+
+
+                <div class="card fade-in">
+
+                    <div class="icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+
                     <h4>COMING SOON</h4>
-                    <div class="coming-soon-badge">Coming Soon</div>
+
+                    <div class="coming-soon-badge">
+                        Coming Soon
+                    </div>
+
                 </div>
-                <div class="card fade-in delay-3">
-                    <div class="icon"><i class="fas fa-user-md"></i></div>
+
+
+                <div class="card fade-in">
+
+                    <div class="icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+
                     <h4>COMING SOON</h4>
-                    <div class="coming-soon-badge">Coming Soon</div>
+
+                    <div class="coming-soon-badge">
+                        Coming Soon
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- ===== WHAT MAKES IMUCON UNIQUE ===== -->
+
+
+    <!-- ==============================
+         WHAT MAKES IMUCON UNIQUE
+    ============================== -->
+
     <section class="section section-alt">
+
         <div class="container">
-            <h2 class="section-title text-center">What Makes IMUCON <span class="highlight">2.0</span> Unique?</h2>
+
+            <h2 class="section-title text-center">
+                What Makes IMUCON
+                <span class="highlight">2.0</span>
+                Unique?
+            </h2>
+
+
             <ul class="unique-list">
-        <li class="unique-card">
-    <i class="fas fa-check-circle"></i>
-    Hosted by a premier teaching &amp; super-speciality hospital and medical college.
-</li>
 
-<li class="unique-card">
-    <i class="fas fa-check-circle"></i>
-    Diverse faculty of national and international experts.
-</li>
+                <li class="unique-card">
+                    <i class="fas fa-check-circle"></i>
+                    Hosted by a premier teaching &amp; super-speciality
+                    hospital and medical college.
+                </li>
 
-<li class="unique-card">
-    <i class="fas fa-check-circle"></i>
-    Practical insights into untouched yet essential clinical topics.
-</li>
+                <li class="unique-card">
+                    <i class="fas fa-check-circle"></i>
+                    Diverse faculty of national and international experts.
+                </li>
 
-<li class="unique-card">
-    <i class="fas fa-check-circle"></i>
-    Networking opportunities with healthcare leaders and academicians.
-</li>
+                <li class="unique-card">
+                    <i class="fas fa-check-circle"></i>
+                    Practical insights into untouched yet essential
+                    clinical topics.
+                </li>
 
-<li class="unique-card">
-    <i class="fas fa-check-circle"></i>
-    CME accreditation with certificate of participation.
-</li>
+                <li class="unique-card">
+                    <i class="fas fa-check-circle"></i>
+                    Networking opportunities with healthcare leaders
+                    and academicians.
+                </li>
+
+                <li class="unique-card">
+                    <i class="fas fa-check-circle"></i>
+                    CME accreditation with certificate of participation.
+                </li>
+
             </ul>
+
         </div>
+
     </section>
 
-    <!-- ===== WHO SHOULD ATTEND? ===== -->
+
+
+    <!-- ==============================
+         WHO SHOULD ATTEND
+    ============================== -->
+
     <section class="section">
+
         <div class="container">
-            <h2 class="section-title text-center">Who Should <span class="highlight">Attend?</span></h2>
-            <p class="section-sub text-center mx-auto">IMUCON 2.0 is designed for medical professionals across all career stages.</p>
+
+            <h2 class="section-title text-center">
+                Who Should <span class="highlight">Attend?</span>
+            </h2>
+
+            <p class="section-sub text-center mx-auto">
+                IMUCON 2.0 is designed for medical professionals
+                across all career stages.
+            </p>
+
+
             <div class="attendee-grid">
-                <div class="attendee-item"><i class="fas fa-user-tie"></i> Hospital Administrators</div>
-                <div class="attendee-item"><i class="fas fa-user-md"></i> Medical Practitioners</div>
-                <div class="attendee-item"><i class="fas fa-heartbeat"></i> Doctors</div>
-                <div class="attendee-item"><i class="fas fa-hospital-user"></i> Healthcare Professionals</div>
-                <div class="attendee-item"><i class="fas fa-users"></i> Healthcare Providers</div>
-                <div class="attendee-item"><i class="fas fa-graduation-cap"></i> PG & UG Medical Students</div>
+
+                <div class="attendee-item">
+                    <i class="fas fa-user-tie"></i>
+                    Hospital Administrators
+                </div>
+
+                <div class="attendee-item">
+                    <i class="fas fa-user-md"></i>
+                    Medical Practitioners
+                </div>
+
+                <div class="attendee-item">
+                    <i class="fas fa-heartbeat"></i>
+                    Doctors
+                </div>
+
+                <div class="attendee-item">
+                    <i class="fas fa-hospital-user"></i>
+                    Healthcare Professionals
+                </div>
+
+                <div class="attendee-item">
+                    <i class="fas fa-users"></i>
+                    Healthcare Providers
+                </div>
+
+                <div class="attendee-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    PG &amp; UG Medical Students
+                </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- ===== CHIEF GUEST ===== -->
-   <!-- ===== CHIEF GUEST / KEY PEOPLE ===== -->
-<section >
-    <div class="container">
 
-     
 
-        <div class="guest-grid">
+    <!-- ==============================
+         KEY PEOPLE
+    ============================== -->
 
-            <!-- Advisor 1 -->
-            <div class="guest-card">
+    <section class="section">
 
-                <div class="category-badge">ADVISOR</div>
+        <div class="container">
 
-                <div class="guest-photo">
-                    <img src="assets/advisor1.jpg" alt="Advisor 1">
+            <h2 class="section-title text-center">
+                Conference <span class="highlight">Leadership</span>
+            </h2>
+
+
+            <div class="guest-grid">
+
+
+                <!-- Advisor 1 -->
+
+                <div class="guest-card">
+
+                    <div class="category-badge">
+                        ADVISOR
+                    </div>
+
+                    <div class="guest-photo">
+
+                        <img
+                            src="advisor1.jpg"
+                            alt="Dr. Nirupma Gupta"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Dr. Nirupma Gupta
+                    </h3>
+
+                    <p>
+                        Dean, SMS&amp;R<br>
+                        Sharda University
+                    </p>
+
                 </div>
 
-                <h3>Dr. Nirupma Gupta</h3>
-                <p>
-                    Dean, SMS&R<br>
-                    Sharda University
-                </p>
-
-            </div>
 
 
-            <!-- Advisor 2 -->
-            <div class="guest-card">
+                <!-- Advisor 2 -->
 
-                <div class="category-badge">ADVISOR</div>
+                <div class="guest-card">
 
-                <div class="guest-photo">
-                    <img src="assets/advisor2.jpg" alt="Advisor 2">
+                    <div class="category-badge">
+                        ADVISOR
+                    </div>
+
+                    <div class="guest-photo">
+
+                        <img
+                            src="advisor2.jpg"
+                            alt="Dr. Ram Murti Sharma"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Dr. Ram Murti Sharma
+                    </h3>
+
+                    <p>
+                        Medical Superintendent<br>
+                        Sharda Hospital
+                    </p>
+
                 </div>
 
-                <h3>Dr. Ram Murti Sharma</h3>
-                <p>
-                    Medical Superintendent<br>
-                    Sharda Hospital
-                </p>
-
-            </div>
 
 
-            <!-- Convener -->
-            <div class="guest-card">
+                <!-- Convener -->
 
-                <div class="category-badge">CONVENER</div>
+                <div class="guest-card">
 
-                <div class="guest-photo">
-                    <img src="assets/convener.jpg" alt="Convener">
+                    <div class="category-badge">
+                        CONVENER
+                    </div>
+
+                    <div class="guest-photo">
+
+                        <img
+                            src="convener.jpg"
+                            alt="Dr. Deepak Sharma"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Dr. Deepak Sharma
+                    </h3>
+
+                    <p>
+                        Professor &amp; Head, General Medicine<br>
+                        SMS&amp;R, Sharda University
+                    </p>
+
                 </div>
 
-                <h3>Dr. Deepak Sharma</h3>
-                <p>
-                    Professor & Head, General Medicine<br>
-                    SMS&R, Sharda University
-                </p>
-
-            </div>
 
 
-            <!-- Chief Guest -->
-            <div class="guest-card">
+                <!-- Chief Guest -->
 
-                <div class="category-badge">CHIEF GUEST</div>
+                <div class="guest-card">
 
-                <div class="guest-photo coming-soon-photo">
-                    <span>COMING SOON</span>
+                    <div class="category-badge">
+                        CHIEF GUEST
+                    </div>
+
+                    <div class="guest-photo coming-soon-photo">
+
+                        <span>
+                            COMING SOON
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        COMING SOON
+                    </h3>
+
+                    <p>
+                        Distinguished Guest
+                    </p>
+
                 </div>
-
-                <h3>COMING SOON</h3>
-
-                <p>
-                    Distinguished Guest
-                </p>
 
             </div>
 
         </div>
 
-    </div>
-</section>
+    </section>
 
-    <!-- ===== SPEAKERS ===== -->
+
+
+    <!-- ==============================
+         SPEAKERS
+    ============================== -->
+
     <section class="section" id="speakers">
+
         <div class="container">
-            <h2 class="section-title text-center">Speakers</h2>
-            <p class="section-sub text-center mx-auto">Renowned national and international speakers will be announced.</p>
-            <div class="card-grid" style="grid-template-columns: repeat(4,1fr); max-width: 100%;">
-                <div class="card"><h4>COMING SOON</h4><div class="coming-soon-badge">Speaker</div></div>
-                <div class="card"><h4>COMING SOON</h4><div class="coming-soon-badge">Speaker</div></div>
-                <div class="card"><h4>COMING SOON</h4><div class="coming-soon-badge">Speaker</div></div>
-                <div class="card"><h4>COMING SOON</h4><div class="coming-soon-badge">Speaker</div></div>
+
+            <h2 class="section-title text-center">
+                Speakers
+            </h2>
+
+            <p class="section-sub text-center mx-auto">
+                Renowned national and international speakers
+                will be announced.
+            </p>
+
+
+            <div class="card-grid">
+
+                <div class="card">
+                    <h4>COMING SOON</h4>
+                    <div class="coming-soon-badge">
+                        Speaker
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>COMING SOON</h4>
+                    <div class="coming-soon-badge">
+                        Speaker
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>COMING SOON</h4>
+                    <div class="coming-soon-badge">
+                        Speaker
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>COMING SOON</h4>
+                    <div class="coming-soon-badge">
+                        Speaker
+                    </div>
+                </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- ===== ORGANIZING COMMITTEE ===== -->
-   <!-- ===== ORGANIZING COMMITTEE ===== -->
-<section class="section chief-guest-section">
-    <div class="container">
 
-        <h2 class="section-title text-center">
-            Organizing <span class="highlight">Committee</span>
-        </h2>
 
-        <div class="guest-grid">
+    <!-- ==============================
+         ORGANIZING COMMITTEE
+    ============================== -->
 
-            <!-- Organizing Chairman -->
-            <div class="guest-card">
+    <section class="section section-alt">
 
-                <div class="category-badge">
-                    ORGANIZING CHAIRMAN
+        <div class="container">
+
+            <h2 class="section-title text-center">
+                Organizing <span class="highlight">Committee</span>
+            </h2>
+
+
+            <div class="guest-grid">
+
+
+                <!-- Chairman -->
+
+                <div class="guest-card">
+
+                    <div class="category-badge">
+                        ORGANIZING CHAIRMAN
+                    </div>
+
+                    <div class="guest-photo">
+
+                        <img
+                            src="chairman.jpg"
+                            alt="Dr. Bhumesh Tyagi"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Dr. Bhumesh Tyagi
+                    </h3>
+
+                    <p>
+                        Professor, General Medicine<br>
+                        SMS&amp;R, Sharda University
+                    </p>
+
                 </div>
 
-                <div class="guest-photo">
-                    <img src="assets/chairman.jpg"
-                         alt="Dr. Bhumesh Tyagi">
+
+
+                <!-- Secretary -->
+
+                <div class="guest-card">
+
+                    <div class="category-badge">
+                        ORGANIZING SECRETARY
+                    </div>
+
+                    <div class="guest-photo">
+
+                        <img
+                            src="secretary.jpg"
+                            alt="Dr. Nikhil Gupta"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Dr. Nikhil Gupta
+                    </h3>
+
+                    <p>
+                        Assistant Professor, General Medicine<br>
+                        SMS&amp;R, Sharda University
+                    </p>
+
                 </div>
 
-                <h3>Dr. Bhumesh Tyagi</h3>
 
-                <p>
-                    Professor, General Medicine<br>
-                    SMS&amp;R, Sharda University
-                </p>
+
+                <!-- Joint Secretary -->
+
+                <div class="guest-card">
+
+                    <div class="category-badge">
+                        JOINT ORGANIZING SECRETARY
+                    </div>
+
+                    <div class="guest-photo">
+
+                        <img
+                            src="joint-secretary.jpg"
+                            alt="Dr. Chandrashekhar Tiwari"
+                        >
+
+                    </div>
+
+                    <h3>
+                        Dr. Chandrashekhar Tiwari
+                    </h3>
+
+                    <p>
+                        Senior Resident, General Medicine<br>
+                        SMS&amp;R, Sharda University
+                    </p>
+
+                </div>
 
             </div>
 
+        </div>
 
-            <!-- Organizing Secretary -->
-            <div class="guest-card">
+    </section>
 
-                <div class="category-badge">
-                    ORGANIZING SECRETARY
+
+
+    <!-- ==============================
+         CONFERENCE AGENDA
+    ============================== -->
+
+    <section class="agenda-section" id="agenda">
+
+        <div class="agenda-container">
+
+            <h2 class="agenda-title">
+                Conference Agenda
+            </h2>
+
+            <p class="agenda-subtext">
+
+                Note: Agenda topics are under finalization
+                and will be updated soon. Below are some
+                of the confirmed sessions.
+
+            </p>
+
+
+            <div class="agenda-list">
+
+
+                <div class="agenda-row">
+
+                    <div class="agenda-badge">
+                        Keynote
+                    </div>
+
+                    <div class="agenda-text">
+                        The Future of Internal Medicine
+                        in Global Healthcare
+                    </div>
+
                 </div>
 
-                <div class="guest-photo">
-                    <img src="assets/secretary.jpg"
-                         alt="Dr. Nikhil Gupta">
+
+                <div class="agenda-row">
+
+                    <div class="agenda-badge">
+                        Panel Discussions
+                    </div>
+
+                    <div class="agenda-text">
+                        Topic Updating Soon
+                    </div>
+
                 </div>
 
-                <h3>Dr. Nikhil Gupta</h3>
 
-                <p>
-                    Assistant Professor, General Medicine<br>
-                    SMS&amp;R, Sharda University
-                </p>
+                <div class="agenda-row">
 
-            </div>
+                    <div class="agenda-badge">
+                        Workshops
+                    </div>
 
+                    <div class="agenda-text">
+                        Topic Updating Soon
+                    </div>
 
-            <!-- Joint Organizing Secretary -->
-            <div class="guest-card">
-
-                <div class="category-badge">
-                    JOINT ORGANIZING SECRETARY
                 </div>
-
-                <div class="guest-photo">
-                    <img src="assets/joint-secretary.jpg"
-                         alt="Dr. Chandrashekhar Tiwari">
-                </div>
-
-                <h3>Dr. Chandrashekhar Tiwari</h3>
-
-                <p>
-                    Senior Resident, General Medicine<br>
-                    SMS&amp;R, Sharda University
-                </p>
 
             </div>
 
         </div>
 
-    </div>
-</section>
+    </section>
 
-    <!-- ===== CONFERENCE AGENDA ===== -->
-  <!-- ===== CONFERENCE AGENDA ===== -->
-<section class="agenda-section" id="agenda">
-    <div class="agenda-container">
 
-        <h2 class="agenda-title">Conference Agenda</h2>
 
-        <p class="agenda-subtext">
-            Note: Agenda topics are under finalization and will be updated soon.
-            Below are some of the confirmed sessions.
-        </p>
+    <!-- ==============================
+         HOW TO REGISTER
+    ============================== -->
 
-        <div class="agenda-list">
-
-            <!-- Keynote -->
-            <div class="agenda-row">
-                <div class="agenda-badge">Keynote</div>
-
-                <div class="agenda-text">
-                    The Future of Internal Medicine in Global Healthcare
-                </div>
-            </div>
-
-            <!-- Panel Discussions -->
-            <div class="agenda-row">
-                <div class="agenda-badge">Panel Discussions</div>
-
-                <div class="agenda-text">
-                    Topic Updating Soon
-                </div>
-            </div>
-
-            <!-- Workshops -->
-            <div class="agenda-row">
-                <div class="agenda-badge">Workshops</div>
-
-                <div class="agenda-text">
-                    Topic Updating Soon
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</section>
-
-    <!-- ===== HOW TO REGISTER + SECURE YOUR SPOT ===== -->
     <section class="section section-alt" id="register">
+
         <div class="container">
-            <h2 class="section-title text-center">How to <span class="highlight">Register?</span></h2>
-            <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1000px; margin: 0 auto 40px;">
-                <div style="background: rgba(255, 255, 255, 0.85); padding: 30px 20px; border-radius: 28px; border: 1px solid rgba(255,255,255,0.5); backdrop-filter: blur(5px); text-align: center;">
-                    <div style="font-size: 2.4rem; font-weight: 800; color: #e66a0b; opacity: 0.2; margin-bottom: 8px;">1</div>
-                    <h4 style="color: #1e2a41;">Fill the Form</h4>
-                    <p style="color: #4a5f7a;">Click on 'Register Now' and fill in the detailed form.</p>
+
+            <h2 class="section-title text-center">
+                How to <span class="highlight">Register?</span>
+            </h2>
+
+
+            <div class="register-grid">
+
+
+                <div class="register-card">
+
+                    <div class="register-number">
+                        1
+                    </div>
+
+                    <h4>
+                        Fill the Form
+                    </h4>
+
+                    <p>
+                        Click on 'Register Now' and fill
+                        in the detailed form.
+                    </p>
+
                 </div>
-                <div style="background: rgba(255, 255, 255, 0.85); padding: 30px 20px; border-radius: 28px; border: 1px solid rgba(255,255,255,0.5); backdrop-filter: blur(5px); text-align: center;">
-                    <div style="font-size: 2.4rem; font-weight: 800; color: #e66a0b; opacity: 0.2; margin-bottom: 8px;">2</div>
-                    <h4 style="color: #1e2a41;">Complete Payment</h4>
-                    <p style="color: #4a5f7a;">Complete the secure online payment process.</p>
+
+
+                <div class="register-card">
+
+                    <div class="register-number">
+                        2
+                    </div>
+
+                    <h4>
+                        Complete Payment
+                    </h4>
+
+                    <p>
+                        Complete the secure online
+                        payment process.
+                    </p>
+
                 </div>
-                <div style="background: rgba(255, 255, 255, 0.85); padding: 30px 20px; border-radius: 28px; border: 1px solid rgba(255,255,255,0.5); backdrop-filter: blur(5px); text-align: center;">
-                    <div style="font-size: 2.4rem; font-weight: 800; color: #e66a0b; opacity: 0.2; margin-bottom: 8px;">3</div>
-                    <h4 style="color: #1e2a41;">Get Confirmation</h4>
-                    <p style="color: #4a5f7a;">Receive confirmation mail & entry pass.</p>
+
+
+                <div class="register-card">
+
+                    <div class="register-number">
+                        3
+                    </div>
+
+                    <h4>
+                        Get Confirmation
+                    </h4>
+
+                    <p>
+                        Receive confirmation mail
+                        &amp; entry pass.
+                    </p>
+
                 </div>
-            </div>
-            <div style="text-align: center;">
-                <a href=""/registration"" class="btn">Register Now</a>
+
             </div>
 
-            
+
+            <div style="text-align:center;">
+
+                <a
+                    href="registration.html"
+                    class="btn"
+                >
+                    Register Now
+                </a>
+
+            </div>
+
+        </div>
+
     </section>
 
-    <!-- ===== FOOTER ===== -->
+
+
+    <!-- ==============================
+         FOOTER
+    ============================== -->
+
     <footer>
 
-    <div class="final-footer">
+        <div class="final-footer">
 
-        <h2>Secure Your Spot at IMUCON 2.0</h2>
+            <h2>
+                Secure Your Spot at IMUCON 2.0
+            </h2>
 
-        <p>
-            Be part of an international conference shaping the future of internal medicine.
-        </p>
+            <p>
+                Be part of an international conference
+                shaping the future of internal medicine.
+            </p>
 
-        <div class="final-footer-buttons">
 
-            <a href="/registration"class="footer-register-btn">
-                Register Now
-            </a>
+            <div class="final-footer-buttons">
 
-            <a href="tel:9811044966" class="footer-call-btn">
-                <i class="fas fa-phone"></i>
-                Call 9811044966 for Assistance
-            </a>
+                <a
+                    href="registration.html"
+                    class="footer-register-btn"
+                >
+                    Register Now
+                </a>
+
+
+                <a
+                    href="tel:9811044966"
+                    class="footer-call-btn"
+                >
+
+                    <i class="fas fa-phone"></i>
+
+                    Call 9811044966 for Assistance
+
+                </a>
+
+            </div>
 
         </div>
 
-    </div>
+    </footer>
 
-</footer>
 
-    <!-- ===== SCRIPT ===== -->
-    <script>
-        (function() {
-            const hamburger = document.getElementById('hamburgerBtn');
-            const navMenu = document.getElementById('navMenu');
-
-            hamburger.addEventListener('click', function() {
-                navMenu.classList.toggle('open');
-                const icon = hamburger.querySelector('i');
-                if (navMenu.classList.contains('open')) {
-                    icon.className = 'fas fa-times';
-                } else {
-                    icon.className = 'fas fa-bars';
-                }
-            });
-
-            document.querySelectorAll('.nav-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('open');
-                    const icon = hamburger.querySelector('i');
-                    icon.className = 'fas fa-bars';
-                });
-            });
-
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        e.preventDefault();
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
-
-            const faders = document.querySelectorAll('.fade-in');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.2 });
-            faders.forEach(el => observer.observe(el));
-        })();
-    </script>
 </body>
+
 </html>
+```
