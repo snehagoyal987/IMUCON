@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from pymongo import MongoClient, ReturnDocument
@@ -35,8 +34,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # Website files are inside the IMUCON folder
 WEBSITE_FOLDER = BASE_DIR
 
-# Local uploads folder
-UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
+# Vercel writable temporary uploads folder
+UPLOAD_FOLDER = os.path.join("/tmp", "uploads")
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -414,7 +413,6 @@ def register():
 
         attendees = []
 
-
         for i in range(
             1,
             attendee_count + 1
@@ -734,4 +732,3 @@ if __name__ == "__main__":
         port=5000,
         debug=True
     )
-
