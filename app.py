@@ -174,17 +174,14 @@ def registration():
 
 
 # ============================================================
-# ASSETS
+# WEBSITE STATIC FILES
 # ============================================================
 
-@app.route("/assets/<path:filename>")
-def assets(filename):
+@app.route("/<path:filename>")
+def static_files(filename):
 
     return send_from_directory(
-        os.path.join(
-            WEBSITE_FOLDER,
-            "assets"
-        ),
+        WEBSITE_FOLDER,
         filename
     )
 
