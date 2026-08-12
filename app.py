@@ -1,10 +1,21 @@
-
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-import pyodbc
+from pymongo import MongoClient
+from dotenv import load_dotenv
+from gridfs import GridFS
+from pymongo import ReturnDocument
+from werkzeug.utils import secure_filename
+
 import os
 import re
-from werkzeug.utils import secure_filename
+from datetime import datetime
+
+
+# ============================================================
+# LOAD ENVIRONMENT VARIABLES
+# ============================================================
+
+load_dotenv()
 
 
 # ============================================================
@@ -24,15 +35,10 @@ CORS(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Parent folder:
-# sharda university/
+# Website files are now inside IMUCON
+WEBSITE_FOLDER = BASE_DIR
 
-WEBSITE_FOLDER = os.path.dirname(BASE_DIR)
-
-
-# Payment screenshot folder:
-# sharda university/IMUCON/uploads/
-
+# Local uploads folder
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -44,11 +50,29 @@ app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
 
 
 # ============================================================
-# SQL SERVER CONFIGURATION
+# MONGODB CONFIGURATION
 # ============================================================
 
-SERVER = r"DESKTOP-PUTRNK1\SQLEXPRESS"
-DATABASE = "IMUCON_Registration"
+MONGO_URI = os.getenv("MONGO_URI")
+
+if not MONGO_URI:
+    raise RuntimeError(
+        "MONGO_URI is not set in the .env file."
+    )
+
+
+# Connect to MongoDB Atlas
+client = MongoClient(MONGO_URI)
+
+# Database
+db = client["IMUCON_Registration"]
+
+# Collections
+registrations_collection = db["registrations"]
+counters_collection = db["counters"]
+
+# GridFS for payment screenshots
+fs = GridFS(db)
 
 
 # ============================================================
@@ -61,22 +85,6 @@ ALLOWED_EXTENSIONS = {
     "jpeg",
     "webp"
 }
-
-
-# ============================================================
-# DATABASE CONNECTION
-# ============================================================
-
-def get_db_connection():
-
-    connection_string = (
-        "DRIVER={ODBC Driver 17 for SQL Server};"
-        f"SERVER={SERVER};"
-        f"DATABASE={DATABASE};"
-        "Trusted_Connection=yes;"
-    )
-
-    return pyodbc.connect(connection_string)
 
 
 # ============================================================
@@ -124,30 +132,24 @@ def valid_mobile(mobile):
 # GENERATE REGISTRATION ID
 # ============================================================
 
-def generate_registration_id(cursor):
+def generate_registration_id():
 
-    cursor.execute("""
-        SELECT ISNULL(
-            MAX(
-                TRY_CONVERT(
-                    INT,
-                    REPLACE(
-                        registration_id,
-                        'IMUCON26-',
-                        ''
-                    )
-                )
-            ),
-            0
-        )
-        FROM registrations
-    """)
+    counter = counters_collection.find_one_and_update(
+        {"_id": "registration_id"},
+        {
+            "$inc": {
+                "value": 1
+            }
+        },
+        upsert=True,
+        return_document=ReturnDocument.AFTER
+    )
 
-    last_number = cursor.fetchone()[0]
+    next_number = counter["value"]
 
-    next_number = last_number + 1
-
-    registration_id = f"IMUCON26-{next_number:05d}"
+    registration_id = (
+        f"IMUCON26-{next_number:05d}"
+    )
 
     return registration_id
 
@@ -195,16 +197,47 @@ def assets(filename):
 
 
 # ============================================================
+# PAYMENT SCREENSHOT
+# ============================================================
+
+@app.route("/uploads/<filename>")
+def uploaded_file(filename):
+
+    return send_from_directory(
+        UPLOAD_FOLDER,
+        filename
+    )
+
+
+# ============================================================
 # API STATUS
 # ============================================================
 
 @app.route("/api/status")
 def api_status():
 
-    return jsonify({
-        "status": "running",
-        "message": "IMUCON Registration API is running."
-    })
+    try:
+
+        # Test MongoDB connection
+        client.admin.command("ping")
+
+        return jsonify({
+            "status": "running",
+            "database": "connected",
+            "message": (
+                "IMUCON Registration API is running "
+                "and MongoDB is connected."
+            )
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "status": "running",
+            "database": "disconnected",
+            "message": "MongoDB connection failed.",
+            "error": str(e)
+        }), 500
 
 
 # ============================================================
@@ -214,7 +247,7 @@ def api_status():
 @app.route("/api/register", methods=["POST"])
 def register():
 
-    connection = None
+    screenshot_file_id = None
 
     try:
 
@@ -263,7 +296,9 @@ def register():
 
             return jsonify({
                 "success": False,
-                "message": "Please select a valid pass category."
+                "message": (
+                    "Please select a valid pass category."
+                )
             }), 400
 
 
@@ -278,7 +313,9 @@ def register():
 
             return jsonify({
                 "success": False,
-                "message": "Please select a valid registration type."
+                "message": (
+                    "Please select a valid registration type."
+                )
             }), 400
 
 
@@ -302,7 +339,10 @@ def register():
 
                 return jsonify({
                     "success": False,
-                    "message": "Please select the number of attendees."
+                    "message": (
+                        "Please select the number "
+                        "of attendees."
+                    )
                 }), 400
 
 
@@ -310,7 +350,10 @@ def register():
 
                 return jsonify({
                     "success": False,
-                    "message": "Group registration must contain 2 to 10 attendees."
+                    "message": (
+                        "Group registration must contain "
+                        "2 to 10 attendees."
+                    )
                 }), 400
 
 
@@ -322,7 +365,10 @@ def register():
 
             return jsonify({
                 "success": False,
-                "message": "Please enter the Transaction ID / UTR number."
+                "message": (
+                    "Please enter the Transaction ID / "
+                    "UTR number."
+                )
             }), 400
 
 
@@ -334,12 +380,13 @@ def register():
             "paymentScreenshot"
         )
 
-
         if not screenshot:
 
             return jsonify({
                 "success": False,
-                "message": "Please upload your payment screenshot."
+                "message": (
+                    "Please upload your payment screenshot."
+                )
             }), 400
 
 
@@ -347,7 +394,9 @@ def register():
 
             return jsonify({
                 "success": False,
-                "message": "Please select a payment screenshot."
+                "message": (
+                    "Please select a payment screenshot."
+                )
             }), 400
 
 
@@ -359,7 +408,8 @@ def register():
                 "success": False,
                 "message": (
                     "Invalid image format. "
-                    "Please upload PNG, JPG, JPEG or WEBP."
+                    "Please upload PNG, JPG, JPEG "
+                    "or WEBP."
                 )
             }), 400
 
@@ -511,27 +561,16 @@ def register():
 
 
         # ====================================================
-        # CONNECT TO SQL SERVER
-        # ====================================================
-
-        connection = get_db_connection()
-
-        connection.autocommit = False
-
-        cursor = connection.cursor()
-
-
-        # ====================================================
         # GENERATE REGISTRATION ID
         # ====================================================
 
-        registration_id = generate_registration_id(
-            cursor
+        registration_id = (
+            generate_registration_id()
         )
 
 
         # ====================================================
-        # SAVE PAYMENT SCREENSHOT
+        # SAVE PAYMENT SCREENSHOT TO MONGODB
         # ====================================================
 
         original_filename = secure_filename(
@@ -550,122 +589,61 @@ def register():
         )
 
 
-        screenshot_path = os.path.join(
-            UPLOAD_FOLDER,
-            screenshot_filename
+        # Read screenshot
+        screenshot_data = screenshot.read()
+
+
+        # Store screenshot in MongoDB GridFS
+        screenshot_file_id = fs.put(
+            screenshot_data,
+            filename=screenshot_filename,
+            content_type=screenshot.content_type,
+            registration_id=registration_id
         )
 
 
-        screenshot.save(
-            screenshot_path
+        # ====================================================
+        # CREATE REGISTRATION DOCUMENT
+        # ====================================================
+
+        registration_document = {
+
+            "registration_id": registration_id,
+
+            "pass_category": pass_category,
+
+            "registration_type": registration_type,
+
+            "attendee_count": attendee_count,
+
+            "heard_from": heard_from,
+
+            "transaction_id": transaction_id,
+
+            "payment_screenshot": {
+
+                "file_id": screenshot_file_id,
+
+                "filename": screenshot_filename
+
+            },
+
+            "status": "Pending",
+
+            "attendees": attendees,
+
+            "created_at": datetime.utcnow()
+
+        }
+
+
+        # ====================================================
+        # SAVE REGISTRATION TO MONGODB
+        # ====================================================
+
+        registrations_collection.insert_one(
+            registration_document
         )
-
-
-        # ====================================================
-        # INSERT REGISTRATION
-        # ====================================================
-
-        cursor.execute("""
-
-            INSERT INTO registrations (
-
-                registration_id,
-
-                pass_category,
-
-                registration_type,
-
-                attendee_count,
-
-                heard_from,
-
-                transaction_id,
-
-                payment_screenshot,
-
-                status
-
-            )
-
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-
-        """, (
-
-            registration_id,
-
-            pass_category,
-
-            registration_type,
-
-            attendee_count,
-
-            heard_from,
-
-            transaction_id,
-
-            screenshot_filename,
-
-            "Pending"
-
-        ))
-
-
-        # ====================================================
-        # INSERT ATTENDEES
-        # ====================================================
-
-        for attendee in attendees:
-
-            cursor.execute("""
-
-                INSERT INTO attendees (
-
-                    registration_id,
-
-                    full_name,
-
-                    date_of_birth,
-
-                    gender,
-
-                    email,
-
-                    mobile,
-
-                    employee_id,
-
-                    id_card_no
-
-                )
-
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-
-            """, (
-
-                registration_id,
-
-                attendee["name"],
-
-                attendee["dob"],
-
-                attendee["gender"],
-
-                attendee["email"],
-
-                attendee["mobile"],
-
-                attendee["employee_id"],
-
-                attendee["id_card_no"]
-
-            ))
-
-
-        # ====================================================
-        # COMMIT DATABASE
-        # ====================================================
-
-        connection.commit()
 
 
         # ====================================================
@@ -691,9 +669,20 @@ def register():
 
     except Exception as e:
 
-        if connection:
+        # If registration fails after screenshot upload,
+        # remove the screenshot from GridFS.
 
-            connection.rollback()
+        if screenshot_file_id:
+
+            try:
+
+                fs.delete(
+                    screenshot_file_id
+                )
+
+            except Exception:
+
+                pass
 
 
         print(
@@ -715,17 +704,6 @@ def register():
         }), 500
 
 
-    # ========================================================
-    # CLOSE DATABASE
-    # ========================================================
-
-    finally:
-
-        if connection:
-
-            connection.close()
-
-
 # ============================================================
 # RUN FLASK SERVER
 # ============================================================
@@ -737,26 +715,28 @@ if __name__ == "__main__":
     print("      IMUCON REGISTRATION BACKEND")
     print("========================================")
     print()
+
     print("Website:")
     print("http://127.0.0.1:5000")
+
     print()
+
     print("Registration:")
     print("http://127.0.0.1:5000/registration")
+
     print()
+
     print("API:")
     print("http://127.0.0.1:5000/api/status")
+
     print()
+
     print("========================================")
     print()
 
 
     app.run(
-
         host="0.0.0.0",
-
         port=5000,
-
         debug=True
-
     )
-
