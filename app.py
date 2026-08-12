@@ -1,9 +1,9 @@
+```python
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-from pymongo import MongoClient
+from pymongo import MongoClient, ReturnDocument
 from dotenv import load_dotenv
 from gridfs import GridFS
-from pymongo import ReturnDocument
 from werkzeug.utils import secure_filename
 
 import os
@@ -30,12 +30,9 @@ CORS(app)
 # PATH CONFIGURATION
 # ============================================================
 
-# Current folder:
-# sharda university/IMUCON/
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Website files are now inside IMUCON
+# Website files are inside the IMUCON folder
 WEBSITE_FOLDER = BASE_DIR
 
 # Local uploads folder
@@ -57,7 +54,7 @@ MONGO_URI = os.getenv("MONGO_URI")
 
 if not MONGO_URI:
     raise RuntimeError(
-        "MONGO_URI is not set in the .env file."
+        "MONGO_URI environment variable is not set."
     )
 
 
@@ -92,7 +89,6 @@ ALLOWED_EXTENSIONS = {
 # ============================================================
 
 def allowed_file(filename):
-
     return (
         "." in filename
         and filename.rsplit(".", 1)[1].lower()
@@ -105,7 +101,6 @@ def allowed_file(filename):
 # ============================================================
 
 def valid_email(email):
-
     return bool(
         re.fullmatch(
             r"[^@\s]+@[^@\s]+\.[^@\s]+",
@@ -119,7 +114,6 @@ def valid_email(email):
 # ============================================================
 
 def valid_mobile(mobile):
-
     return bool(
         re.fullmatch(
             r"[0-9]{10}",
@@ -740,3 +734,4 @@ if __name__ == "__main__":
         port=5000,
         debug=True
     )
+```
