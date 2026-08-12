@@ -1,4 +1,4 @@
-```python
+
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from pymongo import MongoClient, ReturnDocument
@@ -734,4 +734,4 @@ if __name__ == "__main__":
         port=5000,
         debug=True
     )
-```
+
