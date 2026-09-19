@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,10 +22,6 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
-
-        /* ==============================
-           RESET
-        ============================== */
 
         * {
             margin: 0;
@@ -99,28 +94,64 @@
 
 
         /* ==============================
-           HEADER
+           HEADER - 4 LOGOS
+           ORDER:
+           SHARDA UNIVERSITY
+           HOSPITAL
+           SHARDA
+           IMUCON
         ============================== */
 
         .site-header {
-            background: rgba(255, 255, 255, 0.97);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
         .nav-wrap {
-            min-height: 78px;
+            width: 100%;
+            max-width: 1400px;
+            min-height: 90px;
+            margin: 0 auto;
+            padding: 10px 30px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .header-logo-box {
             display: flex;
             align-items: center;
+            width: 100%;
+        }
+
+        .header-logo-box.left {
+            justify-content: flex-start;
+        }
+
+        .header-logo-box.center-left {
             justify-content: center;
+        }
+
+        .header-logo-box.center-right {
+            justify-content: center;
+        }
+
+        .header-logo-box.right {
+            justify-content: flex-end;
         }
 
         .header-logo {
             height: 60px;
             width: auto;
+            max-width: 100%;
             object-fit: contain;
+            display: block;
         }
 
 
@@ -306,6 +337,86 @@
             font-weight: 700;
             font-size: 0.9rem;
             display: inline-block;
+        }
+
+
+        /* ==============================
+           WHY CONFERENCE TEXT
+        ============================== */
+
+        .why-card-text {
+            color: #0f3057;
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 600;
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /* ==============================
+           SPEAKERS
+        ============================== */
+
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: stretch;
+        }
+
+        .speaker-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 390px;
+        }
+
+        .speaker-photo {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 3px solid #EA6A1E;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+            flex-shrink: 0;
+            background: #f5f6f8;
+        }
+
+        .speaker-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .speaker-card h4 {
+            color: #1B2333;
+            font-size: 21px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .speaker-details {
+            color: #5A6473;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 4px;
+            text-align: center;
+        }
+
+        .coming-soon-photo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e66a0b;
+            font-weight: 700;
+            font-size: 14px;
         }
 
 
@@ -508,7 +619,7 @@
 
 
         /* ==============================
-           REGISTRATION SECTION
+           REGISTRATION
         ============================== */
 
         .register-grid {
@@ -610,6 +721,7 @@
         }
 
         @keyframes fadeUp {
+
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -619,6 +731,7 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+
         }
 
 
@@ -628,6 +741,16 @@
 
         @media (max-width: 1000px) {
 
+            .nav-wrap {
+                min-height: 80px;
+                padding: 8px 20px;
+                gap: 15px;
+            }
+
+            .header-logo {
+                height: 48px;
+            }
+
             .guest-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -635,6 +758,11 @@
             .attendee-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .speakers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
         }
 
 
@@ -644,8 +772,14 @@
 
         @media (max-width: 768px) {
 
+            .nav-wrap {
+                min-height: 90px;
+                padding: 8px 12px;
+                gap: 8px;
+            }
+
             .header-logo {
-                height: 50px;
+                height: 40px;
             }
 
             .hero {
@@ -694,6 +828,14 @@
                 grid-template-columns: 1fr;
             }
 
+            .speakers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .speaker-card {
+                min-height: 390px;
+            }
+
             .attendee-grid {
                 grid-template-columns: 1fr;
             }
@@ -727,6 +869,57 @@
             .final-footer h2 {
                 font-size: 25px;
             }
+
+        }
+
+
+        /* ==============================
+           SMALL MOBILE
+        ============================== */
+
+        @media (max-width: 600px) {
+
+            .site-header {
+                position: sticky;
+                top: 0;
+            }
+
+            .nav-wrap {
+                min-height: 110px;
+                padding: 10px 12px;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+                gap: 8px 10px;
+            }
+
+            .header-logo-box.left {
+                grid-column: 1;
+                grid-row: 1;
+                justify-content: center;
+            }
+
+            .header-logo-box.center-left {
+                grid-column: 2;
+                grid-row: 1;
+                justify-content: center;
+            }
+
+            .header-logo-box.center-right {
+                grid-column: 1;
+                grid-row: 2;
+                justify-content: center;
+            }
+
+            .header-logo-box.right {
+                grid-column: 2;
+                grid-row: 2;
+                justify-content: center;
+            }
+
+            .header-logo {
+                height: 38px;
+            }
+
         }
 
 
@@ -734,6 +927,16 @@
 
             .container {
                 padding: 0 16px;
+            }
+
+            .nav-wrap {
+                min-height: 100px;
+                padding: 8px 8px;
+                gap: 6px 8px;
+            }
+
+            .header-logo {
+                height: 34px;
             }
 
             .hero-content h1 {
@@ -757,6 +960,15 @@
                 height: 160px;
             }
 
+            .speaker-photo {
+                width: 160px;
+                height: 160px;
+            }
+
+            .speaker-card h4 {
+                font-size: 20px;
+            }
+
             .final-footer-buttons {
                 flex-direction: column;
             }
@@ -765,6 +977,20 @@
                 width: 100%;
                 max-width: 320px;
             }
+
+        }
+
+
+        @media (max-width: 380px) {
+
+            .header-logo {
+                height: 30px;
+            }
+
+            .nav-wrap {
+                padding: 7px 5px;
+            }
+
         }
 
     </style>
@@ -775,22 +1001,67 @@
 
 
     <!-- ==============================
-         HEADER
+         HEADER - 4 LOGOS
     ============================== -->
 
     <header class="site-header">
 
-        <div class="container nav-wrap">
+        <div class="nav-wrap">
 
-            <a href="index.html">
+            <!-- 1. SHARDA UNIVERSITY -->
+
+            <div class="header-logo-box left">
 
                 <img
-                    src="imucon-logo.jpeg.jpeg"
-                    alt="IMUCON 2.0 Logo"
+                    src="shardauniversity.jpg"
+                    alt="Sharda University"
                     class="header-logo"
                 >
 
-            </a>
+            </div>
+
+
+            <!-- 2. HOSPITAL -->
+
+            <div class="header-logo-box center-left">
+
+                <img
+                    src="hospital.jpg"
+                    alt="Hospital"
+                    class="header-logo"
+                >
+
+            </div>
+
+
+            <!-- 3. SHARDA -->
+
+            <div class="header-logo-box center-right">
+
+                <img
+                    src="sharda.jpg"
+                    alt="Sharda"
+                    class="header-logo"
+                >
+
+            </div>
+
+
+            <!-- 4. IMUCON -->
+
+            <div class="header-logo-box right">
+
+                <a href="index.html">
+
+                    <img
+                        src="imucon-logo.jpeg.jpeg"
+                        alt="IMUCON 2.0 Logo"
+                        class="header-logo"
+                    >
+
+                </a>
+
+            </div>
 
         </div>
 
@@ -823,7 +1094,6 @@
                     and meaningful professional connections.
 
                 </p>
-
 
                 <div class="hero-details">
 
@@ -868,7 +1138,7 @@
 
 
     <!-- ==============================
-         WHY CONFERENCE
+         WHY THIS CONFERENCE
     ============================== -->
 
     <section class="section" id="about">
@@ -882,14 +1152,16 @@
             <p class="section-sub text-center mx-auto">
 
                 IMUCON 2.0 brings together clinicians, academicians,
-                researchers, and students to discuss advancements and
-                untouched areas in medicine that are frequently encountered
-                in daily practice but rarely spotlighted.
+                researchers, and students to discuss advancements,
+                practical challenges, and emerging developments in medicine.
 
             </p>
 
 
             <div class="card-grid">
+
+
+                <!-- BOX 1 -->
 
                 <div class="card fade-in">
 
@@ -897,14 +1169,14 @@
                         <i class="fas fa-stethoscope"></i>
                     </div>
 
-                    <h4>COMING SOON</h4>
-
-                    <div class="coming-soon-badge">
-                        Coming Soon
-                    </div>
+                    <p class="why-card-text">
+                        Topics in regular medical practice that often remain underexplored.
+                    </p>
 
                 </div>
 
+
+                <!-- BOX 2 -->
 
                 <div class="card fade-in">
 
@@ -912,41 +1184,39 @@
                         <i class="fas fa-microscope"></i>
                     </div>
 
-                    <h4>COMING SOON</h4>
-
-                    <div class="coming-soon-badge">
-                        Coming Soon
-                    </div>
+                    <p class="why-card-text">
+                        Latest updates for clinicians on new medical advancements.
+                    </p>
 
                 </div>
 
 
+                <!-- BOX 3 -->
+
                 <div class="card fade-in">
 
                     <div class="icon">
-                        <i class="fas fa-hand-holding-heart"></i>
+                        <i class="fas fa-handshake"></i>
                     </div>
 
-                    <h4>COMING SOON</h4>
-
-                    <div class="coming-soon-badge">
-                        Coming Soon
-                    </div>
+                    <p class="why-card-text">
+                        Professional development and networking opportunities.
+                    </p>
 
                 </div>
 
 
+                <!-- BOX 4 -->
+
                 <div class="card fade-in">
 
                     <div class="icon">
-                        <i class="fas fa-user-md"></i>
+                        <i class="fas fa-microchip"></i>
                     </div>
 
-                    <h4>COMING SOON</h4>
-
-                    <div class="coming-soon-badge">
-                        Coming Soon
-                    </div>
+                    <p class="why-card-text">
+                        Exposure to evolving medical technology and pharma innovations.
+                    </p>
 
                 </div>
 
@@ -967,40 +1237,61 @@
         <div class="container">
 
             <h2 class="section-title text-center">
+
                 What Makes IMUCON
                 <span class="highlight">2.0</span>
                 Unique?
+
             </h2>
 
 
             <ul class="unique-list">
 
                 <li class="unique-card">
+
                     <i class="fas fa-check-circle"></i>
+
                     Hosted by a premier teaching &amp; super-speciality
                     hospital and medical college.
+
                 </li>
 
+
                 <li class="unique-card">
+
                     <i class="fas fa-check-circle"></i>
+
                     Diverse faculty of national and international experts.
+
                 </li>
 
+
                 <li class="unique-card">
+
                     <i class="fas fa-check-circle"></i>
+
                     Practical insights into untouched yet essential
                     clinical topics.
+
                 </li>
 
+
                 <li class="unique-card">
+
                     <i class="fas fa-check-circle"></i>
+
                     Networking opportunities with healthcare leaders
                     and academicians.
+
                 </li>
 
+
                 <li class="unique-card">
+
                     <i class="fas fa-check-circle"></i>
+
                     CME accreditation with certificate of participation.
+
                 </li>
 
             </ul>
@@ -1020,45 +1311,72 @@
         <div class="container">
 
             <h2 class="section-title text-center">
+
                 Who Should <span class="highlight">Attend?</span>
+
             </h2>
 
             <p class="section-sub text-center mx-auto">
+
                 IMUCON 2.0 is designed for medical professionals
                 across all career stages.
+
             </p>
 
 
             <div class="attendee-grid">
 
                 <div class="attendee-item">
+
                     <i class="fas fa-user-tie"></i>
+
                     Hospital Administrators
+
                 </div>
 
+
                 <div class="attendee-item">
+
                     <i class="fas fa-user-md"></i>
+
                     Medical Practitioners
+
                 </div>
 
+
                 <div class="attendee-item">
+
                     <i class="fas fa-heartbeat"></i>
+
                     Doctors
+
                 </div>
 
+
                 <div class="attendee-item">
+
                     <i class="fas fa-hospital-user"></i>
+
                     Healthcare Professionals
+
                 </div>
 
+
                 <div class="attendee-item">
+
                     <i class="fas fa-users"></i>
+
                     Healthcare Providers
+
                 </div>
 
+
                 <div class="attendee-item">
+
                     <i class="fas fa-graduation-cap"></i>
+
                     PG &amp; UG Medical Students
+
                 </div>
 
             </div>
@@ -1070,7 +1388,7 @@
 
 
     <!-- ==============================
-         KEY PEOPLE
+         CONFERENCE LEADERSHIP
     ============================== -->
 
     <section class="section">
@@ -1078,7 +1396,9 @@
         <div class="container">
 
             <h2 class="section-title text-center">
+
                 Conference <span class="highlight">Leadership</span>
+
             </h2>
 
 
@@ -1222,40 +1542,121 @@
             </h2>
 
             <p class="section-sub text-center mx-auto">
+
                 Renowned national and international speakers
-                will be announced.
+                will be part of IMUCON 2.0.
+
             </p>
 
 
-            <div class="card-grid">
+            <div class="speakers-grid">
 
-                <div class="card">
-                    <h4>COMING SOON</h4>
-                    <div class="coming-soon-badge">
-                        Speaker
+
+                <!-- SPEAKER 1 - DR. PRAMOD GURU -->
+
+                <div class="card speaker-card">
+
+                    <div class="speaker-photo">
+
+                        <img
+                            src="pramod .jpg"
+                            alt="Dr. Pramod Guru"
+                        >
+
                     </div>
+
+                    <h4>
+                        Dr. Pramod Guru
+                    </h4>
+
+                    <p class="speaker-details">
+                        International Speaker
+                    </p>
+
                 </div>
 
-                <div class="card">
-                    <h4>COMING SOON</h4>
-                    <div class="coming-soon-badge">
-                        Speaker
+
+
+                <!-- SPEAKER 2 - DR. GURPREET SINGH WANDER -->
+
+                <div class="card speaker-card">
+
+                    <div class="speaker-photo">
+
+                        <img
+                            src="gurpreet-singh-wander.jpg"
+                            alt="Dr. Gurpreet Singh Wander"
+                        >
+
                     </div>
+
+                    <h4>
+                        Dr. Gurpreet Singh Wander
+                    </h4>
+
+                    <p class="speaker-details">
+
+                        MD, DM (Cardiology)<br>
+                        Chief Cardiologist<br>
+                        Principal, DMCH Ludhiana
+
+                    </p>
+
                 </div>
 
-                <div class="card">
-                    <h4>COMING SOON</h4>
-                    <div class="coming-soon-badge">
-                        Speaker
+
+
+                <!-- SPEAKER 3 - DR. VARUN MEHTA -->
+
+                <div class="card speaker-card">
+
+                    <div class="speaker-photo">
+
+                        <img
+                            src="varun-mehta.jpg"
+                            alt="Dr. Varun Mehta"
+                        >
+
                     </div>
+
+                    <h4>
+                        Dr. Varun Mehta
+                    </h4>
+
+                    <p class="speaker-details">
+
+                        Professor &amp; Unit Head<br>
+                        Department of Gastroenterology<br>
+                        DMCH Ludhiana
+
+                    </p>
+
                 </div>
 
-                <div class="card">
-                    <h4>COMING SOON</h4>
-                    <div class="coming-soon-badge">
-                        Speaker
+
+
+                <!-- SPEAKER 4 -->
+
+                <div class="card speaker-card">
+
+                    <div class="speaker-photo coming-soon-photo">
+
+                        <span>
+                            COMING SOON
+                        </span>
+
                     </div>
+
+                    <h4>
+                        COMING SOON
+                    </h4>
+
+                    <p class="speaker-details">
+                        International Speaker
+                    </p>
+
                 </div>
+
 
             </div>
 
@@ -1274,7 +1675,9 @@
         <div class="container">
 
             <h2 class="section-title text-center">
+
                 Organizing <span class="highlight">Committee</span>
+
             </h2>
 
 
@@ -1311,7 +1714,7 @@
 
 
 
-                <!-- Secretary -->
+                <!-- ORGANIZING SECRETARY -->
 
                 <div class="guest-card">
 
@@ -1322,18 +1725,18 @@
                     <div class="guest-photo">
 
                         <img
-                            src="secretary.jpg"
-                            alt="Dr. Nikhil Gupta"
+                            src="shaily.jpg"
+                            alt="Dr. Shaily Singhania"
                         >
 
                     </div>
 
                     <h3>
-                        Dr. Nikhil Gupta
+                        Dr. Shaily Singhania
                     </h3>
 
                     <p>
-                        Assistant Professor, General Medicine<br>
+                        Senior Resident, General Medicine<br>
                         SMS&amp;R, Sharda University
                     </p>
 
@@ -1379,6 +1782,7 @@
 
     <!-- ==============================
          CONFERENCE AGENDA
+         PANEL DISCUSSION REMOVED
     ============================== -->
 
     <section class="agenda-section" id="agenda">
@@ -1401,6 +1805,8 @@
             <div class="agenda-list">
 
 
+                <!-- KEYNOTE -->
+
                 <div class="agenda-row">
 
                     <div class="agenda-badge">
@@ -1408,25 +1814,16 @@
                     </div>
 
                     <div class="agenda-text">
+
                         The Future of Internal Medicine
                         in Global Healthcare
+
                     </div>
 
                 </div>
 
 
-                <div class="agenda-row">
-
-                    <div class="agenda-badge">
-                        Panel Discussions
-                    </div>
-
-                    <div class="agenda-text">
-                        Topic Updating Soon
-                    </div>
-
-                </div>
-
+                <!-- WORKSHOPS -->
 
                 <div class="agenda-row">
 
@@ -1435,10 +1832,23 @@
                     </div>
 
                     <div class="agenda-text">
-                        Topic Updating Soon
+
+                        <strong>
+                            1. BLS - ACLS Workshop
+                        </strong>
+
+                        — AHA Accredited
+
+                        <br>
+
+                        <strong>
+                            2. POCUS Training
+                        </strong>
+
                     </div>
 
                 </div>
+
 
             </div>
 
@@ -1457,7 +1867,9 @@
         <div class="container">
 
             <h2 class="section-title text-center">
+
                 How to <span class="highlight">Register?</span>
+
             </h2>
 
 
