@@ -88,6 +88,7 @@ ALLOWED_EXTENSIONS = {
 # ============================================================
 
 def allowed_file(filename):
+
     return (
         "." in filename
         and filename.rsplit(".", 1)[1].lower()
@@ -100,6 +101,7 @@ def allowed_file(filename):
 # ============================================================
 
 def valid_email(email):
+
     return bool(
         re.fullmatch(
             r"[^@\s]+@[^@\s]+\.[^@\s]+",
@@ -113,6 +115,7 @@ def valid_email(email):
 # ============================================================
 
 def valid_mobile(mobile):
+
     return bool(
         re.fullmatch(
             r"[0-9]{10}",
@@ -250,16 +253,6 @@ def register():
             ""
         ).strip()
 
-        registration_type = request.form.get(
-            "registrationType",
-            ""
-        ).strip()
-
-        attendee_count_value = request.form.get(
-            "attendeeCount",
-            ""
-        ).strip()
-
         heard_from = request.form.get(
             "heardFrom",
             ""
@@ -276,10 +269,8 @@ def register():
         # ====================================================
 
         allowed_categories = {
-            "student",
-            "staff",
-            "general",
-            "vip"
+            "student_early_bird",
+            "student_after_october"
         }
 
         if pass_category not in allowed_categories:
@@ -293,58 +284,35 @@ def register():
 
 
         # ====================================================
-        # VALIDATE REGISTRATION TYPE
+        # VALIDATE ₹2,500 PASS ACTIVATION DATE
         # ====================================================
 
-        if registration_type not in {
-            "single",
-            "group"
-        }:
+        # ₹2,500 pass becomes available from
+        # 16 October 2026
+
+        activation_date = datetime(2026, 10, 16)
+
+        if (
+            pass_category == "student_after_october"
+            and datetime.now() < activation_date
+        ):
 
             return jsonify({
                 "success": False,
                 "message": (
-                    "Please select a valid registration type."
+                    "This pass category will be available "
+                    "after 15 October 2026."
                 )
             }), 400
 
 
         # ====================================================
-        # ATTENDEE COUNT
+        # SINGLE ATTENDEE ONLY
         # ====================================================
 
-        if registration_type == "single":
+        registration_type = "single"
 
-            attendee_count = 1
-
-        else:
-
-            try:
-
-                attendee_count = int(
-                    attendee_count_value
-                )
-
-            except ValueError:
-
-                return jsonify({
-                    "success": False,
-                    "message": (
-                        "Please select the number "
-                        "of attendees."
-                    )
-                }), 400
-
-
-            if attendee_count < 2 or attendee_count > 10:
-
-                return jsonify({
-                    "success": False,
-                    "message": (
-                        "Group registration must contain "
-                        "2 to 10 attendees."
-                    )
-                }), 400
+        attendee_count = 1
 
 
         # ====================================================
@@ -405,148 +373,125 @@ def register():
 
 
         # ====================================================
-        # COLLECT ATTENDEE INFORMATION
+        # COLLECT SINGLE ATTENDEE INFORMATION
         # ====================================================
 
         attendees = []
 
-        for i in range(
-            1,
-            attendee_count + 1
-        ):
+        name = request.form.get(
+            "attendee_1_name",
+            ""
+        ).strip()
 
-            name = request.form.get(
-                f"attendee_{i}_name",
-                ""
-            ).strip()
+        dob = request.form.get(
+            "attendee_1_dob",
+            ""
+        ).strip()
 
-            dob = request.form.get(
-                f"attendee_{i}_dob",
-                ""
-            ).strip()
+        gender = request.form.get(
+            "attendee_1_gender",
+            ""
+        ).strip()
 
-            gender = request.form.get(
-                f"attendee_{i}_gender",
-                ""
-            ).strip()
+        email = request.form.get(
+            "attendee_1_email",
+            ""
+        ).strip()
 
-            email = request.form.get(
-                f"attendee_{i}_email",
-                ""
-            ).strip()
-
-            mobile = request.form.get(
-                f"attendee_{i}_mobile",
-                ""
-            ).strip()
-
-            employee_id = request.form.get(
-                f"attendee_{i}_employee_id",
-                ""
-            ).strip()
-
-            id_card_no = request.form.get(
-                f"attendee_{i}_id_card",
-                ""
-            ).strip()
+        mobile = request.form.get(
+            "attendee_1_mobile",
+            ""
+        ).strip()
 
 
-            # =================================================
-            # NAME
-            # =================================================
+        # ====================================================
+        # NAME VALIDATION
+        # ====================================================
 
-            if not name:
+        if not name:
 
-                return jsonify({
-                    "success": False,
-                    "message": (
-                        f"Please enter the full name "
-                        f"of attendee {i}."
-                    )
-                }), 400
-
-
-            # =================================================
-            # DOB
-            # =================================================
-
-            if not dob:
-
-                return jsonify({
-                    "success": False,
-                    "message": (
-                        f"Please enter the date of birth "
-                        f"of attendee {i}."
-                    )
-                }), 400
+            return jsonify({
+                "success": False,
+                "message": (
+                    "Please enter the full name."
+                )
+            }), 400
 
 
-            # =================================================
-            # GENDER
-            # =================================================
+        # ====================================================
+        # DOB VALIDATION
+        # ====================================================
 
-            if not gender:
+        if not dob:
 
-                return jsonify({
-                    "success": False,
-                    "message": (
-                        f"Please select gender "
-                        f"for attendee {i}."
-                    )
-                }), 400
-
-
-            # =================================================
-            # EMAIL
-            # =================================================
-
-            if not valid_email(email):
-
-                return jsonify({
-                    "success": False,
-                    "message": (
-                        f"Please enter a valid email "
-                        f"for attendee {i}."
-                    )
-                }), 400
+            return jsonify({
+                "success": False,
+                "message": (
+                    "Please enter the date of birth."
+                )
+            }), 400
 
 
-            # =================================================
-            # MOBILE
-            # =================================================
+        # ====================================================
+        # GENDER VALIDATION
+        # ====================================================
 
-            if not valid_mobile(mobile):
+        if not gender:
 
-                return jsonify({
-                    "success": False,
-                    "message": (
-                        f"Mobile number for attendee {i} "
-                        "must contain exactly 10 digits."
-                    )
-                }), 400
+            return jsonify({
+                "success": False,
+                "message": (
+                    "Please select gender."
+                )
+            }), 400
 
 
-            # =================================================
-            # STORE ATTENDEE
-            # =================================================
+        # ====================================================
+        # EMAIL VALIDATION
+        # ====================================================
 
-            attendees.append({
+        if not valid_email(email):
 
-                "name": name,
+            return jsonify({
+                "success": False,
+                "message": (
+                    "Please enter a valid email."
+                )
+            }), 400
 
-                "dob": dob,
 
-                "gender": gender,
+        # ====================================================
+        # MOBILE VALIDATION
+        # ====================================================
 
-                "email": email,
+        if not valid_mobile(mobile):
 
-                "mobile": mobile,
+            return jsonify({
+                "success": False,
+                "message": (
+                    "Mobile number must contain "
+                    "exactly 10 digits."
+                )
+            }), 400
 
-                "employee_id": employee_id,
 
-                "id_card_no": id_card_no
+        # ====================================================
+        # STORE ATTENDEE
+        # ====================================================
 
-            })
+        attendees.append({
+
+            "name": name,
+
+            "dob": dob,
+
+            "gender": gender,
+
+            "email": email,
+
+            "mobile": mobile
+
+        })
 
 
         # ====================================================
@@ -592,6 +537,29 @@ def register():
 
 
         # ====================================================
+        # PASS AMOUNT
+        # ====================================================
+
+        if pass_category == "student_early_bird":
+
+            pass_amount = 1000
+
+            pass_name = (
+                "Student Pass "
+                "(Early Bird: 22 Sept - 15 Oct 2026)"
+            )
+
+        else:
+
+            pass_amount = 2500
+
+            pass_name = (
+                "Student Pass "
+                "(After 15 October 2026)"
+            )
+
+
+        # ====================================================
         # CREATE REGISTRATION DOCUMENT
         # ====================================================
 
@@ -600,6 +568,10 @@ def register():
             "registration_id": registration_id,
 
             "pass_category": pass_category,
+
+            "pass_name": pass_name,
+
+            "pass_amount": pass_amount,
 
             "registration_type": registration_type,
 
