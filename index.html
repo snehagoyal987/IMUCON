@@ -1,1999 +1,1966 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>IMUCON 2.0 | International Medicine Update Conference</title>
+```
+<title>IMUCON 2.0 | International Medicine Update Conference</title>
 
-    <meta name="description"
-        content="IMUCON 2.0 – International Medicine Update Conference, 15th-18th December 2026 at SMS&R & Sharda Hospital, Greater Noida.">
+<meta name="description"
+    content="IMUCON 2.0 – International Medicine Update Conference, 15th-18th December 2026 at SMS&R & Sharda Hospital, Greater Noida.">
 
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <style>
+<style>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Inter', Arial, sans-serif;
+        background: #ffffff;
+        color: #1e2a41;
+        line-height: 1.5;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    img {
+        max-width: 100%;
+        display: block;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+
+    /* ==============================
+       BUTTONS
+    ============================== */
+
+    .btn {
+        display: inline-block;
+        background: #e66a0b;
+        color: #ffffff;
+        font-weight: 600;
+        padding: 12px 32px;
+        border-radius: 40px;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 4px 12px rgba(230, 106, 11, 0.25);
+    }
+
+    .btn:hover {
+        background: #c95c0a;
+        transform: translateY(-2px);
+    }
+
+    .btn-outline {
+        background: transparent;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+        box-shadow: none;
+    }
+
+    .btn-outline:hover {
+        background: #ffffff;
+        color: #e66a0b;
+    }
+
+
+    /* ==============================
+       HEADER - 4 LOGOS
+    ============================== */
+
+    .site-header {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .nav-wrap {
+        width: 100%;
+        max-width: 1400px;
+        min-height: 90px;
+        margin: 0 auto;
+        padding: 10px 30px;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .header-logo-box {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .header-logo-box.left {
+        justify-content: flex-start;
+    }
+
+    .header-logo-box.center-left {
+        justify-content: center;
+    }
+
+    .header-logo-box.center-right {
+        justify-content: center;
+    }
+
+    .header-logo-box.right {
+        justify-content: flex-end;
+    }
+
+    .header-logo {
+        height: 60px;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+
+    /* ==============================
+       HERO
+    ============================== */
+
+    .hero {
+        background-image:
+            linear-gradient(
+                rgba(40, 25, 15, 0.48),
+                rgba(40, 25, 15, 0.48)
+            ),
+            url("1563350690r2.webp");
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        padding: 85px 0 90px;
+        position: relative;
+    }
+
+    .hero-grid {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.1;
+    }
+
+    .hero-content h1 span {
+        color: #ff8a25;
+    }
+
+    .hero-content .sub {
+        font-size: 1.45rem;
+        color: #ffffff;
+        margin: 12px 0 20px;
+        font-weight: 500;
+    }
+
+    .hero-description {
+        max-width: 760px;
+        margin: 18px auto 28px;
+        font-size: 1.08rem;
+        line-height: 1.7;
+        color: #ffffff;
+    }
+
+    .hero-details {
+        background: rgba(0, 0, 0, 0.30);
+        padding: 20px 25px;
+        border-radius: 22px;
+        display: inline-block;
+        margin: 12px 0 28px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(5px);
+        text-align: left;
+    }
+
+    .hero-details p {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        color: #ffffff;
+        margin: 8px 0;
+        font-weight: 500;
+    }
+
+    .hero-details i {
+        width: 22px;
+        color: #ff8a25;
+        margin-top: 3px;
+    }
+
+    .hero-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+
+    /* ==============================
+       SECTIONS
+    ============================== */
+
+    .section {
+        padding: 75px 0;
+        background: #ffffff;
+    }
+
+    .section-alt {
+        background: #f3f3f3;
+        padding: 75px 0;
+    }
+
+    .section-title {
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: #1e2a41;
+        margin-bottom: 16px;
+    }
+
+    .section-title .highlight {
+        color: #e66a0b;
+    }
+
+    .section-sub {
+        color: #4a5f7a;
+        max-width: 700px;
+        margin-bottom: 40px;
+        font-size: 1.05rem;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    /* ==============================
+       WHY CONFERENCE
+    ============================== */
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+        max-width: 850px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background: #ffffff;
+        border-radius: 25px;
+        padding: 32px 24px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        border: 1px solid #eeeeee;
+        text-align: center;
+        transition: 0.25s;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 35px rgba(230, 106, 11, 0.12);
+    }
+
+    .card .icon {
+        font-size: 2.3rem;
+        color: #e66a0b;
+        background: #fef3ea;
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        margin: 0 auto 14px;
+    }
+
+    .card h4 {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+    }
+
+    .coming-soon-badge {
+        background: #fef3ea;
+        color: #e66a0b;
+        padding: 6px 20px;
+        border-radius: 40px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        display: inline-block;
+    }
+
+
+    /* ==============================
+       WHY CONFERENCE TEXT
+    ============================== */
+
+    .why-card-text {
+        color: #0f3057;
+        font-size: 16px;
+        line-height: 1.6;
+        font-weight: 600;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    /* ==============================
+       SPEAKERS
+    ============================== */
+
+    .speakers-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 28px;
+        max-width: 1200px;
+        margin: 0 auto;
+        align-items: stretch;
+    }
+
+    .speaker-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 390px;
+    }
+
+    .speaker-photo {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 20px;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 3px solid #EA6A1E;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+        flex-shrink: 0;
+        background: #f5f6f8;
+    }
+
+    .speaker-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .speaker-card h4 {
+        color: #1B2333;
+        font-size: 21px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .speaker-details {
+        color: #5A6473;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-top: 4px;
+        text-align: center;
+    }
+
+    .coming-soon-photo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e66a0b;
+        font-weight: 700;
+        font-size: 14px;
+    }
+
+
+    /* ==============================
+       UNIQUE
+    ============================== */
+
+    .unique-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        max-width: 850px;
+        margin: 35px auto 0;
+    }
+
+    .unique-card {
+        background: #ffffff;
+        padding: 20px 24px;
+        border-radius: 10px;
+        border-left: 5px solid #ff6b0b;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #0b2a4a;
+        min-height: 65px;
+    }
+
+    .unique-card i {
+        color: #ff6b0b;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+
+    /* ==============================
+       ATTENDEES
+    ============================== */
+
+    .attendee-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .attendee-item {
+        background: #ffffff;
+        padding: 24px;
+        border-radius: 20px;
+        border: 1px solid #eeeeee;
+        text-align: center;
+        font-weight: 600;
+        color: #1e2a41;
+        transition: 0.2s;
+    }
+
+    .attendee-item:hover {
+        background: #fef3ea;
+        border-color: #fddcc9;
+    }
+
+    .attendee-item i {
+        color: #e66a0b;
+        margin-right: 8px;
+    }
+
+
+    /* ==============================
+       GUESTS
+    ============================== */
+
+    .guest-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        width: 100%;
+        margin: 25px auto 0;
+    }
+
+    .guest-card {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .category-badge {
+        background: #0f3057;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 10px 15px;
+        border-radius: 7px;
+        margin-bottom: 15px;
+    }
+
+    .guest-photo {
+        width: 180px;
+        height: 180px;
+        border: 3px solid #f5c518;
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 15px;
+        background: #f5f6f8;
+    }
+
+    .guest-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .guest-card h3 {
+        margin: 5px 0 6px;
+        color: #1565c0;
+        font-size: 19px;
+    }
+
+    .guest-card p {
+        color: #0f3057;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.5;
+    }
+
+    .coming-soon-photo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    /* ==============================
+       AGENDA
+    ============================== */
+
+    .agenda-section {
+        background: #f5f7fa;
+        padding: 75px 20px;
+    }
+
+    .agenda-container {
+        max-width: 950px;
+        margin: auto;
+    }
+
+    .agenda-title {
+        text-align: center;
+        color: #1a1a2e;
+        font-size: 44px;
+        font-weight: 800;
+    }
+
+    .agenda-subtext {
+        max-width: 700px;
+        margin: 18px auto 40px;
+        text-align: center;
+        color: #666666;
+        font-size: 17px;
+    }
+
+    .agenda-list {
+        display: flex;
+        flex-direction: column;
+        gap: 17px;
+    }
+
+    .agenda-row {
+        width: 100%;
+        min-height: 78px;
+        padding: 20px 25px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .agenda-badge {
+        min-width: 145px;
+        padding: 11px 20px;
+        background: linear-gradient(135deg, #f7941d, #ed6c1f);
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 700;
+        text-align: center;
+        border-radius: 30px;
+    }
+
+    .agenda-text {
+        color: #0f3057;
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+
+    /* ==============================
+       REGISTRATION
+    ============================== */
+
+    .register-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        max-width: 1000px;
+        margin: 0 auto 40px;
+    }
+
+    .register-card {
+        background: #ffffff;
+        padding: 30px 20px;
+        border-radius: 25px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .register-number {
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: #e66a0b;
+        opacity: 0.25;
+        margin-bottom: 8px;
+    }
+
+    .register-card h4 {
+        color: #1e2a41;
+        margin-bottom: 8px;
+    }
+
+    .register-card p {
+        color: #4a5f7a;
+    }
+
+
+    /* ==============================
+       FOOTER
+    ============================== */
+
+    .final-footer {
+        background: #e66a0b;
+        padding: 55px 20px;
+        text-align: center;
+    }
+
+    .final-footer h2 {
+        color: #ffffff;
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+
+    .final-footer p {
+        color: #ffffff;
+        font-size: 17px;
+        margin-bottom: 28px;
+    }
+
+    .final-footer-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .final-footer-buttons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 25px;
+        min-height: 48px;
+        border-radius: 7px;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .footer-register-btn {
+        background: #ffffff;
+        color: #e66a0b;
+    }
+
+    .footer-call-btn {
+        background: #c95c0a;
+        color: #ffffff;
+    }
+
+    .footer-call-btn i {
+        margin-right: 8px;
+    }
+
+
+    /* ==============================
+       ANIMATION
+    ============================== */
+
+    .fade-in {
+        animation: fadeUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeUp {
+
+        from {
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        html {
-            scroll-behavior: smooth;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        body {
-            font-family: 'Inter', Arial, sans-serif;
-            background: #ffffff;
-            color: #1e2a41;
-            line-height: 1.5;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+    }
 
 
-        /* ==============================
-           BUTTONS
-        ============================== */
+    /* ==============================
+       TABLET
+    ============================== */
 
-        .btn {
-            display: inline-block;
-            background: #e66a0b;
-            color: #ffffff;
-            font-weight: 600;
-            padding: 12px 32px;
-            border-radius: 40px;
-            border: none;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(230, 106, 11, 0.25);
-        }
-
-        .btn:hover {
-            background: #c95c0a;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #ffffff;
-            border: 2px solid #ffffff;
-            box-shadow: none;
-        }
-
-        .btn-outline:hover {
-            background: #ffffff;
-            color: #e66a0b;
-        }
-
-
-        /* ==============================
-           HEADER - 4 LOGOS
-           ORDER:
-           SHARDA UNIVERSITY
-           HOSPITAL
-           SHARDA
-           IMUCON
-        ============================== */
-
-        .site-header {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    @media (max-width: 1000px) {
 
         .nav-wrap {
-            width: 100%;
-            max-width: 1400px;
-            min-height: 90px;
-            margin: 0 auto;
-            padding: 10px 30px;
-
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .header-logo-box {
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
-        .header-logo-box.left {
-            justify-content: flex-start;
-        }
-
-        .header-logo-box.center-left {
-            justify-content: center;
-        }
-
-        .header-logo-box.center-right {
-            justify-content: center;
-        }
-
-        .header-logo-box.right {
-            justify-content: flex-end;
+            min-height: 80px;
+            padding: 8px 20px;
+            gap: 15px;
         }
 
         .header-logo {
-            height: 60px;
-            width: auto;
-            max-width: 100%;
-            object-fit: contain;
-            display: block;
+            height: 48px;
         }
 
+        .guest-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
 
-        /* ==============================
-           HERO
-        ============================== */
+        .attendee-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .speakers-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+    }
+
+
+    /* ==============================
+       MOBILE
+    ============================== */
+
+    @media (max-width: 768px) {
+
+        .nav-wrap {
+            min-height: 90px;
+            padding: 8px 12px;
+            gap: 8px;
+        }
+
+        .header-logo {
+            height: 40px;
+        }
 
         .hero {
-            background-image:
-                linear-gradient(
-                    rgba(40, 25, 15, 0.48),
-                    rgba(40, 25, 15, 0.48)
-                ),
-                url("1563350690r2.webp");
-
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-
-            padding: 85px 0 90px;
-            position: relative;
-        }
-
-        .hero-grid {
-            position: relative;
-            z-index: 2;
-            text-align: center;
+            padding: 60px 0 65px;
         }
 
         .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: #ffffff;
-            line-height: 1.1;
-        }
-
-        .hero-content h1 span {
-            color: #ff8a25;
+            font-size: 2.5rem;
         }
 
         .hero-content .sub {
-            font-size: 1.45rem;
-            color: #ffffff;
-            margin: 12px 0 20px;
-            font-weight: 500;
+            font-size: 1.15rem;
         }
 
         .hero-description {
-            max-width: 760px;
-            margin: 18px auto 28px;
-            font-size: 1.08rem;
-            line-height: 1.7;
-            color: #ffffff;
+            font-size: 0.95rem;
         }
 
         .hero-details {
-            background: rgba(0, 0, 0, 0.30);
-            padding: 20px 25px;
-            border-radius: 22px;
-            display: inline-block;
-            margin: 12px 0 28px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(5px);
+            width: 100%;
             text-align: left;
         }
 
         .hero-details p {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            color: #ffffff;
-            margin: 8px 0;
-            font-weight: 500;
-        }
-
-        .hero-details i {
-            width: 22px;
-            color: #ff8a25;
-            margin-top: 3px;
+            font-size: 0.9rem;
         }
 
         .hero-actions {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 14px;
+            flex-direction: column;
         }
 
-
-        /* ==============================
-           SECTIONS
-        ============================== */
+        .hero-actions .btn {
+            width: 100%;
+            max-width: 350px;
+        }
 
         .section {
-            padding: 75px 0;
-            background: #ffffff;
-        }
-
-        .section-alt {
-            background: #f3f3f3;
-            padding: 75px 0;
+            padding: 55px 0;
         }
 
         .section-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            color: #1e2a41;
-            margin-bottom: 16px;
+            font-size: 2rem;
         }
-
-        .section-title .highlight {
-            color: #e66a0b;
-        }
-
-        .section-sub {
-            color: #4a5f7a;
-            max-width: 700px;
-            margin-bottom: 40px;
-            font-size: 1.05rem;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mx-auto {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-
-        /* ==============================
-           WHY CONFERENCE
-        ============================== */
 
         .card-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 28px;
-            max-width: 850px;
-            margin: 0 auto;
+            grid-template-columns: 1fr;
         }
-
-        .card {
-            background: #ffffff;
-            border-radius: 25px;
-            padding: 32px 24px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-            border: 1px solid #eeeeee;
-            text-align: center;
-            transition: 0.25s;
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 35px rgba(230, 106, 11, 0.12);
-        }
-
-        .card .icon {
-            font-size: 2.3rem;
-            color: #e66a0b;
-            background: #fef3ea;
-            width: 64px;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px;
-            margin: 0 auto 14px;
-        }
-
-        .card h4 {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
-        }
-
-        .coming-soon-badge {
-            background: #fef3ea;
-            color: #e66a0b;
-            padding: 6px 20px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: inline-block;
-        }
-
-
-        /* ==============================
-           WHY CONFERENCE TEXT
-        ============================== */
-
-        .why-card-text {
-            color: #0f3057;
-            font-size: 16px;
-            line-height: 1.6;
-            font-weight: 600;
-            min-height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-
-        /* ==============================
-           SPEAKERS
-        ============================== */
 
         .speakers-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 28px;
-            max-width: 1200px;
-            margin: 0 auto;
-            align-items: stretch;
+            grid-template-columns: 1fr;
         }
 
         .speaker-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             min-height: 390px;
         }
 
-        .speaker-photo {
-            width: 180px;
-            height: 180px;
-            margin-bottom: 20px;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 3px solid #EA6A1E;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
-            flex-shrink: 0;
-            background: #f5f6f8;
-        }
-
-        .speaker-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .speaker-card h4 {
-            color: #1B2333;
-            font-size: 21px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .speaker-details {
-            color: #5A6473;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-top: 4px;
-            text-align: center;
-        }
-
-        .coming-soon-photo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #e66a0b;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-
-        /* ==============================
-           UNIQUE
-        ============================== */
-
-        .unique-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            max-width: 850px;
-            margin: 35px auto 0;
-        }
-
-        .unique-card {
-            background: #ffffff;
-            padding: 20px 24px;
-            border-radius: 10px;
-            border-left: 5px solid #ff6b0b;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #0b2a4a;
-            min-height: 65px;
-        }
-
-        .unique-card i {
-            color: #ff6b0b;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-
-        /* ==============================
-           ATTENDEES
-        ============================== */
-
         .attendee-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            grid-template-columns: 1fr;
         }
-
-        .attendee-item {
-            background: #ffffff;
-            padding: 24px;
-            border-radius: 20px;
-            border: 1px solid #eeeeee;
-            text-align: center;
-            font-weight: 600;
-            color: #1e2a41;
-            transition: 0.2s;
-        }
-
-        .attendee-item:hover {
-            background: #fef3ea;
-            border-color: #fddcc9;
-        }
-
-        .attendee-item i {
-            color: #e66a0b;
-            margin-right: 8px;
-        }
-
-
-        /* ==============================
-           GUESTS
-        ============================== */
 
         .guest-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            width: 100%;
-            margin: 25px auto 0;
+            grid-template-columns: 1fr;
         }
 
-        .guest-card {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .category-badge {
-            background: #0f3057;
-            color: #ffffff;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 10px 15px;
-            border-radius: 7px;
-            margin-bottom: 15px;
-        }
-
-        .guest-photo {
-            width: 180px;
-            height: 180px;
-            border: 3px solid #f5c518;
-            border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 15px;
-            background: #f5f6f8;
-        }
-
-        .guest-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .guest-card h3 {
-            margin: 5px 0 6px;
-            color: #1565c0;
-            font-size: 19px;
-        }
-
-        .guest-card p {
-            color: #0f3057;
-            font-size: 14px;
-            font-weight: 700;
-            line-height: 1.5;
-        }
-
-        .coming-soon-photo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-
-        /* ==============================
-           AGENDA
-        ============================== */
-
-        .agenda-section {
-            background: #f5f7fa;
-            padding: 75px 20px;
-        }
-
-        .agenda-container {
-            max-width: 950px;
-            margin: auto;
+        .register-grid {
+            grid-template-columns: 1fr;
         }
 
         .agenda-title {
-            text-align: center;
-            color: #1a1a2e;
-            font-size: 44px;
-            font-weight: 800;
-        }
-
-        .agenda-subtext {
-            max-width: 700px;
-            margin: 18px auto 40px;
-            text-align: center;
-            color: #666666;
-            font-size: 17px;
-        }
-
-        .agenda-list {
-            display: flex;
-            flex-direction: column;
-            gap: 17px;
+            font-size: 34px;
         }
 
         .agenda-row {
-            width: 100%;
-            min-height: 78px;
-            padding: 20px 25px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-            display: flex;
-            align-items: center;
-            gap: 25px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 14px;
         }
 
         .agenda-badge {
-            min-width: 145px;
-            padding: 11px 20px;
-            background: linear-gradient(135deg, #f7941d, #ed6c1f);
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-            text-align: center;
-            border-radius: 30px;
+            min-width: auto;
         }
 
-        .agenda-text {
-            color: #0f3057;
-            font-size: 17px;
-            font-weight: 500;
-        }
-
-
-        /* ==============================
-           REGISTRATION
-        ============================== */
-
-        .register-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 1000px;
-            margin: 0 auto 40px;
-        }
-
-        .register-card {
-            background: #ffffff;
-            padding: 30px 20px;
-            border-radius: 25px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .register-number {
-            font-size: 2.4rem;
-            font-weight: 800;
-            color: #e66a0b;
-            opacity: 0.25;
-            margin-bottom: 8px;
-        }
-
-        .register-card h4 {
-            color: #1e2a41;
-            margin-bottom: 8px;
-        }
-
-        .register-card p {
-            color: #4a5f7a;
-        }
-
-
-        /* ==============================
-           FOOTER
-        ============================== */
-
-        .final-footer {
-            background: #e66a0b;
-            padding: 55px 20px;
-            text-align: center;
+        .unique-card {
+            align-items: flex-start;
         }
 
         .final-footer h2 {
-            color: #ffffff;
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 12px;
+            font-size: 25px;
         }
 
-        .final-footer p {
-            color: #ffffff;
-            font-size: 17px;
-            margin-bottom: 28px;
+    }
+
+
+    /* ==============================
+       SMALL MOBILE
+    ============================== */
+
+    @media (max-width: 600px) {
+
+        .site-header {
+            position: sticky;
+            top: 0;
+        }
+
+        .nav-wrap {
+            min-height: 110px;
+            padding: 10px 12px;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 8px 10px;
+        }
+
+        .header-logo-box.left {
+            grid-column: 1;
+            grid-row: 1;
+            justify-content: center;
+        }
+
+        .header-logo-box.center-left {
+            grid-column: 2;
+            grid-row: 1;
+            justify-content: center;
+        }
+
+        .header-logo-box.center-right {
+            grid-column: 1;
+            grid-row: 2;
+            justify-content: center;
+        }
+
+        .header-logo-box.right {
+            grid-column: 2;
+            grid-row: 2;
+            justify-content: center;
+        }
+
+        .header-logo {
+            height: 38px;
+        }
+
+    }
+
+
+    @media (max-width: 480px) {
+
+        .container {
+            padding: 0 16px;
+        }
+
+        .nav-wrap {
+            min-height: 100px;
+            padding: 8px 8px;
+            gap: 6px 8px;
+        }
+
+        .header-logo {
+            height: 34px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.1rem;
+        }
+
+        .hero-details {
+            padding: 16px;
+        }
+
+        .hero-details p {
+            font-size: 0.82rem;
+        }
+
+        .btn {
+            padding: 11px 22px;
+        }
+
+        .guest-photo {
+            width: 160px;
+            height: 160px;
+        }
+
+        .speaker-photo {
+            width: 160px;
+            height: 160px;
+        }
+
+        .speaker-card h4 {
+            font-size: 20px;
         }
 
         .final-footer-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+            flex-direction: column;
         }
 
         .final-footer-buttons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 13px 25px;
-            min-height: 48px;
-            border-radius: 7px;
-            font-size: 15px;
-            font-weight: 700;
+            width: 100%;
+            max-width: 320px;
         }
 
-        .footer-register-btn {
-            background: #ffffff;
-            color: #e66a0b;
+    }
+
+
+    @media (max-width: 380px) {
+
+        .header-logo {
+            height: 30px;
         }
 
-        .footer-call-btn {
-            background: #c95c0a;
-            color: #ffffff;
+        .nav-wrap {
+            padding: 7px 5px;
         }
 
-        .footer-call-btn i {
-            margin-right: 8px;
-        }
+    }
 
+</style>
+```
 
-        /* ==============================
-           ANIMATION
-        ============================== */
-
-        .fade-in {
-            animation: fadeUp 0.8s ease forwards;
-        }
-
-        @keyframes fadeUp {
-
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-        }
-
-
-        /* ==============================
-           TABLET
-        ============================== */
-
-        @media (max-width: 1000px) {
-
-            .nav-wrap {
-                min-height: 80px;
-                padding: 8px 20px;
-                gap: 15px;
-            }
-
-            .header-logo {
-                height: 48px;
-            }
-
-            .guest-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .attendee-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .speakers-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-        }
-
-
-        /* ==============================
-           MOBILE
-        ============================== */
-
-        @media (max-width: 768px) {
-
-            .nav-wrap {
-                min-height: 90px;
-                padding: 8px 12px;
-                gap: 8px;
-            }
-
-            .header-logo {
-                height: 40px;
-            }
-
-            .hero {
-                padding: 60px 0 65px;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-content .sub {
-                font-size: 1.15rem;
-            }
-
-            .hero-description {
-                font-size: 0.95rem;
-            }
-
-            .hero-details {
-                width: 100%;
-                text-align: left;
-            }
-
-            .hero-details p {
-                font-size: 0.9rem;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-            }
-
-            .hero-actions .btn {
-                width: 100%;
-                max-width: 350px;
-            }
-
-            .section {
-                padding: 55px 0;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .speakers-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .speaker-card {
-                min-height: 390px;
-            }
-
-            .attendee-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .guest-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .register-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .agenda-title {
-                font-size: 34px;
-            }
-
-            .agenda-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 14px;
-            }
-
-            .agenda-badge {
-                min-width: auto;
-            }
-
-            .unique-card {
-                align-items: flex-start;
-            }
-
-            .final-footer h2 {
-                font-size: 25px;
-            }
-
-        }
-
-
-        /* ==============================
-           SMALL MOBILE
-        ============================== */
-
-        @media (max-width: 600px) {
-
-            .site-header {
-                position: sticky;
-                top: 0;
-            }
-
-            .nav-wrap {
-                min-height: 110px;
-                padding: 10px 12px;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: auto auto;
-                gap: 8px 10px;
-            }
-
-            .header-logo-box.left {
-                grid-column: 1;
-                grid-row: 1;
-                justify-content: center;
-            }
-
-            .header-logo-box.center-left {
-                grid-column: 2;
-                grid-row: 1;
-                justify-content: center;
-            }
-
-            .header-logo-box.center-right {
-                grid-column: 1;
-                grid-row: 2;
-                justify-content: center;
-            }
-
-            .header-logo-box.right {
-                grid-column: 2;
-                grid-row: 2;
-                justify-content: center;
-            }
-
-            .header-logo {
-                height: 38px;
-            }
-
-        }
-
-
-        @media (max-width: 480px) {
-
-            .container {
-                padding: 0 16px;
-            }
-
-            .nav-wrap {
-                min-height: 100px;
-                padding: 8px 8px;
-                gap: 6px 8px;
-            }
-
-            .header-logo {
-                height: 34px;
-            }
-
-            .hero-content h1 {
-                font-size: 2.1rem;
-            }
-
-            .hero-details {
-                padding: 16px;
-            }
-
-            .hero-details p {
-                font-size: 0.82rem;
-            }
-
-            .btn {
-                padding: 11px 22px;
-            }
-
-            .guest-photo {
-                width: 160px;
-                height: 160px;
-            }
-
-            .speaker-photo {
-                width: 160px;
-                height: 160px;
-            }
-
-            .speaker-card h4 {
-                font-size: 20px;
-            }
-
-            .final-footer-buttons {
-                flex-direction: column;
-            }
-
-            .final-footer-buttons a {
-                width: 100%;
-                max-width: 320px;
-            }
-
-        }
-
-
-        @media (max-width: 380px) {
-
-            .header-logo {
-                height: 30px;
-            }
-
-            .nav-wrap {
-                padding: 7px 5px;
-            }
-
-        }
-
-    </style>
 </head>
-
 
 <body>
 
+```
+<!-- ==============================
+     HEADER - 4 LOGOS
+============================== -->
 
-    <!-- ==============================
-         HEADER - 4 LOGOS
-    ============================== -->
+<header class="site-header">
 
-    <header class="site-header">
+    <div class="nav-wrap">
 
-        <div class="nav-wrap">
+        <!-- 1. SHARDA UNIVERSITY -->
 
-            <!-- 1. SHARDA UNIVERSITY -->
+        <div class="header-logo-box left">
 
-            <div class="header-logo-box left">
+            <img
+                src="shardauniversity.jpg"
+                alt="Sharda University"
+                class="header-logo"
+            >
+
+        </div>
+
+
+        <!-- 2. HOSPITAL -->
+
+        <div class="header-logo-box center-left">
+
+            <img
+                src="hospital.jpg"
+                alt="Hospital"
+                class="header-logo"
+            >
+
+        </div>
+
+
+        <!-- 3. SHARDA -->
+
+        <div class="header-logo-box center-right">
+
+            <img
+                src="sharda.jpg"
+                alt="Sharda"
+                class="header-logo"
+            >
+
+        </div>
+
+
+        <!-- 4. IMUCON -->
+
+        <div class="header-logo-box right">
+
+            <a href="index.html">
 
                 <img
-                    src="shardauniversity.jpg"
-                    alt="Sharda University"
+                    src="imucon-logo.jpeg.jpeg"
+                    alt="IMUCON 2.0 Logo"
                     class="header-logo"
                 >
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- ==============================
+     HERO
+============================== -->
+
+<section class="hero" id="home">
+
+    <div class="container hero-grid">
+
+        <div class="hero-content fade-in">
+
+            <h1>
+                IMUCON <span>2.0</span>
+            </h1>
+
+            <p class="sub">
+                International Medicine Update Conference
+            </p>
+
+            <p class="hero-description">
+
+                Join us at Sharda Hospital &amp; SMS&amp;R for an enriching
+                four-day journey of medical advancements, innovation,
+                and meaningful professional connections.
+
+            </p>
+
+            <div class="hero-details">
+
+                <p>
+                    <i class="fas fa-calendar-alt"></i>
+                    15th – 18th December 2026
+                </p>
+
+                <p>
+                    <i class="fas fa-clock"></i>
+                    9:00 AM – 4:00 PM
+                </p>
+
+                <p>
+                    <i class="fas fa-map-pin"></i>
+                    College Council Room, 5th Floor, SMS&amp;R &amp;
+                    Sharda Hospital, Greater Noida
+                </p>
 
             </div>
 
 
-            <!-- 2. HOSPITAL -->
+            <div class="hero-actions">
 
-            <div class="header-logo-box center-left">
+                <a href="registration.html" class="btn">
+                    Register Now
+                </a>
 
-                <img
-                    src="hospital.jpg"
-                    alt="Hospital"
-                    class="header-logo"
-                >
+                <a href="tel:9811044966" class="btn btn-outline">
+                    <i class="fas fa-phone"></i>
+                    Contact Helpdesk: 9811044966
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     WHY THIS CONFERENCE
+============================== -->
+
+<section class="section" id="about">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+            Why This <span class="highlight">Conference?</span>
+        </h2>
+
+        <p class="section-sub text-center mx-auto">
+
+            IMUCON 2.0 brings together clinicians, academicians,
+            researchers, and students to discuss advancements,
+            practical challenges, and emerging developments in medicine.
+
+        </p>
+
+
+        <div class="card-grid">
+
+
+            <!-- BOX 1 -->
+
+            <div class="card fade-in">
+
+                <div class="icon">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+
+                <p class="why-card-text">
+                    Topics in regular medical practice that often remain underexplored.
+                </p>
 
             </div>
 
 
-            <!-- 3. SHARDA -->
+            <!-- BOX 2 -->
 
-            <div class="header-logo-box center-right">
+            <div class="card fade-in">
 
-                <img
-                    src="sharda.jpg"
-                    alt="Sharda"
-                    class="header-logo"
-                >
+                <div class="icon">
+                    <i class="fas fa-microscope"></i>
+                </div>
+
+                <p class="why-card-text">
+                    Latest updates for clinicians on new medical advancements.
+                </p>
 
             </div>
 
 
-            <!-- 4. IMUCON -->
+            <!-- BOX 3 -->
 
-            <div class="header-logo-box right">
+            <div class="card fade-in">
 
-                <a href="index.html">
+                <div class="icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+
+                <p class="why-card-text">
+                    Professional development and networking opportunities.
+                </p>
+
+            </div>
+
+
+            <!-- BOX 4 -->
+
+            <div class="card fade-in">
+
+                <div class="icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+
+                <p class="why-card-text">
+                    Exposure to evolving medical technology and pharma innovations.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     WHAT MAKES IMUCON UNIQUE
+============================== -->
+
+<section class="section section-alt">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+
+            What Makes IMUCON
+            <span class="highlight">2.0</span>
+            Unique?
+
+        </h2>
+
+
+        <ul class="unique-list">
+
+            <li class="unique-card">
+
+                <i class="fas fa-check-circle"></i>
+
+                Hosted by a premier teaching &amp; super-speciality
+                hospital and medical college.
+
+            </li>
+
+
+            <li class="unique-card">
+
+                <i class="fas fa-check-circle"></i>
+
+                Diverse faculty of national and international experts.
+
+            </li>
+
+
+            <li class="unique-card">
+
+                <i class="fas fa-check-circle"></i>
+
+                Practical insights into untouched yet essential
+                clinical topics.
+
+            </li>
+
+
+            <li class="unique-card">
+
+                <i class="fas fa-check-circle"></i>
+
+                Networking opportunities with healthcare leaders
+                and academicians.
+
+            </li>
+
+
+            <li class="unique-card">
+
+                <i class="fas fa-check-circle"></i>
+
+                CME accreditation with certificate of participation.
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     WHO SHOULD ATTEND
+============================== -->
+
+<section class="section">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+
+            Who Should <span class="highlight">Attend?</span>
+
+        </h2>
+
+        <p class="section-sub text-center mx-auto">
+
+            IMUCON 2.0 is designed for medical professionals
+            across all career stages.
+
+        </p>
+
+
+        <div class="attendee-grid">
+
+            <div class="attendee-item">
+
+                <i class="fas fa-user-tie"></i>
+
+                Hospital Administrators
+
+            </div>
+
+
+            <div class="attendee-item">
+
+                <i class="fas fa-user-md"></i>
+
+                Medical Practitioners
+
+            </div>
+
+
+            <div class="attendee-item">
+
+                <i class="fas fa-heartbeat"></i>
+
+                Doctors
+
+            </div>
+
+
+            <div class="attendee-item">
+
+                <i class="fas fa-hospital-user"></i>
+
+                Healthcare Professionals
+
+            </div>
+
+
+            <div class="attendee-item">
+
+                <i class="fas fa-users"></i>
+
+                Healthcare Providers
+
+            </div>
+
+
+            <div class="attendee-item">
+
+                <i class="fas fa-graduation-cap"></i>
+
+                PG &amp; UG Medical Students
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     CONFERENCE LEADERSHIP
+============================== -->
+
+<section class="section">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+
+            Conference <span class="highlight">Leadership</span>
+
+        </h2>
+
+
+        <div class="guest-grid">
+
+
+            <!-- Advisor 1 -->
+
+            <div class="guest-card">
+
+                <div class="category-badge">
+                    ADVISOR
+                </div>
+
+                <div class="guest-photo">
 
                     <img
-                        src="imucon-logo.jpeg.jpeg"
-                        alt="IMUCON 2.0 Logo"
-                        class="header-logo"
+                        src="advisor1.jpg"
+                        alt="Dr. Nirupma Gupta"
                     >
 
-                </a>
+                </div>
 
-            </div>
+                <h3>
+                    Dr. Nirupma Gupta
+                </h3>
 
-        </div>
-
-    </header>
-
-
-
-    <!-- ==============================
-         HERO
-    ============================== -->
-
-    <section class="hero" id="home">
-
-        <div class="container hero-grid">
-
-            <div class="hero-content fade-in">
-
-                <h1>
-                    IMUCON <span>2.0</span>
-                </h1>
-
-                <p class="sub">
-                    International Medicine Update Conference
+                <p>
+                    Dean, SMS&amp;R<br>
+                    Sharda University
                 </p>
 
-                <p class="hero-description">
+            </div>
 
-                    Join us at Sharda Hospital &amp; SMS&amp;R for an enriching
-                    four-day journey of medical advancements, innovation,
-                    and meaningful professional connections.
+
+
+            <!-- Advisor 2 -->
+
+            <div class="guest-card">
+
+                <div class="category-badge">
+                    ADVISOR
+                </div>
+
+                <div class="guest-photo">
+
+                    <img
+                        src="advisor2.jpg"
+                        alt="Dr. Ram Murti Sharma"
+                    >
+
+                </div>
+
+                <h3>
+                    Dr. Ram Murti Sharma
+                </h3>
+
+                <p>
+                    Medical Superintendent<br>
+                    Sharda Hospital
+                </p>
+
+            </div>
+
+
+
+            <!-- Convener -->
+
+            <div class="guest-card">
+
+                <div class="category-badge">
+                    CONVENER
+                </div>
+
+                <div class="guest-photo">
+
+                    <img
+                        src="convener.jpg"
+                        alt="Dr. Deepak Sharma"
+                    >
+
+                </div>
+
+                <h3>
+                    Dr. Deepak Sharma
+                </h3>
+
+                <p>
+                    Professor &amp; Head, General Medicine<br>
+                    SMS&amp;R, Sharda University
+                </p>
+
+            </div>
+
+
+
+            <!-- Chief Guest -->
+
+            <div class="guest-card">
+
+                <div class="category-badge">
+                    CHIEF GUEST
+                </div>
+
+                <div class="guest-photo coming-soon-photo">
+
+                    <span>
+                        COMING SOON
+                    </span>
+
+                </div>
+
+                <h3>
+                    COMING SOON
+                </h3>
+
+                <p>
+                    Distinguished Guest
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     SPEAKERS
+============================== -->
+
+<section class="section" id="speakers">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+            Speakers
+        </h2>
+
+        <p class="section-sub text-center mx-auto">
+
+            Renowned national and international speakers
+            will be part of IMUCON 2.0.
+
+        </p>
+
+
+        <div class="speakers-grid">
+
+
+            <!-- SPEAKER 1 - DR. PRAMOD GURU -->
+
+            <div class="card speaker-card">
+
+                <div class="speaker-photo">
+
+                    <img
+                        src="pramod.jpg"
+                        alt="Dr. Pramod Guru"
+                    >
+
+                </div>
+
+                <h4>
+                    Dr. Pramod Guru
+                </h4>
+
+                <p class="speaker-details">
+                    International Speaker
+                </p>
+
+            </div>
+
+
+
+            <!-- SPEAKER 2 - DR. GURPREET SINGH WANDER -->
+
+            <div class="card speaker-card">
+
+                <div class="speaker-photo">
+
+                    <img
+                        src="gurpreet-singh-wander.jpg"
+                        alt="Dr. Gurpreet Singh Wander"
+                    >
+
+                </div>
+
+                <h4>
+                    Dr. Gurpreet Singh Wander
+                </h4>
+
+                <p class="speaker-details">
+
+                    MD, DM (Cardiology)<br>
+                    Chief Cardiologist<br>
+                    Principal, DMCH Ludhiana
 
                 </p>
 
-                <div class="hero-details">
+            </div>
 
-                    <p>
-                        <i class="fas fa-calendar-alt"></i>
-                        15th – 18th December 2026
-                    </p>
 
-                    <p>
-                        <i class="fas fa-clock"></i>
-                        9:00 AM – 4:00 PM
-                    </p>
 
-                    <p>
-                        <i class="fas fa-map-pin"></i>
-                        College Council Room, 5th Floor, SMS&amp;R &amp;
-                        Sharda Hospital, Greater Noida
-                    </p>
+            <!-- SPEAKER 3 - DR. VARUN MEHTA -->
+
+            <div class="card speaker-card">
+
+                <div class="speaker-photo">
+
+                    <img
+                        src="varun-mehta.jpg"
+                        alt="Dr. Varun Mehta"
+                    >
 
                 </div>
 
+                <h4>
+                    Dr. Varun Mehta
+                </h4>
 
-                <div class="hero-actions">
+                <p class="speaker-details">
 
-                    <a href="registration.html" class="btn">
-                        Register Now
-                    </a>
+                    Professor &amp; Unit Head<br>
+                    Department of Gastroenterology<br>
+                    DMCH Ludhiana
 
-                    <a href="tel:9811044966" class="btn btn-outline">
-                        <i class="fas fa-phone"></i>
-                        Contact Helpdesk: 9811044966
-                    </a>
-
-                </div>
+                </p>
 
             </div>
 
-        </div>
 
-    </section>
 
+            <!-- SPEAKER 4 -->
 
+            <div class="card speaker-card">
 
-    <!-- ==============================
-         WHY THIS CONFERENCE
-    ============================== -->
+                <div class="speaker-photo coming-soon-photo">
 
-    <section class="section" id="about">
-
-        <div class="container">
-
-            <h2 class="section-title text-center">
-                Why This <span class="highlight">Conference?</span>
-            </h2>
-
-            <p class="section-sub text-center mx-auto">
-
-                IMUCON 2.0 brings together clinicians, academicians,
-                researchers, and students to discuss advancements,
-                practical challenges, and emerging developments in medicine.
-
-            </p>
-
-
-            <div class="card-grid">
-
-
-                <!-- BOX 1 -->
-
-                <div class="card fade-in">
-
-                    <div class="icon">
-                        <i class="fas fa-stethoscope"></i>
-                    </div>
-
-                    <p class="why-card-text">
-                        Topics in regular medical practice that often remain underexplored.
-                    </p>
-
-                </div>
-
-
-                <!-- BOX 2 -->
-
-                <div class="card fade-in">
-
-                    <div class="icon">
-                        <i class="fas fa-microscope"></i>
-                    </div>
-
-                    <p class="why-card-text">
-                        Latest updates for clinicians on new medical advancements.
-                    </p>
-
-                </div>
-
-
-                <!-- BOX 3 -->
-
-                <div class="card fade-in">
-
-                    <div class="icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-
-                    <p class="why-card-text">
-                        Professional development and networking opportunities.
-                    </p>
-
-                </div>
-
-
-                <!-- BOX 4 -->
-
-                <div class="card fade-in">
-
-                    <div class="icon">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-
-                    <p class="why-card-text">
-                        Exposure to evolving medical technology and pharma innovations.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ==============================
-         WHAT MAKES IMUCON UNIQUE
-    ============================== -->
-
-    <section class="section section-alt">
-
-        <div class="container">
-
-            <h2 class="section-title text-center">
-
-                What Makes IMUCON
-                <span class="highlight">2.0</span>
-                Unique?
-
-            </h2>
-
-
-            <ul class="unique-list">
-
-                <li class="unique-card">
-
-                    <i class="fas fa-check-circle"></i>
-
-                    Hosted by a premier teaching &amp; super-speciality
-                    hospital and medical college.
-
-                </li>
-
-
-                <li class="unique-card">
-
-                    <i class="fas fa-check-circle"></i>
-
-                    Diverse faculty of national and international experts.
-
-                </li>
-
-
-                <li class="unique-card">
-
-                    <i class="fas fa-check-circle"></i>
-
-                    Practical insights into untouched yet essential
-                    clinical topics.
-
-                </li>
-
-
-                <li class="unique-card">
-
-                    <i class="fas fa-check-circle"></i>
-
-                    Networking opportunities with healthcare leaders
-                    and academicians.
-
-                </li>
-
-
-                <li class="unique-card">
-
-                    <i class="fas fa-check-circle"></i>
-
-                    CME accreditation with certificate of participation.
-
-                </li>
-
-            </ul>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ==============================
-         WHO SHOULD ATTEND
-    ============================== -->
-
-    <section class="section">
-
-        <div class="container">
-
-            <h2 class="section-title text-center">
-
-                Who Should <span class="highlight">Attend?</span>
-
-            </h2>
-
-            <p class="section-sub text-center mx-auto">
-
-                IMUCON 2.0 is designed for medical professionals
-                across all career stages.
-
-            </p>
-
-
-            <div class="attendee-grid">
-
-                <div class="attendee-item">
-
-                    <i class="fas fa-user-tie"></i>
-
-                    Hospital Administrators
-
-                </div>
-
-
-                <div class="attendee-item">
-
-                    <i class="fas fa-user-md"></i>
-
-                    Medical Practitioners
-
-                </div>
-
-
-                <div class="attendee-item">
-
-                    <i class="fas fa-heartbeat"></i>
-
-                    Doctors
-
-                </div>
-
-
-                <div class="attendee-item">
-
-                    <i class="fas fa-hospital-user"></i>
-
-                    Healthcare Professionals
-
-                </div>
-
-
-                <div class="attendee-item">
-
-                    <i class="fas fa-users"></i>
-
-                    Healthcare Providers
-
-                </div>
-
-
-                <div class="attendee-item">
-
-                    <i class="fas fa-graduation-cap"></i>
-
-                    PG &amp; UG Medical Students
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ==============================
-         CONFERENCE LEADERSHIP
-    ============================== -->
-
-    <section class="section">
-
-        <div class="container">
-
-            <h2 class="section-title text-center">
-
-                Conference <span class="highlight">Leadership</span>
-
-            </h2>
-
-
-            <div class="guest-grid">
-
-
-                <!-- Advisor 1 -->
-
-                <div class="guest-card">
-
-                    <div class="category-badge">
-                        ADVISOR
-                    </div>
-
-                    <div class="guest-photo">
-
-                        <img
-                            src="advisor1.jpg"
-                            alt="Dr. Nirupma Gupta"
-                        >
-
-                    </div>
-
-                    <h3>
-                        Dr. Nirupma Gupta
-                    </h3>
-
-                    <p>
-                        Dean, SMS&amp;R<br>
-                        Sharda University
-                    </p>
-
-                </div>
-
-
-
-                <!-- Advisor 2 -->
-
-                <div class="guest-card">
-
-                    <div class="category-badge">
-                        ADVISOR
-                    </div>
-
-                    <div class="guest-photo">
-
-                        <img
-                            src="advisor2.jpg"
-                            alt="Dr. Ram Murti Sharma"
-                        >
-
-                    </div>
-
-                    <h3>
-                        Dr. Ram Murti Sharma
-                    </h3>
-
-                    <p>
-                        Medical Superintendent<br>
-                        Sharda Hospital
-                    </p>
-
-                </div>
-
-
-
-                <!-- Convener -->
-
-                <div class="guest-card">
-
-                    <div class="category-badge">
-                        CONVENER
-                    </div>
-
-                    <div class="guest-photo">
-
-                        <img
-                            src="convener.jpg"
-                            alt="Dr. Deepak Sharma"
-                        >
-
-                    </div>
-
-                    <h3>
-                        Dr. Deepak Sharma
-                    </h3>
-
-                    <p>
-                        Professor &amp; Head, General Medicine<br>
-                        SMS&amp;R, Sharda University
-                    </p>
-
-                </div>
-
-
-
-                <!-- Chief Guest -->
-
-                <div class="guest-card">
-
-                    <div class="category-badge">
-                        CHIEF GUEST
-                    </div>
-
-                    <div class="guest-photo coming-soon-photo">
-
-                        <span>
-                            COMING SOON
-                        </span>
-
-                    </div>
-
-                    <h3>
+                    <span>
                         COMING SOON
-                    </h3>
-
-                    <p>
-                        Distinguished Guest
-                    </p>
+                    </span>
 
                 </div>
+
+                <h4>
+                    COMING SOON
+                </h4>
+
+                <p class="speaker-details">
+                    International Speaker
+                </p>
 
             </div>
 
+
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
 
-    <!-- ==============================
-         SPEAKERS
-    ============================== -->
+<!-- ==============================
+     ORGANIZING COMMITTEE
+============================== -->
 
-    <section class="section" id="speakers">
+<section class="section section-alt">
 
-        <div class="container">
+    <div class="container">
 
-            <h2 class="section-title text-center">
-                Speakers
-            </h2>
+        <h2 class="section-title text-center">
 
-            <p class="section-sub text-center mx-auto">
+            Organizing <span class="highlight">Committee</span>
 
-                Renowned national and international speakers
-                will be part of IMUCON 2.0.
-
-            </p>
+        </h2>
 
 
-            <div class="speakers-grid">
+        <div class="guest-grid">
 
 
-                <!-- SPEAKER 1 - DR. PRAMOD GURU -->
+            <!-- ORGANIZING CHAIRMAN -->
 
-                <div class="card speaker-card">
+            <div class="guest-card">
 
-                    <div class="speaker-photo">
+                <div class="category-badge">
+                    ORGANIZING CHAIRMAN
+                </div>
 
-                        <img
-                            src="pramod.jpg"
-                            alt="Dr. Pramod Guru"
-                        >
+                <div class="guest-photo">
 
-                    </div>
-
-                    <h4>
-                        Dr. Pramod Guru
-                    </h4>
-
-                    <p class="speaker-details">
-                        International Speaker
-                    </p>
+                    <img
+                        src="shaily.jpg"
+                        alt="Dr. Shaily Singhania"
+                    >
 
                 </div>
 
+                <h3>
+                    Dr. Shaily Singhania
+                </h3>
+
+                <p>
+                    Senior Resident, General Medicine<br>
+                    SMS&amp;R, Sharda University
+                </p>
+
+            </div>
 
 
-                <!-- SPEAKER 2 - DR. GURPREET SINGH WANDER -->
 
-                <div class="card speaker-card">
+            <!-- ORGANIZING SECRETARY -->
 
-                    <div class="speaker-photo">
+            <div class="guest-card">
 
-                        <img
-                            src="gurpreet-singh-wander.jpg"
-                            alt="Dr. Gurpreet Singh Wander"
-                        >
-
-                    </div>
-
-                    <h4>
-                        Dr. Gurpreet Singh Wander
-                    </h4>
-
-                    <p class="speaker-details">
-
-                        MD, DM (Cardiology)<br>
-                        Chief Cardiologist<br>
-                        Principal, DMCH Ludhiana
-
-                    </p>
-
+                <div class="category-badge">
+                    ORGANIZING SECRETARY
                 </div>
 
+                <div class="guest-photo coming-soon-photo">
 
-
-                <!-- SPEAKER 3 - DR. VARUN MEHTA -->
-
-                <div class="card speaker-card">
-
-                    <div class="speaker-photo">
-
-                        <img
-                            src="varun-mehta.jpg"
-                            alt="Dr. Varun Mehta"
-                        >
-
-                    </div>
-
-                    <h4>
-                        Dr. Varun Mehta
-                    </h4>
-
-                    <p class="speaker-details">
-
-                        Professor &amp; Unit Head<br>
-                        Department of Gastroenterology<br>
-                        DMCH Ludhiana
-
-                    </p>
-
-                </div>
-
-
-
-                <!-- SPEAKER 4 -->
-
-                <div class="card speaker-card">
-
-                    <div class="speaker-photo coming-soon-photo">
-
-                        <span>
-                            COMING SOON
-                        </span>
-
-                    </div>
-
-                    <h4>
+                    <span>
                         COMING SOON
-                    </h4>
-
-                    <p class="speaker-details">
-                        International Speaker
-                    </p>
+                    </span>
 
                 </div>
 
+                <h3>
+                    COMING SOON
+                </h3>
+
+                <p>
+                    To be announced
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     CONFERENCE AGENDA
+     PANEL DISCUSSION REMOVED
+============================== -->
+
+<section class="agenda-section" id="agenda">
+
+    <div class="agenda-container">
+
+        <h2 class="agenda-title">
+            Conference Agenda
+        </h2>
+
+        <p class="agenda-subtext">
+
+            Note: Agenda topics are under finalization
+            and will be updated soon. Below are some
+            of the confirmed sessions.
+
+        </p>
+
+
+        <div class="agenda-list">
+
+
+            <!-- KEYNOTE -->
+
+            <div class="agenda-row">
+
+                <div class="agenda-badge">
+                    Keynote
+                </div>
+
+                <div class="agenda-text">
+
+                    The Future of Internal Medicine
+                    in Global Healthcare
+
+                </div>
+
+            </div>
+
+
+            <!-- WORKSHOPS -->
+
+            <div class="agenda-row">
+
+                <div class="agenda-badge">
+                    Workshops
+                </div>
+
+                <div class="agenda-text">
+
+                    <strong>
+                        1. BLS - ACLS Workshop
+                    </strong>
+
+                    — AHA Accredited
+
+                    <br>
+
+                    <strong>
+                        2. POCUS Training
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     HOW TO REGISTER
+============================== -->
+
+<section class="section section-alt" id="register">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+
+            How to <span class="highlight">Register?</span>
+
+        </h2>
+
+
+        <div class="register-grid">
+
+
+            <div class="register-card">
+
+                <div class="register-number">
+                    1
+                </div>
+
+                <h4>
+                    Fill the Form
+                </h4>
+
+                <p>
+                    Click on 'Register Now' and fill
+                    in the detailed form.
+                </p>
+
+            </div>
+
+
+            <div class="register-card">
+
+                <div class="register-number">
+                    2
+                </div>
+
+                <h4>
+                    Complete Payment
+                </h4>
+
+                <p>
+                    Complete the secure online
+                    payment process.
+                </p>
+
+            </div>
+
+
+            <div class="register-card">
+
+                <div class="register-number">
+                    3
+                </div>
+
+                <h4>
+                    Get Confirmation
+                </h4>
+
+                <p>
+                    Receive confirmation mail
+                    &amp; entry pass.
+                </p>
 
             </div>
 
         </div>
 
-    </section>
 
+        <div style="text-align:center;">
 
-
-    <!-- ==============================
-         ORGANIZING COMMITTEE
-    ============================== -->
-
-    <section class="section section-alt">
-
-        <div class="container">
-
-            <h2 class="section-title text-center">
-
-                Organizing <span class="highlight">Committee</span>
-
-            </h2>
-
-
-            <div class="guest-grid">
-
-
-                <!-- Chairman -->
-
-                <div class="guest-card">
-
-                    <div class="category-badge">
-                        ORGANIZING CHAIRMAN
-                    </div>
-
-                    <div class="guest-photo">
-
-                        <img
-                            src="chairman.jpg"
-                            alt="Dr. Bhumesh Tyagi"
-                        >
-
-                    </div>
-
-                    <h3>
-                        Dr. Bhumesh Tyagi
-                    </h3>
-
-                    <p>
-                        Professor, General Medicine<br>
-                        SMS&amp;R, Sharda University
-                    </p>
-
-                </div>
-
-
-
-                <!-- ORGANIZING SECRETARY -->
-
-                <div class="guest-card">
-
-                    <div class="category-badge">
-                        ORGANIZING SECRETARY
-                    </div>
-
-                    <div class="guest-photo">
-
-                        <img
-                            src="shaily.jpg"
-                            alt="Dr. Shaily Singhania"
-                        >
-
-                    </div>
-
-                    <h3>
-                        Dr. Shaily Singhania
-                    </h3>
-
-                    <p>
-                        Senior Resident, General Medicine<br>
-                        SMS&amp;R, Sharda University
-                    </p>
-
-                </div>
-
-
-
-                <!-- Joint Secretary -->
-
-                <div class="guest-card">
-
-                    <div class="category-badge">
-                        JOINT ORGANIZING SECRETARY
-                    </div>
-
-                    <div class="guest-photo">
-
-                        <img
-                            src="joint-secretary.jpg"
-                            alt="Dr. Chandrashekhar Tiwari"
-                        >
-
-                    </div>
-
-                    <h3>
-                        Dr. Chandrashekhar Tiwari
-                    </h3>
-
-                    <p>
-                        Senior Resident, General Medicine<br>
-                        SMS&amp;R, Sharda University
-                    </p>
-
-                </div>
-
-            </div>
+            <a
+                href="registration.html"
+                class="btn"
+            >
+                Register Now
+            </a>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
 
-    <!-- ==============================
-         CONFERENCE AGENDA
-         PANEL DISCUSSION REMOVED
-    ============================== -->
+<!-- ==============================
+     FOOTER
+============================== -->
 
-    <section class="agenda-section" id="agenda">
+<footer>
 
-        <div class="agenda-container">
+    <div class="final-footer">
 
-            <h2 class="agenda-title">
-                Conference Agenda
-            </h2>
+        <h2>
+            Secure Your Spot at IMUCON 2.0
+        </h2>
 
-            <p class="agenda-subtext">
-
-                Note: Agenda topics are under finalization
-                and will be updated soon. Below are some
-                of the confirmed sessions.
-
-            </p>
+        <p>
+            Be part of an international conference
+            shaping the future of internal medicine.
+        </p>
 
 
-            <div class="agenda-list">
+        <div class="final-footer-buttons">
+
+            <a
+                href="registration.html"
+                class="footer-register-btn"
+            >
+                Register Now
+            </a>
 
 
-                <!-- KEYNOTE -->
+            <a
+                href="tel:9811044966"
+                class="footer-call-btn"
+            >
 
-                <div class="agenda-row">
+                <i class="fas fa-phone"></i>
 
-                    <div class="agenda-badge">
-                        Keynote
-                    </div>
+                Call 9811044966 for Assistance
 
-                    <div class="agenda-text">
-
-                        The Future of Internal Medicine
-                        in Global Healthcare
-
-                    </div>
-
-                </div>
-
-
-                <!-- WORKSHOPS -->
-
-                <div class="agenda-row">
-
-                    <div class="agenda-badge">
-                        Workshops
-                    </div>
-
-                    <div class="agenda-text">
-
-                        <strong>
-                            1. BLS - ACLS Workshop
-                        </strong>
-
-                        — AHA Accredited
-
-                        <br>
-
-                        <strong>
-                            2. POCUS Training
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-            </div>
+            </a>
 
         </div>
 
-    </section>
+    </div>
 
-
-
-    <!-- ==============================
-         HOW TO REGISTER
-    ============================== -->
-
-    <section class="section section-alt" id="register">
-
-        <div class="container">
-
-            <h2 class="section-title text-center">
-
-                How to <span class="highlight">Register?</span>
-
-            </h2>
-
-
-            <div class="register-grid">
-
-
-                <div class="register-card">
-
-                    <div class="register-number">
-                        1
-                    </div>
-
-                    <h4>
-                        Fill the Form
-                    </h4>
-
-                    <p>
-                        Click on 'Register Now' and fill
-                        in the detailed form.
-                    </p>
-
-                </div>
-
-
-                <div class="register-card">
-
-                    <div class="register-number">
-                        2
-                    </div>
-
-                    <h4>
-                        Complete Payment
-                    </h4>
-
-                    <p>
-                        Complete the secure online
-                        payment process.
-                    </p>
-
-                </div>
-
-
-                <div class="register-card">
-
-                    <div class="register-number">
-                        3
-                    </div>
-
-                    <h4>
-                        Get Confirmation
-                    </h4>
-
-                    <p>
-                        Receive confirmation mail
-                        &amp; entry pass.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div style="text-align:center;">
-
-                <a
-                    href="registration.html"
-                    class="btn"
-                >
-                    Register Now
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ==============================
-         FOOTER
-    ============================== -->
-
-    <footer>
-
-        <div class="final-footer">
-
-            <h2>
-                Secure Your Spot at IMUCON 2.0
-            </h2>
-
-            <p>
-                Be part of an international conference
-                shaping the future of internal medicine.
-            </p>
-
-
-            <div class="final-footer-buttons">
-
-                <a
-                    href="registration.html"
-                    class="footer-register-btn"
-                >
-                    Register Now
-                </a>
-
-
-                <a
-                    href="tel:9811044966"
-                    class="footer-call-btn"
-                >
-
-                    <i class="fas fa-phone"></i>
-
-                    Call 9811044966 for Assistance
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </footer>
-
+</footer>
+```
 
 </body>
 
