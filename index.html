@@ -498,7 +498,7 @@
     /* ONLY FOR ORGANIZING COMMITTEE */
 
     .organizing-grid {
-        grid-template-columns: repeat(2, 300px);
+        grid-template-columns: 300px;
         justify-content: center;
     }
 
@@ -535,10 +535,12 @@
         height: 100%;
         object-fit: cover;
     }
+
     /* ONLY FOR CONVENER PHOTO */
-.convener-photo {
-    object-fit: contain !important;
-}
+
+    .convener-photo {
+        object-fit: contain !important;
+    }
 
     .guest-card h3 {
         margin: 5px 0 6px;
@@ -762,6 +764,12 @@
             grid-template-columns: repeat(2, 1fr);
         }
 
+        /* Keep organizing committee centered with one card */
+        .organizing-grid {
+            grid-template-columns: 300px;
+            justify-content: center;
+        }
+
         .attendee-grid {
             grid-template-columns: repeat(2, 1fr);
         }
@@ -849,6 +857,12 @@
 
         .guest-grid {
             grid-template-columns: 1fr;
+        }
+
+        /* Keep organizing committee centered with one card */
+        .organizing-grid {
+            grid-template-columns: 300px;
+            justify-content: center;
         }
 
         .register-grid {
@@ -985,6 +999,12 @@
             max-width: 320px;
         }
 
+        /* Keep organizing committee centered */
+        .organizing-grid {
+            grid-template-columns: 300px;
+            justify-content: center;
+        }
+
     }
 
 
@@ -996,6 +1016,11 @@
 
         .nav-wrap {
             padding: 7px 5px;
+        }
+
+        .organizing-grid {
+            grid-template-columns: minmax(0, 300px);
+            justify-content: center;
         }
 
     }
@@ -1485,7 +1510,7 @@
                     <img
                         src="convener.jpg"
                         alt="Dr. Deepak Sharma"
-                         class="convener-photo"
+                        class="convener-photo"
                     >
 
                 </div>
@@ -1689,17 +1714,17 @@
         </h2>
 
 
-        <!-- organizing-grid added here ONLY for this section -->
+        <!-- ONLY ONE ORGANIZING SECRETARY -->
 
         <div class="guest-grid organizing-grid">
 
 
-            <!-- ORGANIZING CHAIRMAN -->
+            <!-- ORGANIZING SECRETARY -->
 
             <div class="guest-card">
 
                 <div class="category-badge">
-                    ORGANIZING CHAIRMAN
+                    ORGANIZING SECRETARY
                 </div>
 
                 <div class="guest-photo">
@@ -1718,34 +1743,6 @@
                 <p>
                     Senior Resident, General Medicine<br>
                     SMS&amp;R, Sharda University
-                </p>
-
-            </div>
-
-
-
-            <!-- ORGANIZING SECRETARY -->
-
-            <div class="guest-card">
-
-                <div class="category-badge">
-                    ORGANIZING SECRETARY
-                </div>
-
-                <div class="guest-photo coming-soon-photo">
-
-                    <span>
-                        COMING SOON
-                    </span>
-
-                </div>
-
-                <h3>
-                    COMING SOON
-                </h3>
-
-                <p>
-                    To be announced
                 </p>
 
             </div>
