@@ -533,8 +533,7 @@
             <div class="payment-box">
 
                 <p>
-                    Please select your pass category and scan the QR code
-                    below to complete the payment.
+                    Please scan the QR code below to complete the payment.
                 </p>
 
                 <div id="paymentMessage">
@@ -952,104 +951,33 @@
             const category =
                 this.value;
 
-
             if (
-                category ===
-                "BLS - ACLS Course Only (1 Nov)"
+                category === "BLS - ACLS Course Only (1 Nov)" ||
+                category === "BLS - ACLS Course Only (After 1 Nov)" ||
+                category === "BLS-ACLS Course with Conference Registration (1 Nov)" ||
+                category === "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)" ||
+                category === "Early Bird IMUCON Registration (1 Nov)" ||
+                category === "IMUCON Registration (After 1 Nov)" ||
+                category === "Virtual Conference Registration (12 CME Hrs)"
             ) {
 
+                let totalAmount = "";
+
+                if (category === "BLS - ACLS Course Only (1 Nov)") totalAmount = "₹11,500";
+                else if (category === "BLS - ACLS Course Only (After 1 Nov)") totalAmount = "₹12,000";
+                else if (category === "BLS-ACLS Course with Conference Registration (1 Nov)") totalAmount = "₹13,000";
+                else if (category === "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)") totalAmount = "₹13,500";
+                else if (category === "Early Bird IMUCON Registration (1 Nov)") totalAmount = "₹2,000";
+                else if (category === "IMUCON Registration (After 1 Nov)") totalAmount = "₹2,500";
+                else if (category === "Virtual Conference Registration (12 CME Hrs)") totalAmount = "₹12,000";
+
                 paymentMessage.textContent =
-                    "BLS - ACLS Course Only (1 Nov) - ₹11,500. Please proceed with the payment using the QR code below.";
+                    "Total Amount: " + totalAmount;
 
                 qrBox.style.display =
                     "block";
 
             }
-
-
-            else if (
-                category ===
-                "BLS - ACLS Course Only (After 1 Nov)"
-            ) {
-
-                paymentMessage.textContent =
-                    "BLS - ACLS Course Only (After 1 Nov) - ₹12,000. Please proceed with the payment using the QR code below.";
-
-                qrBox.style.display =
-                    "block";
-
-            }
-
-
-            else if (
-                category ===
-                "BLS-ACLS Course with Conference Registration (1 Nov)"
-            ) {
-
-                paymentMessage.textContent =
-                    "BLS-ACLS Course with Conference Registration (1 Nov) - ₹13,000. Please proceed with the payment using the QR code below.";
-
-                qrBox.style.display =
-                    "block";
-
-            }
-
-
-            else if (
-                category ===
-                "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)"
-            ) {
-
-                paymentMessage.textContent =
-                    "BLS-ACLS Course with Conference Registration (After 1 Nov 2026) - ₹13,500. Please proceed with the payment using the QR code below.";
-
-                qrBox.style.display =
-                    "block";
-
-            }
-
-
-            else if (
-                category ===
-                "Early Bird IMUCON Registration (1 Nov)"
-            ) {
-
-                paymentMessage.textContent =
-                    "Early Bird IMUCON Registration (1 Nov) - ₹2,000. Please proceed with the payment using the QR code below.";
-
-                qrBox.style.display =
-                    "block";
-
-            }
-
-
-            else if (
-                category ===
-                "IMUCON Registration (After 1 Nov)"
-            ) {
-
-                paymentMessage.textContent =
-                    "IMUCON Registration (After 1 Nov) - ₹2,500. Please proceed with the payment using the QR code below.";
-
-                qrBox.style.display =
-                    "block";
-
-            }
-
-
-            else if (
-                category ===
-                "Virtual Conference Registration (12 CME Hrs)"
-            ) {
-
-                paymentMessage.textContent =
-                    "Virtual Conference Registration (12 CME Hrs) - ₹12,000. Please proceed with the payment using the QR code below.";
-
-                qrBox.style.display =
-                    "block";
-
-            }
-
 
             else {
 
