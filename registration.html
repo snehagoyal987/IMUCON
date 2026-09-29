@@ -124,6 +124,7 @@
             margin-top: 10px;
             color: #666;
             font-size: 13px;
+            line-height: 1.6;
         }
 
         .pass-category-select {
@@ -381,30 +382,65 @@
                         Pass Category *
                     </label>
 
-                    <select
-                        id="passCategory"
-                        class="pass-category-select"
-                        required
-                    >
+                    <select id="passCategory" name="passCategory" required>
 
-                        <option value="">
+                        <option value="" selected disabled>
                             Select Pass Category
                         </option>
 
-                        <option value="student_early_bird">
-
-                            Student Pass (Early Bird: 20 Sept - 15 Oct 2026) - ₹1,000
-
+                        <option
+                            value="BLS - ACLS Course Only (1 Nov)"
+                            data-amount="11500"
+                        >
+                            BLS - ACLS Course Only (1 Nov) - ₹11,500
                         </option>
 
                         <option
-                            value="student_after_october"
-                            id="afterOctoberOption"
+                            value="BLS - ACLS Course Only (After 1 Nov)"
+                            data-amount="12000"
+                            id="afterNovemberBlsOnlyOption"
                             disabled
                         >
+                            BLS - ACLS Course Only (After 1 Nov) - ₹12,000
+                        </option>
 
-                            Student Pass (After 15 October 2026) - ₹2,500
+                        <option
+                            value="BLS-ACLS Course with Conference Registration (1 Nov)"
+                            data-amount="13000"
+                        >
+                            BLS-ACLS Course with Conference Registration (1 Nov) - ₹13,000
+                        </option>
 
+                        <option
+                            value="BLS-ACLS Course with Conference Registration (After 1 Nov 2026)"
+                            data-amount="13500"
+                            id="afterNovemberBlsOption"
+                            disabled
+                        >
+                            BLS-ACLS Course with Conference Registration (After 1 Nov 2026) - ₹13,500
+                        </option>
+
+                        <option
+                            value="Early Bird IMUCON Registration (1 Nov)"
+                            data-amount="2000"
+                        >
+                            Early Bird IMUCON Registration (1 Nov) - ₹2,000
+                        </option>
+
+                        <option
+                            value="IMUCON Registration (After 1 Nov)"
+                            data-amount="2500"
+                            id="afterNovemberImuconOption"
+                            disabled
+                        >
+                            IMUCON Registration (After 1 Nov) - ₹2,500
+                        </option>
+
+                        <option
+                            value="Virtual Conference Registration (12 CME Hrs)"
+                            data-amount="12000"
+                        >
+                            Virtual Conference Registration (12 CME Hrs) - ₹12,000
                         </option>
 
                     </select>
@@ -413,8 +449,6 @@
                         class="pass-note"
                         id="passNote"
                     >
-                        Early Bird registration is currently available until
-                        15 October 2026.
                     </div>
 
                 </div>
@@ -623,8 +657,14 @@
     const passCategory =
         document.getElementById("passCategory");
 
-    const afterOctoberOption =
-        document.getElementById("afterOctoberOption");
+    const afterNovemberBlsOnlyOption =
+        document.getElementById("afterNovemberBlsOnlyOption");
+
+    const afterNovemberBlsOption =
+        document.getElementById("afterNovemberBlsOption");
+
+    const afterNovemberImuconOption =
+        document.getElementById("afterNovemberImuconOption");
 
     const passNote =
         document.getElementById("passNote");
@@ -767,66 +807,132 @@
 
     /* =====================================================
        PASS CATEGORY / DATE LOGIC
-       
-       Early Bird:
-       20 September 2026 → 15 October 2026
 
-       ₹2,500 Student Pass:
-       Starts 16 October 2026
+       BEFORE 1 NOVEMBER 2026:
+       - BLS - ACLS Course Only (1 Nov) - ₹11,500
+       - BLS-ACLS Course with Conference Registration (1 Nov) - ₹13,000
+       - Early Bird IMUCON Registration (1 Nov) - ₹2,000
+       - Virtual Conference Registration (12 CME Hrs) - ₹12,000
+
+       FROM 1 NOVEMBER 2026:
+       - BLS - ACLS Course Only (After 1 Nov) - ₹12,000
+       - BLS-ACLS Course with Conference Registration (After 1 Nov 2026) - ₹13,500
+       - IMUCON Registration (After 1 Nov) - ₹2,500
+
+       NOTE:
+       The BLS-ACLS 1-Nov options share ONE combined capacity
+       of 30 seats. Actual enforcement must be done server-side.
     ===================================================== */
 
     function updatePassAvailability() {
 
         const today = new Date();
 
-        const activationDate =
-            new Date("2026-10-16T00:00:00");
+        const afterNovemberDate =
+            new Date("2026-11-01T00:00:00");
 
+        if (today >= afterNovemberDate) {
 
-        if (today >= activationDate) {
+            /* From 1 November 2026:
+               enable all After 1 Nov options */
+
+            afterNovemberBlsOnlyOption.disabled = false;
+            afterNovemberBlsOption.disabled = false;
+            afterNovemberImuconOption.disabled = false;
+
 
             /*
-             * From 16 October 2026
+             * Options specifically for 1 Nov
+             * are no longer available.
              */
 
-            afterOctoberOption.disabled = false;
+            const blsOnlyOption =
+                passCategory.querySelector(
+                    'option[value="BLS - ACLS Course Only (1 Nov)"]'
+                );
+
+            const blsConferenceOption =
+                passCategory.querySelector(
+                    'option[value="BLS-ACLS Course with Conference Registration (1 Nov)"]'
+                );
+
+            const imuconEarlyBirdOption =
+                passCategory.querySelector(
+                    'option[value="Early Bird IMUCON Registration (1 Nov)"]'
+                );
+
+
+            blsOnlyOption.disabled = true;
+
+            blsConferenceOption.disabled = true;
+
+            imuconEarlyBirdOption.disabled = true;
+
+
+            if (
+                passCategory.value ===
+                    "BLS - ACLS Course Only (1 Nov)" ||
+
+                passCategory.value ===
+                    "BLS-ACLS Course with Conference Registration (1 Nov)" ||
+
+                passCategory.value ===
+                    "Early Bird IMUCON Registration (1 Nov)"
+            ) {
+
+                passCategory.value = "";
+
+                paymentMessage.textContent =
+                    "Please select a currently available pass category.";
+
+                qrBox.style.display =
+                    "none";
+            }
+
 
             passNote.textContent =
-                "Early Bird registration has ended. Student Pass is now ₹2,500.";
+                "Registrations after 1 November 2026 are now active.";
 
         }
 
         else {
 
             /*
-             * Before 16 October 2026
+             * Before 1 November 2026:
+             * disable all After 1 Nov options.
              */
 
-            afterOctoberOption.disabled = true;
+            afterNovemberBlsOnlyOption.disabled = true;
 
-            /*
-             * Make sure ₹2,500 cannot remain selected
-             */
+            afterNovemberBlsOption.disabled = true;
+
+            afterNovemberImuconOption.disabled = true;
+
 
             if (
                 passCategory.value ===
-                "student_after_october"
+                    "BLS - ACLS Course Only (After 1 Nov)" ||
+
+                passCategory.value ===
+                    "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)" ||
+
+                passCategory.value ===
+                    "IMUCON Registration (After 1 Nov)"
             ) {
 
                 passCategory.value = "";
 
                 paymentMessage.textContent =
-                    "Please select a pass category.";
+                    "Please select a currently available pass category.";
 
                 qrBox.style.display =
                     "none";
             }
 
+
             passNote.textContent =
-                "Early Bird registration is currently available until 15 October 2026.";
-
+                "Please select an available pass category.";
         }
-
     }
 
 
@@ -849,11 +955,11 @@
 
             if (
                 category ===
-                "student_early_bird"
+                "BLS - ACLS Course Only (1 Nov)"
             ) {
 
                 paymentMessage.textContent =
-                    "Student Pass (Early Bird) - ₹1,000. Please proceed with the payment using the QR code below.";
+                    "BLS - ACLS Course Only (1 Nov) - ₹11,500. Please proceed with the payment using the QR code below.";
 
                 qrBox.style.display =
                     "block";
@@ -863,11 +969,81 @@
 
             else if (
                 category ===
-                "student_after_october"
+                "BLS - ACLS Course Only (After 1 Nov)"
             ) {
 
                 paymentMessage.textContent =
-                    "Student Pass - ₹2,500. Please proceed with the payment using the QR code below.";
+                    "BLS - ACLS Course Only (After 1 Nov) - ₹12,000. Please proceed with the payment using the QR code below.";
+
+                qrBox.style.display =
+                    "block";
+
+            }
+
+
+            else if (
+                category ===
+                "BLS-ACLS Course with Conference Registration (1 Nov)"
+            ) {
+
+                paymentMessage.textContent =
+                    "BLS-ACLS Course with Conference Registration (1 Nov) - ₹13,000. Please proceed with the payment using the QR code below.";
+
+                qrBox.style.display =
+                    "block";
+
+            }
+
+
+            else if (
+                category ===
+                "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)"
+            ) {
+
+                paymentMessage.textContent =
+                    "BLS-ACLS Course with Conference Registration (After 1 Nov 2026) - ₹13,500. Please proceed with the payment using the QR code below.";
+
+                qrBox.style.display =
+                    "block";
+
+            }
+
+
+            else if (
+                category ===
+                "Early Bird IMUCON Registration (1 Nov)"
+            ) {
+
+                paymentMessage.textContent =
+                    "Early Bird IMUCON Registration (1 Nov) - ₹2,000. Please proceed with the payment using the QR code below.";
+
+                qrBox.style.display =
+                    "block";
+
+            }
+
+
+            else if (
+                category ===
+                "IMUCON Registration (After 1 Nov)"
+            ) {
+
+                paymentMessage.textContent =
+                    "IMUCON Registration (After 1 Nov) - ₹2,500. Please proceed with the payment using the QR code below.";
+
+                qrBox.style.display =
+                    "block";
+
+            }
+
+
+            else if (
+                category ===
+                "Virtual Conference Registration (12 CME Hrs)"
+            ) {
+
+                paymentMessage.textContent =
+                    "Virtual Conference Registration (12 CME Hrs) - ₹12,000. Please proceed with the payment using the QR code below.";
 
                 qrBox.style.display =
                     "block";
@@ -882,7 +1058,6 @@
 
                 qrBox.style.display =
                     "none";
-
             }
 
         }
@@ -927,28 +1102,64 @@
 
 
                 /*
-                 * Extra safety check:
-                 * ₹2,500 cannot be submitted
-                 * before 16 October 2026.
+                 * Extra safety check for date-based categories.
+                 *
+                 * "After 1 Nov" options cannot be submitted
+                 * before 1 November 2026.
                  */
 
                 const today =
                     new Date();
 
-                const activationDate =
+                const afterNovemberDate =
                     new Date(
-                        "2026-10-16T00:00:00"
+                        "2026-11-01T00:00:00"
                     );
 
 
                 if (
-                    passCategory.value ===
-                    "student_after_october" &&
-                    today < activationDate
+                    (
+                        passCategory.value ===
+                            "BLS - ACLS Course Only (After 1 Nov)" ||
+
+                        passCategory.value ===
+                            "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)" ||
+
+                        passCategory.value ===
+                            "IMUCON Registration (After 1 Nov)"
+                    ) &&
+                    today < afterNovemberDate
                 ) {
 
                     alert(
-                        "The ₹2,500 Student Pass will be available after 15 October 2026."
+                        "This pass category will be available from 1 November 2026."
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * The following categories are only available
+                 * before 1 November 2026.
+                 */
+
+                if (
+                    today >= afterNovemberDate &&
+                    (
+                        passCategory.value ===
+                            "BLS - ACLS Course Only (1 Nov)" ||
+
+                        passCategory.value ===
+                            "BLS-ACLS Course with Conference Registration (1 Nov)" ||
+
+                        passCategory.value ===
+                            "Early Bird IMUCON Registration (1 Nov)"
+                    )
+                ) {
+
+                    alert(
+                        "This pass category is no longer available after 1 November 2026."
                     );
 
                     return;
@@ -1057,7 +1268,7 @@
                    ATTENDEE DETAILS
 
                    These names MUST match app.py:
-                   
+
                    attendee_1_name
                    attendee_1_dob
                    attendee_1_gender
