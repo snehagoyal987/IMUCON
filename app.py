@@ -269,12 +269,12 @@ def register():
         # ====================================================
 
         allowed_categories = {
-            "BLS - ACLS Course Only (1 Nov)",
-            "BLS - ACLS Course Only (After 1 Nov)",
-            "BLS-ACLS Course with Conference Registration (1 Nov)",
-            "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)",
-            "Early Bird IMUCON Registration (1 Nov)",
-            "IMUCON Registration (After 1 Nov)",
+            "BLS - ACLS Course Only (Till 1st November 2026)",
+            "BLS - ACLS Course Only (After 1st November 2026)",
+            "BLS-ACLS Course with Conference Registration (Till 1st November 2026)",
+            "BLS-ACLS Course with Conference Registration (After 1st November 2026)",
+            "Early Bird IMUCON Registration (Till 1st November 2026)",
+            "IMUCON Registration (After 1st November 2026)",
             "Virtual Conference Registration (12 CME Hrs)"
         }
 
@@ -298,16 +298,17 @@ def register():
         activation_date = datetime(2026, 11, 1)
 
         after_november_categories = {
-            "BLS - ACLS Course Only (After 1 Nov)",
-            "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)",
-            "IMUCON Registration (After 1 Nov)"
+            "BLS - ACLS Course Only (After 1st November 2026)",
+            "BLS-ACLS Course with Conference Registration (After 1st November 2026)",
+            "IMUCON Registration (After 1st November 2026)"
         }
 
         before_november_categories = {
-            "BLS - ACLS Course Only (1 Nov)",
-            "BLS-ACLS Course with Conference Registration (1 Nov)",
-            "Early Bird IMUCON Registration (1 Nov)"
+            "BLS - ACLS Course Only (Till 1st November 2026)",
+            "BLS-ACLS Course with Conference Registration (Till 1st November 2026)",
+            "Early Bird IMUCON Registration (Till 1st November 2026)"
         }
+
 
         # After-November categories cannot be selected
         # before 1 November 2026
@@ -326,8 +327,10 @@ def register():
             }), 400
 
 
-        # 1-November categories cannot be selected
-        # from 1 November 2026 onward
+        # ====================================================
+        # 1-NOVEMBER CATEGORIES CANNOT BE SELECTED AFTER
+        # 1 NOVEMBER 2026
+        # ====================================================
 
         if (
             pass_category in before_november_categories
@@ -350,12 +353,14 @@ def register():
         # These two categories share ONE combined capacity
         # of 30 registrations:
         #
-        # BLS - ACLS Course Only (1 Nov)
-        # BLS-ACLS Course with Conference Registration (1 Nov)
+        # BLS - ACLS Course Only
+        # BLS-ACLS Course with Conference Registration
+        #
+        # Both are the "Till 1st November 2026" categories.
 
         bls_categories = {
-            "BLS - ACLS Course Only (1 Nov)",
-            "BLS-ACLS Course with Conference Registration (1 Nov)"
+            "BLS - ACLS Course Only (Till 1st November 2026)",
+            "BLS-ACLS Course with Conference Registration (Till 1st November 2026)"
         }
 
         if pass_category in bls_categories:
@@ -611,59 +616,59 @@ def register():
         # PASS AMOUNT
         # ====================================================
 
-        if pass_category == "BLS - ACLS Course Only (1 Nov)":
+        if pass_category == "BLS - ACLS Course Only (Till 1st November 2026)":
 
             pass_amount = 11500
 
             pass_name = (
-                "BLS - ACLS Course Only (1 Nov)"
+                "BLS - ACLS Course Only (Till 1st November 2026)"
             )
 
-        elif pass_category == "BLS - ACLS Course Only (After 1 Nov)":
+        elif pass_category == "BLS - ACLS Course Only (After 1st November 2026)":
 
             pass_amount = 12000
 
             pass_name = (
-                "BLS - ACLS Course Only (After 1 Nov)"
+                "BLS - ACLS Course Only (After 1st November 2026)"
             )
 
-        elif pass_category == "BLS-ACLS Course with Conference Registration (1 Nov)":
+        elif pass_category == "BLS-ACLS Course with Conference Registration (Till 1st November 2026)":
 
             pass_amount = 13000
 
             pass_name = (
                 "BLS-ACLS Course with Conference "
-                "Registration (1 Nov)"
+                "Registration (Till 1st November 2026)"
             )
 
-        elif pass_category == "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)":
+        elif pass_category == "BLS-ACLS Course with Conference Registration (After 1st November 2026)":
 
             pass_amount = 13500
 
             pass_name = (
                 "BLS-ACLS Course with Conference "
-                "Registration (After 1 Nov 2026)"
+                "Registration (After 1st November 2026)"
             )
 
-        elif pass_category == "Early Bird IMUCON Registration (1 Nov)":
+        elif pass_category == "Early Bird IMUCON Registration (Till 1st November 2026)":
 
             pass_amount = 2000
 
             pass_name = (
-                "Early Bird IMUCON Registration (1 Nov)"
+                "Early Bird IMUCON Registration (Till 1st November 2026)"
             )
 
-        elif pass_category == "IMUCON Registration (After 1 Nov)":
+        elif pass_category == "IMUCON Registration (After 1st November 2026)":
 
             pass_amount = 2500
 
             pass_name = (
-                "IMUCON Registration (After 1 Nov)"
+                "IMUCON Registration (After 1st November 2026)"
             )
 
         else:
 
-            pass_amount = 12000
+            pass_amount = 1200
 
             pass_name = (
                 "Virtual Conference Registration "
@@ -806,7 +811,6 @@ if __name__ == "__main__":
 
     print("========================================")
     print()
-
 
     app.run(
         host="0.0.0.0",
