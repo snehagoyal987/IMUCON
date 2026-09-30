@@ -389,58 +389,58 @@
                         </option>
 
                         <option
-                            value="BLS - ACLS Course Only (1 Nov)"
+                            value="BLS - ACLS Course Only (Till 1st November 2026)"
                             data-amount="11500"
                         >
-                            BLS - ACLS Course Only (1 Nov) - ₹11,500
+                            BLS - ACLS Course Only (Till 1st November 2026) - ₹11,500
                         </option>
 
                         <option
-                            value="BLS - ACLS Course Only (After 1 Nov)"
-                            data-amount="12000"
+                            value="BLS - ACLS Course Only (After 1st November 2026)"
+                            data-amount="1200"
                             id="afterNovemberBlsOnlyOption"
                             disabled
                         >
-                            BLS - ACLS Course Only (After 1 Nov) - ₹12,000
+                            BLS - ACLS Course Only (After 1st November 2026) - ₹12,000
                         </option>
 
                         <option
-                            value="BLS-ACLS Course with Conference Registration (1 Nov)"
+                            value="BLS-ACLS Course with Conference Registration (Till 1st November 2026)"
                             data-amount="13000"
                         >
-                            BLS-ACLS Course with Conference Registration (1 Nov) - ₹13,000
+                            BLS-ACLS Course with Conference Registration (Till 1st November 2026) - ₹13,000
                         </option>
 
                         <option
-                            value="BLS-ACLS Course with Conference Registration (After 1 Nov 2026)"
+                            value="BLS-ACLS Course with Conference Registration (After 1st November 2026)"
                             data-amount="13500"
                             id="afterNovemberBlsOption"
                             disabled
                         >
-                            BLS-ACLS Course with Conference Registration (After 1 Nov 2026) - ₹13,500
+                            BLS-ACLS Course with Conference Registration (After 1st November 2026) - ₹13,500
                         </option>
 
                         <option
-                            value="Early Bird IMUCON Registration (1 Nov)"
+                            value="Early Bird IMUCON Registration (Till 1st November 2026)"
                             data-amount="2000"
                         >
-                            Early Bird IMUCON Registration (1 Nov) - ₹2,000
+                            Early Bird IMUCON Registration (Till 1st November 2026) - ₹2,000
                         </option>
 
                         <option
-                            value="IMUCON Registration (After 1 Nov)"
+                            value="IMUCON Registration (After 1st November 2026)"
                             data-amount="2500"
                             id="afterNovemberImuconOption"
                             disabled
                         >
-                            IMUCON Registration (After 1 Nov) - ₹2,500
+                            IMUCON Registration (After 1st November 2026) - ₹2,500
                         </option>
 
                         <option
                             value="Virtual Conference Registration (12 CME Hrs)"
-                            data-amount="12000"
+                            data-amount="1200"
                         >
-                            Virtual Conference Registration (12 CME Hrs) - ₹12,000
+                            Virtual Conference Registration (12 CME Hrs) - ₹1,200
                         </option>
 
                     </select>
@@ -808,15 +808,15 @@
        PASS CATEGORY / DATE LOGIC
 
        BEFORE 1 NOVEMBER 2026:
-       - BLS - ACLS Course Only (1 Nov) - ₹11,500
-       - BLS-ACLS Course with Conference Registration (1 Nov) - ₹13,000
-       - Early Bird IMUCON Registration (1 Nov) - ₹2,000
-       - Virtual Conference Registration (12 CME Hrs) - ₹12,000
+       - BLS - ACLS Course Only (Till 1st November 2026) - ₹11,500
+       - BLS-ACLS Course with Conference Registration (Till 1st November 2026) - ₹13,000
+       - Early Bird IMUCON Registration (Till 1st November 2026) - ₹2,000
+       - Virtual Conference Registration (12 CME Hrs) - ₹1,200
 
        FROM 1 NOVEMBER 2026:
-       - BLS - ACLS Course Only (After 1 Nov) - ₹12,000
-       - BLS-ACLS Course with Conference Registration (After 1 Nov 2026) - ₹13,500
-       - IMUCON Registration (After 1 Nov) - ₹2,500
+       - BLS - ACLS Course Only (After 1st November 2026) - ₹12,000
+       - BLS-ACLS Course with Conference Registration (After 1st November 2026) - ₹13,500
+       - IMUCON Registration (After 1st November 2026) - ₹2,500
 
        NOTE:
        The BLS-ACLS 1-Nov options share ONE combined capacity
@@ -847,17 +847,17 @@
 
             const blsOnlyOption =
                 passCategory.querySelector(
-                    'option[value="BLS - ACLS Course Only (1 Nov)"]'
+                    'option[value="BLS - ACLS Course Only (Till 1st November 2026)"]'
                 );
 
             const blsConferenceOption =
                 passCategory.querySelector(
-                    'option[value="BLS-ACLS Course with Conference Registration (1 Nov)"]'
+                    'option[value="BLS-ACLS Course with Conference Registration (Till 1st November 2026)"]'
                 );
 
             const imuconEarlyBirdOption =
                 passCategory.querySelector(
-                    'option[value="Early Bird IMUCON Registration (1 Nov)"]'
+                    'option[value="Early Bird IMUCON Registration (Till 1st November 2026)"]'
                 );
 
 
@@ -870,13 +870,13 @@
 
             if (
                 passCategory.value ===
-                    "BLS - ACLS Course Only (1 Nov)" ||
+                    "BLS - ACLS Course Only (Till 1st November 2026)" ||
 
                 passCategory.value ===
-                    "BLS-ACLS Course with Conference Registration (1 Nov)" ||
+                    "BLS-ACLS Course with Conference Registration (Till 1st November 2026)" ||
 
                 passCategory.value ===
-                    "Early Bird IMUCON Registration (1 Nov)"
+                    "Early Bird IMUCON Registration (Till 1st November 2026)"
             ) {
 
                 passCategory.value = "";
@@ -910,13 +910,13 @@
 
             if (
                 passCategory.value ===
-                    "BLS - ACLS Course Only (After 1 Nov)" ||
+                    "BLS - ACLS Course Only (After 1st November 2026)" ||
 
                 passCategory.value ===
-                    "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)" ||
+                    "BLS-ACLS Course with Conference Registration (After 1st November 2026)" ||
 
                 passCategory.value ===
-                    "IMUCON Registration (After 1 Nov)"
+                    "IMUCON Registration (After 1st November 2026)"
             ) {
 
                 passCategory.value = "";
@@ -952,23 +952,23 @@
                 this.value;
 
             if (
-                category === "BLS - ACLS Course Only (1 Nov)" ||
-                category === "BLS - ACLS Course Only (After 1 Nov)" ||
-                category === "BLS-ACLS Course with Conference Registration (1 Nov)" ||
-                category === "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)" ||
-                category === "Early Bird IMUCON Registration (1 Nov)" ||
-                category === "IMUCON Registration (After 1 Nov)" ||
+                category === "BLS - ACLS Course Only (Till 1st November 2026)" ||
+                category === "BLS - ACLS Course Only (After 1st November 2026)" ||
+                category === "BLS-ACLS Course with Conference Registration (Till 1st November 2026)" ||
+                category === "BLS-ACLS Course with Conference Registration (After 1st November 2026)" ||
+                category === "Early Bird IMUCON Registration (Till 1st November 2026)" ||
+                category === "IMUCON Registration (After 1st November 2026)" ||
                 category === "Virtual Conference Registration (12 CME Hrs)"
             ) {
 
                 let totalAmount = "";
 
-                if (category === "BLS - ACLS Course Only (1 Nov)") totalAmount = "₹11,500";
-                else if (category === "BLS - ACLS Course Only (After 1 Nov)") totalAmount = "₹12,000";
-                else if (category === "BLS-ACLS Course with Conference Registration (1 Nov)") totalAmount = "₹13,000";
-                else if (category === "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)") totalAmount = "₹13,500";
-                else if (category === "Early Bird IMUCON Registration (1 Nov)") totalAmount = "₹2,000";
-                else if (category === "IMUCON Registration (After 1 Nov)") totalAmount = "₹2,500";
+                if (category === "BLS - ACLS Course Only (Till 1st November 2026)") totalAmount = "₹11,500";
+                else if (category === "BLS - ACLS Course Only (After 1st November 2026)") totalAmount = "₹12,000";
+                else if (category === "BLS-ACLS Course with Conference Registration (Till 1st November 2026)") totalAmount = "₹13,000";
+                else if (category === "BLS-ACLS Course with Conference Registration (After 1st November 2026)") totalAmount = "₹13,500";
+                else if (category === "Early Bird IMUCON Registration (Till 1st November 2026)") totalAmount = "₹2,000";
+                else if (category === "IMUCON Registration (After 1st November 2026)") totalAmount = "₹2,500";
                 else if (category === "Virtual Conference Registration (12 CME Hrs)") totalAmount = "₹12,000";
 
                 paymentMessage.textContent =
@@ -1048,13 +1048,13 @@
                 if (
                     (
                         passCategory.value ===
-                            "BLS - ACLS Course Only (After 1 Nov)" ||
+                            "BLS - ACLS Course Only (After 1st November 2026)" ||
 
                         passCategory.value ===
-                            "BLS-ACLS Course with Conference Registration (After 1 Nov 2026)" ||
+                            "BLS-ACLS Course with Conference Registration (After 1st November 2026)" ||
 
                         passCategory.value ===
-                            "IMUCON Registration (After 1 Nov)"
+                            "IMUCON Registration (After 1st November 2026)"
                     ) &&
                     today < afterNovemberDate
                 ) {
@@ -1076,13 +1076,13 @@
                     today >= afterNovemberDate &&
                     (
                         passCategory.value ===
-                            "BLS - ACLS Course Only (1 Nov)" ||
+                            "BLS - ACLS Course Only (Till 1st November 2026)" ||
 
                         passCategory.value ===
-                            "BLS-ACLS Course with Conference Registration (1 Nov)" ||
+                            "BLS-ACLS Course with Conference Registration (Till 1st November 2026)" ||
 
                         passCategory.value ===
-                            "Early Bird IMUCON Registration (1 Nov)"
+                            "Early Bird IMUCON Registration (Till 1st November 2026)"
                     )
                 ) {
 
