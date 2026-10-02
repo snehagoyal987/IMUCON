@@ -290,15 +290,38 @@
             display: none;
 
             margin-top: 25px;
-            padding: 15px;
+            padding: 22px;
 
             background: #e9f8ef;
             border: 1px solid #b9e5c8;
-            border-radius: 8px;
+            border-radius: 10px;
 
             color: #176b36;
             font-weight: 600;
             text-align: center;
+            line-height: 1.7;
+        }
+
+        #successMessage .registration-id {
+            display: inline-block;
+            margin: 8px 0;
+            padding: 8px 16px;
+
+            background: #ffffff;
+            border: 1px solid #b9e5c8;
+            border-radius: 7px;
+
+            color: #0f3057;
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        #successMessage .verification-note {
+            margin-top: 8px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         /* ===== FOOTER CONTACT ===== */
@@ -369,6 +392,10 @@
             .qr-box img {
                 width: 190px;
                 height: 190px;
+            }
+
+            #successMessage .registration-id {
+                font-size: 17px;
             }
         }
     </style>
@@ -476,8 +503,7 @@
                     <div
                         class="pass-note"
                         id="passNote"
-                    >
-                    </div>
+                    ></div>
 
                 </div>
 
@@ -580,11 +606,16 @@
 
                 </div>
 
+
                 <div class="upi-payment-details">
+
                     <p>
                         <strong>UPI ID:</strong>
-                        <span id="upiIdText">SHARDAUNIVERSITYSEMINAR@icici</span>
+                        <span id="upiIdText">
+                            SHARDAUNIVERSITYSEMINAR@icici
+                        </span>
                     </p>
+
                 </div>
 
 
@@ -644,10 +675,12 @@
         </div>
 
 
+        <!-- ===== SUCCESS MESSAGE ===== -->
+
         <div id="successMessage">
 
-            Registration details submitted successfully.
-            Our team will contact you for confirmation.
+            <!-- This content is replaced by JavaScript
+                 after successful submission -->
 
         </div>
 
@@ -680,6 +713,7 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 
 <script>
 
@@ -843,10 +877,6 @@
 
     /* =====================================================
        DYNAMIC UPI QR
-
-       The QR amount is automatically taken from the selected
-       pass category. The user does not need to type the amount
-       in the UPI app after scanning.
     ===================================================== */
 
     const UPI_ID =
@@ -854,6 +884,7 @@
 
     const UPI_PAYEE_NAME =
         "SHARDA UNIVERSITY SEMINAR";
+
 
     function generateDynamicQr(amount) {
 
@@ -868,70 +899,65 @@
             encodeURIComponent(amount) +
             "&cu=INR";
 
+
         new QRCode(dynamicQr, {
+
             text: upiUrl,
+
             width: 220,
+
             height: 220,
-            correctLevel: QRCode.CorrectLevel.M
+
+            correctLevel:
+                QRCode.CorrectLevel.M
+
         });
     }
+
 
     function clearDynamicQr() {
 
         dynamicQr.innerHTML = "";
+
     }
 
 
     /* =====================================================
        PASS CATEGORY / DATE LOGIC
-
-       BEFORE 1 NOVEMBER 2026:
-       - BLS - ACLS Course Only (Till 1st November 2026) - ₹11,500
-       - BLS-ACLS Course with Conference Registration (Till 1st November 2026) - ₹13,000
-       - Early Bird IMUCON Registration (Till 1st November 2026) - ₹2,000
-       - Virtual Conference Registration (12 CME Hrs) - ₹1,200
-
-       FROM 1 NOVEMBER 2026:
-       - BLS - ACLS Course Only (After 1st November 2026) - ₹12,000
-       - BLS-ACLS Course with Conference Registration (After 1st November 2026) - ₹13,500
-       - IMUCON Registration (After 1st November 2026) - ₹2,500
-
-       NOTE:
-       The BLS-ACLS 1-Nov options share ONE combined capacity
-       of 30 seats. Actual enforcement must be done server-side.
     ===================================================== */
 
     function updatePassAvailability() {
 
-        const today = new Date();
+        const today =
+            new Date();
 
         const afterNovemberDate =
             new Date("2026-11-01T00:00:00");
 
+
         if (today >= afterNovemberDate) {
 
-            /* From 1 November 2026:
-               enable all After 1 Nov options */
+            afterNovemberBlsOnlyOption.disabled =
+                false;
 
-            afterNovemberBlsOnlyOption.disabled = false;
-            afterNovemberBlsOption.disabled = false;
-            afterNovemberImuconOption.disabled = false;
+            afterNovemberBlsOption.disabled =
+                false;
 
+            afterNovemberImuconOption.disabled =
+                false;
 
-            /*
-             * Options specifically for 1 Nov
-             * are no longer available.
-             */
 
             const blsOnlyOption =
                 passCategory.querySelector(
                     'option[value="BLS - ACLS Course Only (Till 1st November 2026)"]'
                 );
 
+
             const blsConferenceOption =
                 passCategory.querySelector(
                     'option[value="BLS-ACLS Course with Conference Registration (Till 1st November 2026)"]'
                 );
+
 
             const imuconEarlyBirdOption =
                 passCategory.querySelector(
@@ -939,14 +965,18 @@
                 );
 
 
-            blsOnlyOption.disabled = true;
+            blsOnlyOption.disabled =
+                true;
 
-            blsConferenceOption.disabled = true;
+            blsConferenceOption.disabled =
+                true;
 
-            imuconEarlyBirdOption.disabled = true;
+            imuconEarlyBirdOption.disabled =
+                true;
 
 
             if (
+
                 passCategory.value ===
                     "BLS - ACLS Course Only (Till 1st November 2026)" ||
 
@@ -955,6 +985,7 @@
 
                 passCategory.value ===
                     "Early Bird IMUCON Registration (Till 1st November 2026)"
+
             ) {
 
                 passCategory.value = "";
@@ -966,6 +997,7 @@
                     "none";
 
                 clearDynamicQr();
+
             }
 
 
@@ -976,19 +1008,18 @@
 
         else {
 
-            /*
-             * Before 1 November 2026:
-             * disable all After 1 Nov options.
-             */
+            afterNovemberBlsOnlyOption.disabled =
+                true;
 
-            afterNovemberBlsOnlyOption.disabled = true;
+            afterNovemberBlsOption.disabled =
+                true;
 
-            afterNovemberBlsOption.disabled = true;
-
-            afterNovemberImuconOption.disabled = true;
+            afterNovemberImuconOption.disabled =
+                true;
 
 
             if (
+
                 passCategory.value ===
                     "BLS - ACLS Course Only (After 1st November 2026)" ||
 
@@ -997,6 +1028,7 @@
 
                 passCategory.value ===
                     "IMUCON Registration (After 1st November 2026)"
+
             ) {
 
                 passCategory.value = "";
@@ -1008,12 +1040,15 @@
                     "none";
 
                 clearDynamicQr();
+
             }
 
 
             passNote.textContent =
                 "Please select an available pass category.";
+
         }
+
     }
 
 
@@ -1027,27 +1062,36 @@
     ===================================================== */
 
     passCategory.addEventListener(
+
         "change",
+
         function () {
 
             const selectedOption =
                 this.options[this.selectedIndex];
 
+
             const amount =
                 selectedOption.dataset.amount;
+
 
             if (amount) {
 
                 const formattedAmount =
                     Number(amount).toLocaleString("en-IN");
 
+
                 paymentMessage.textContent =
-                    "Total Amount: ₹" + formattedAmount;
+                    "Total Amount: ₹" +
+                    formattedAmount;
+
 
                 qrBox.style.display =
                     "block";
 
+
                 generateDynamicQr(amount);
+
             }
 
             else {
@@ -1059,9 +1103,11 @@
                     "none";
 
                 clearDynamicQr();
+
             }
 
         }
+
     );
 
 
@@ -1072,7 +1118,9 @@
     document
         .getElementById("registrationForm")
         .addEventListener(
+
             "submit",
+
             async function (event) {
 
                 event.preventDefault();
@@ -1085,6 +1133,7 @@
                     this.reportValidity();
 
                     return;
+
                 }
 
 
@@ -1099,15 +1148,11 @@
                     passCategory.focus();
 
                     return;
+
                 }
 
 
-                /*
-                 * Extra safety check for date-based categories.
-                 *
-                 * "After 1 Nov" options cannot be submitted
-                 * before 1 November 2026.
-                 */
+                /* Date validation */
 
                 const today =
                     new Date();
@@ -1118,8 +1163,12 @@
                     );
 
 
+                /* After 1 November categories */
+
                 if (
+
                     (
+
                         passCategory.value ===
                             "BLS - ACLS Course Only (After 1st November 2026)" ||
 
@@ -1128,8 +1177,13 @@
 
                         passCategory.value ===
                             "IMUCON Registration (After 1st November 2026)"
-                    ) &&
+
+                    )
+
+                    &&
+
                     today < afterNovemberDate
+
                 ) {
 
                     alert(
@@ -1137,17 +1191,18 @@
                     );
 
                     return;
+
                 }
 
 
-                /*
-                 * The following categories are only available
-                 * before 1 November 2026.
-                 */
+                /* Till 1 November categories */
 
                 if (
+
                     today >= afterNovemberDate &&
+
                     (
+
                         passCategory.value ===
                             "BLS - ACLS Course Only (Till 1st November 2026)" ||
 
@@ -1156,7 +1211,9 @@
 
                         passCategory.value ===
                             "Early Bird IMUCON Registration (Till 1st November 2026)"
+
                     )
+
                 ) {
 
                     alert(
@@ -1164,6 +1221,7 @@
                     );
 
                     return;
+
                 }
 
 
@@ -1204,10 +1262,7 @@
                 );
 
 
-                /*
-                 * The registration is always
-                 * for one attendee.
-                 */
+                /* One attendee */
 
                 formData.append(
                     "registrationType",
@@ -1224,24 +1279,29 @@
 
                 formData.append(
                     "heardFrom",
+
                     document
                         .getElementById(
                             "heardFrom"
                         )
                         .value
+
                 );
 
 
                 /* Payment details */
 
                 formData.append(
+
                     "transactionId",
+
                     document
                         .getElementById(
                             "transactionId"
                         )
                         .value
                         .trim()
+
                 );
 
 
@@ -1267,14 +1327,6 @@
 
                 /* =================================================
                    ATTENDEE DETAILS
-
-                   These names MUST match app.py:
-
-                   attendee_1_name
-                   attendee_1_dob
-                   attendee_1_gender
-                   attendee_1_email
-                   attendee_1_mobile
                 ================================================= */
 
                 const attendeeInputs =
@@ -1285,6 +1337,7 @@
 
 
                 attendeeInputs.forEach(
+
                     function (input) {
 
                         if (input.name) {
@@ -1297,6 +1350,7 @@
                         }
 
                     }
+
                 );
 
 
@@ -1308,11 +1362,17 @@
 
                     const response =
                         await fetch(
+
                             "/api/register",
+
                             {
+
                                 method: "POST",
+
                                 body: formData
+
                             }
+
                         );
 
 
@@ -1326,30 +1386,41 @@
 
                     if (result.success) {
 
-                        successMessage.innerHTML =
-                            `
-                            <strong>
-                                Registration Successful!
+                        successMessage.innerHTML = `
+
+                            <strong style="font-size: 20px;">
+                                Registration Completed Successfully! 🎉
                             </strong>
 
                             <br><br>
 
                             Your Registration ID is:
 
-                            <strong>
+                            <br>
+
+                            <span class="registration-id">
                                 ${result.registration_id}
-                            </strong>
+                            </span>
 
-                            <br><br>
+                            <div class="verification-note">
 
-                            Please save this Registration ID
-                            for future reference.
-                            `;
+                                Your payment is currently under verification.
+
+                                <br>
+
+                                Please save your Registration ID
+                                for future communication.
+
+                            </div>
+
+                        `;
 
 
                         successMessage.style.display =
                             "block";
 
+
+                        /* Scroll to success message */
 
                         window.scrollTo({
 
@@ -1363,11 +1434,37 @@
                         });
 
 
+                        /* Keep button disabled */
+
                         submitButton.disabled =
                             true;
 
                         submitButton.textContent =
                             "Registration Submitted";
+
+
+                        /*
+                         * Disable the form fields after
+                         * successful submission so the user
+                         * cannot accidentally submit again.
+                         */
+
+                        const formElements =
+                            this.querySelectorAll(
+                                "input, select"
+                            );
+
+
+                        formElements.forEach(
+
+                            function (element) {
+
+                                element.disabled =
+                                    true;
+
+                            }
+
+                        );
 
                     }
 
@@ -1379,8 +1476,11 @@
                     else {
 
                         alert(
+
                             result.message ||
+
                             "Registration failed. Please try again."
+
                         );
 
 
@@ -1421,6 +1521,7 @@
                 }
 
             }
+
         );
 
 </script>
