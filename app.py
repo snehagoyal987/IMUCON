@@ -933,7 +933,7 @@ def register():
 
             },
 
-            "status": "Pending",
+          "status": "Payment Under Verification",
 
             "attendees": attendees,
 
