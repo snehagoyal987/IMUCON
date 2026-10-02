@@ -18,9 +18,13 @@ from datetime import datetime
 
 load_dotenv()
 
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
+
 
 # ============================================================
-# FLASK APPLICATION
+# IMUCON REGISTRATION BACKEND
 # ============================================================
 
 app = Flask(__name__)
@@ -28,12 +32,107 @@ CORS(app)
 
 
 # ============================================================
-# EMAIL CONFIGURATION
+# PATH CONFIGURATION
 # ============================================================
 
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Website files are inside the IMUCON folder
+WEBSITE_FOLDER = BASE_DIR
+
+# Vercel writable temporary uploads folder
+UPLOAD_FOLDER = os.path.join("/tmp", "uploads")
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+# Maximum upload size = 10 MB
+app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
+
+
+# ============================================================
+# MONGODB CONFIGURATION
+# ============================================================
+
+MONGO_URI = os.getenv("MONGO_URI")
+
+if not MONGO_URI:
+    raise RuntimeError(
+        "MONGO_URI environment variable is not set."
+    )
+
+
+# Connect to MongoDB Atlas
+client = MongoClient(MONGO_URI)
+
+# Database
+db = client["IMUCON_Registration"]
+
+# Collections
+registrations_collection = db["registrations"]
+counters_collection = db["counters"]
+
+# GridFS for payment screenshots
+fs = GridFS(db)
+
+
+# ============================================================
+# ALLOWED PAYMENT SCREENSHOT TYPES
+# ============================================================
+
+ALLOWED_EXTENSIONS = {
+    "png",
+    "jpg",
+    "jpeg",
+    "webp"
+}
+
+
+# ============================================================
+# FILE VALIDATION
+# ============================================================
+
+def allowed_file(filename):
+
+    return (
+        "." in filename
+        and filename.rsplit(".", 1)[1].lower()
+        in ALLOWED_EXTENSIONS
+    )
+
+
+# ============================================================
+# EMAIL VALIDATION
+# ============================================================
+
+def valid_email(email):
+
+    return bool(
+        re.fullmatch(
+            r"[^@\s]+@[^@\s]+\.[^@\s]+",
+            email
+        )
+    )
+
+
+# ============================================================
+# MOBILE VALIDATION
+# ============================================================
+
+def valid_mobile(mobile):
+
+    return bool(
+        re.fullmatch(
+            r"[0-9]{10}",
+            mobile
+        )
+    )
+
+
+# ============================================================
+# EMAIL - ATTENDEE CONFIRMATION
+# ============================================================
 
 def send_confirmation_email(
     to_email,
@@ -42,16 +141,18 @@ def send_confirmation_email(
     pass_name,
     pass_amount
 ):
+
     try:
-        # Check email configuration
+
         if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
+
             print(
                 "EMAIL_ADDRESS or EMAIL_PASSWORD "
                 "is not configured."
             )
+
             return False
 
-        # Create email
         msg = EmailMessage()
 
         msg["Subject"] = (
@@ -60,9 +161,9 @@ def send_confirmation_email(
         )
 
         msg["From"] = EMAIL_ADDRESS
+
         msg["To"] = to_email
 
-        # Email content
         msg.set_content(
             f"""
 Dear {name},
@@ -102,7 +203,6 @@ Sharda Hospital
 """
         )
 
-        # Connect to Gmail SMTP
         with smtplib.SMTP_SSL(
             "smtp.gmail.com",
             465
@@ -123,116 +223,143 @@ Sharda Hospital
         return True
 
     except Exception as e:
+
         print(
-            "EMAIL SENDING ERROR:",
+            "CONFIRMATION EMAIL ERROR:",
             str(e)
         )
+
         return False
 
 
 # ============================================================
-# PATH CONFIGURATION
+# EMAIL - ADMIN NOTIFICATION
 # ============================================================
 
-BASE_DIR = os.path.dirname(
-    os.path.abspath(__file__)
-)
+def send_admin_notification(registration):
 
-WEBSITE_FOLDER = BASE_DIR
+    try:
 
-# Vercel writable temporary folder
-UPLOAD_FOLDER = os.path.join(
-    "/tmp",
-    "uploads"
-)
+        if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
 
-os.makedirs(
-    UPLOAD_FOLDER,
-    exist_ok=True
-)
+            print(
+                "EMAIL_ADDRESS or EMAIL_PASSWORD "
+                "is not configured."
+            )
 
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+            return False
 
-# Maximum upload size = 10 MB
-app.config["MAX_CONTENT_LENGTH"] = (
-    10 * 1024 * 1024
-)
+        if not ADMIN_EMAIL:
 
+            print(
+                "ADMIN_EMAIL is not configured."
+            )
 
-# ============================================================
-# MONGODB CONFIGURATION
-# ============================================================
+            return False
 
-MONGO_URI = os.getenv("MONGO_URI")
+        # Get first attendee
+        attendee = registration["attendees"][0]
 
-if not MONGO_URI:
-    raise RuntimeError(
-        "MONGO_URI environment variable is not set."
-    )
+        msg = EmailMessage()
 
-client = MongoClient(
-    MONGO_URI
-)
-
-db = client["IMUCON_Registration"]
-
-registrations_collection = db["registrations"]
-
-counters_collection = db["counters"]
-
-fs = GridFS(db)
-
-
-# ============================================================
-# ALLOWED PAYMENT SCREENSHOT TYPES
-# ============================================================
-
-ALLOWED_EXTENSIONS = {
-    "png",
-    "jpg",
-    "jpeg",
-    "webp"
-}
-
-
-# ============================================================
-# FILE VALIDATION
-# ============================================================
-
-def allowed_file(filename):
-    return (
-        "." in filename
-        and filename.rsplit(
-            ".",
-            1
-        )[1].lower() in ALLOWED_EXTENSIONS
-    )
-
-
-# ============================================================
-# EMAIL VALIDATION
-# ============================================================
-
-def valid_email(email):
-    return bool(
-        re.fullmatch(
-            r"[^@\s]+@[^@\s]+\.[^@\s]+",
-            email
+        msg["Subject"] = (
+            f"New IMUCON Registration - "
+            f"{registration['registration_id']}"
         )
-    )
+
+        msg["From"] = EMAIL_ADDRESS
+
+        msg["To"] = ADMIN_EMAIL
+
+        msg.set_content(
+            f"""
+NEW IMUCON 2.0 REGISTRATION
+========================================
+
+Registration ID:
+{registration["registration_id"]}
 
 
-# ============================================================
-# MOBILE VALIDATION
-# ============================================================
+ATTENDEE DETAILS
+========================================
 
-def valid_mobile(mobile):
-    return bool(
-        re.fullmatch(
-            r"[0-9]{10}",
-            mobile
+Name:
+{attendee["name"]}
+
+Date of Birth:
+{attendee["dob"]}
+
+Gender:
+{attendee["gender"]}
+
+Email:
+{attendee["email"]}
+
+Mobile:
+{attendee["mobile"]}
+
+
+REGISTRATION DETAILS
+========================================
+
+Pass:
+{registration["pass_name"]}
+
+Amount Paid:
+₹{registration["pass_amount"]}
+
+Transaction ID:
+{registration["transaction_id"]}
+
+Heard From:
+{registration["heard_from"]}
+
+Registration Type:
+{registration["registration_type"]}
+
+Attendee Count:
+{registration["attendee_count"]}
+
+Status:
+{registration["status"]}
+
+Submitted At:
+{registration["created_at"]}
+
+
+========================================
+IMUCON 2.0
+Sharda Hospital
+"""
         )
-    )
+
+        with smtplib.SMTP_SSL(
+            "smtp.gmail.com",
+            465
+        ) as smtp:
+
+            smtp.login(
+                EMAIL_ADDRESS,
+                EMAIL_PASSWORD
+            )
+
+            smtp.send_message(msg)
+
+        print(
+            f"Admin notification sent successfully "
+            f"to {ADMIN_EMAIL}"
+        )
+
+        return True
+
+    except Exception as e:
+
+        print(
+            "ADMIN EMAIL ERROR:",
+            str(e)
+        )
+
+        return False
 
 
 # ============================================================
@@ -240,10 +367,9 @@ def valid_mobile(mobile):
 # ============================================================
 
 def generate_registration_id():
+
     counter = counters_collection.find_one_and_update(
-        {
-            "_id": "registration_id"
-        },
+        {"_id": "registration_id"},
         {
             "$inc": {
                 "value": 1
@@ -268,6 +394,7 @@ def generate_registration_id():
 
 @app.route("/")
 def home():
+
     return send_from_directory(
         WEBSITE_FOLDER,
         "index.html"
@@ -280,6 +407,7 @@ def home():
 
 @app.route("/registration")
 def registration():
+
     return send_from_directory(
         WEBSITE_FOLDER,
         "registration.html"
@@ -292,6 +420,7 @@ def registration():
 
 @app.route("/<path:filename>")
 def static_files(filename):
+
     return send_from_directory(
         WEBSITE_FOLDER,
         filename
@@ -304,6 +433,7 @@ def static_files(filename):
 
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
+
     return send_from_directory(
         UPLOAD_FOLDER,
         filename
@@ -316,7 +446,10 @@ def uploaded_file(filename):
 
 @app.route("/api/status")
 def api_status():
+
     try:
+
+        # Test MongoDB connection
         client.admin.command("ping")
 
         return jsonify({
@@ -329,6 +462,7 @@ def api_status():
         })
 
     except Exception as e:
+
         return jsonify({
             "status": "running",
             "database": "disconnected",
@@ -341,10 +475,7 @@ def api_status():
 # REGISTRATION API
 # ============================================================
 
-@app.route(
-    "/api/register",
-    methods=["POST"]
-)
+@app.route("/api/register", methods=["POST"])
 def register():
 
     screenshot_file_id = None
@@ -376,19 +507,12 @@ def register():
         # ====================================================
 
         allowed_categories = {
-
             "BLS - ACLS Course Only (Till 1st November 2026)",
-
             "BLS - ACLS Course Only (After 1st November 2026)",
-
             "BLS-ACLS Course with Conference Registration (Till 1st November 2026)",
-
             "BLS-ACLS Course with Conference Registration (After 1st November 2026)",
-
             "Early Bird IMUCON Registration (Till 1st November 2026)",
-
             "IMUCON Registration (After 1st November 2026)",
-
             "Virtual Conference Registration (12 CME Hrs)"
         }
 
@@ -406,34 +530,23 @@ def register():
         # VALIDATE PASS ACTIVATION DATE
         # ====================================================
 
-        activation_date = datetime(
-            2026,
-            11,
-            1
-        )
+        activation_date = datetime(2026, 11, 1)
 
         after_november_categories = {
-
             "BLS - ACLS Course Only (After 1st November 2026)",
-
             "BLS-ACLS Course with Conference Registration (After 1st November 2026)",
-
             "IMUCON Registration (After 1st November 2026)"
         }
 
         before_november_categories = {
-
             "BLS - ACLS Course Only (Till 1st November 2026)",
-
             "BLS-ACLS Course with Conference Registration (Till 1st November 2026)",
-
             "Early Bird IMUCON Registration (Till 1st November 2026)"
         }
 
 
-        # ====================================================
-        # AFTER-NOVEMBER CATEGORIES
-        # ====================================================
+        # After-November categories cannot be selected
+        # before 1 November 2026
 
         if (
             pass_category in after_november_categories
@@ -450,7 +563,8 @@ def register():
 
 
         # ====================================================
-        # BEFORE-NOVEMBER CATEGORIES
+        # 1-NOVEMBER CATEGORIES CANNOT BE SELECTED AFTER
+        # 1 NOVEMBER 2026
         # ====================================================
 
         if (
@@ -472,9 +586,7 @@ def register():
         # ====================================================
 
         bls_categories = {
-
             "BLS - ACLS Course Only (Till 1st November 2026)",
-
             "BLS-ACLS Course with Conference Registration (Till 1st November 2026)"
         }
 
@@ -502,6 +614,7 @@ def register():
         # ====================================================
 
         registration_type = "single"
+
         attendee_count = 1
 
 
@@ -537,6 +650,7 @@ def register():
                 )
             }), 400
 
+
         if screenshot.filename == "":
 
             return jsonify({
@@ -545,6 +659,7 @@ def register():
                     "Please select a payment screenshot."
                 )
             }), 400
+
 
         if not allowed_file(
             screenshot.filename
@@ -704,13 +819,18 @@ def register():
             1
         )[1].lower()
 
+
         screenshot_filename = (
             f"{registration_id}_payment."
             f"{extension}"
         )
 
+
+        # Read screenshot
         screenshot_data = screenshot.read()
 
+
+        # Store screenshot in MongoDB GridFS
         screenshot_file_id = fs.put(
             screenshot_data,
             filename=screenshot_filename,
@@ -723,35 +843,23 @@ def register():
         # PASS AMOUNT
         # ====================================================
 
-        if (
-            pass_category ==
-            "BLS - ACLS Course Only (Till 1st November 2026)"
-        ):
+        if pass_category == "BLS - ACLS Course Only (Till 1st November 2026)":
 
             pass_amount = 11500
 
             pass_name = (
-                "BLS - ACLS Course Only "
-                "(Till 1st November 2026)"
+                "BLS - ACLS Course Only (Till 1st November 2026)"
             )
 
-        elif (
-            pass_category ==
-            "BLS - ACLS Course Only (After 1st November 2026)"
-        ):
+        elif pass_category == "BLS - ACLS Course Only (After 1st November 2026)":
 
             pass_amount = 12000
 
             pass_name = (
-                "BLS - ACLS Course Only "
-                "(After 1st November 2026)"
+                "BLS - ACLS Course Only (After 1st November 2026)"
             )
 
-        elif (
-            pass_category ==
-            "BLS-ACLS Course with Conference Registration "
-            "(Till 1st November 2026)"
-        ):
+        elif pass_category == "BLS-ACLS Course with Conference Registration (Till 1st November 2026)":
 
             pass_amount = 13000
 
@@ -760,11 +868,7 @@ def register():
                 "Registration (Till 1st November 2026)"
             )
 
-        elif (
-            pass_category ==
-            "BLS-ACLS Course with Conference Registration "
-            "(After 1st November 2026)"
-        ):
+        elif pass_category == "BLS-ACLS Course with Conference Registration (After 1st November 2026)":
 
             pass_amount = 13500
 
@@ -773,30 +877,20 @@ def register():
                 "Registration (After 1st November 2026)"
             )
 
-        elif (
-            pass_category ==
-            "Early Bird IMUCON Registration "
-            "(Till 1st November 2026)"
-        ):
+        elif pass_category == "Early Bird IMUCON Registration (Till 1st November 2026)":
 
             pass_amount = 2000
 
             pass_name = (
-                "Early Bird IMUCON Registration "
-                "(Till 1st November 2026)"
+                "Early Bird IMUCON Registration (Till 1st November 2026)"
             )
 
-        elif (
-            pass_category ==
-            "IMUCON Registration "
-            "(After 1st November 2026)"
-        ):
+        elif pass_category == "IMUCON Registration (After 1st November 2026)":
 
             pass_amount = 2500
 
             pass_name = (
-                "IMUCON Registration "
-                "(After 1st November 2026)"
+                "IMUCON Registration (After 1st November 2026)"
             )
 
         else:
@@ -815,48 +909,35 @@ def register():
 
         registration_document = {
 
-            "registration_id":
-                registration_id,
+            "registration_id": registration_id,
 
-            "pass_category":
-                pass_category,
+            "pass_category": pass_category,
 
-            "pass_name":
-                pass_name,
+            "pass_name": pass_name,
 
-            "pass_amount":
-                pass_amount,
+            "pass_amount": pass_amount,
 
-            "registration_type":
-                registration_type,
+            "registration_type": registration_type,
 
-            "attendee_count":
-                attendee_count,
+            "attendee_count": attendee_count,
 
-            "heard_from":
-                heard_from,
+            "heard_from": heard_from,
 
-            "transaction_id":
-                transaction_id,
+            "transaction_id": transaction_id,
 
             "payment_screenshot": {
 
-                "file_id":
-                    screenshot_file_id,
+                "file_id": screenshot_file_id,
 
-                "filename":
-                    screenshot_filename
+                "filename": screenshot_filename
 
             },
 
-            "status":
-                "Pending",
+            "status": "Pending",
 
-            "attendees":
-                attendees,
+            "attendees": attendees,
 
-            "created_at":
-                datetime.utcnow()
+            "created_at": datetime.utcnow()
 
         }
 
@@ -871,27 +952,34 @@ def register():
 
 
         # ====================================================
-        # SEND REGISTRATION CONFIRMATION EMAIL
+        # SEND EMAIL NOTIFICATIONS
         # ====================================================
 
-        email_sent = send_confirmation_email(
-
+        # 1. Confirmation email to attendee
+        attendee_email_sent = send_confirmation_email(
             email,
-
             registration_id,
-
             name,
-
             pass_name,
-
             pass_amount
-
         )
 
-        # Keep email_sent available for debugging/logging.
         print(
-            f"Email notification status for "
-            f"{registration_id}: {email_sent}"
+            f"Attendee email status for "
+            f"{registration_id}: "
+            f"{attendee_email_sent}"
+        )
+
+
+        # 2. Notification email to IMUCON official email
+        admin_email_sent = send_admin_notification(
+            registration_document
+        )
+
+        print(
+            f"Admin notification status for "
+            f"{registration_id}: "
+            f"{admin_email_sent}"
         )
 
 
@@ -907,8 +995,7 @@ def register():
                 "Registration submitted successfully!"
             ),
 
-            "registration_id":
-                registration_id
+            "registration_id": registration_id
 
         }), 201
 
@@ -925,17 +1012,21 @@ def register():
         if screenshot_file_id:
 
             try:
+
                 fs.delete(
                     screenshot_file_id
                 )
 
             except Exception:
+
                 pass
+
 
         print(
             "REGISTRATION ERROR:",
             str(e)
         )
+
 
         return jsonify({
 
@@ -945,8 +1036,7 @@ def register():
                 "Registration could not be completed."
             ),
 
-            "error":
-                str(e)
+            "error": str(e)
 
         }), 500
 
@@ -965,14 +1055,17 @@ if __name__ == "__main__":
 
     print("Website:")
     print("http://127.0.0.1:5000")
+
     print()
 
     print("Registration:")
     print("http://127.0.0.1:5000/registration")
+
     print()
 
     print("API:")
     print("http://127.0.0.1:5000/api/status")
+
     print()
 
     print("========================================")
