@@ -397,7 +397,7 @@
 
                         <option
                             value="BLS - ACLS Course Only (After 1st November 2026)"
-                            data-amount="1200"
+                            data-amount="12000"
                             id="afterNovemberBlsOnlyOption"
                             disabled
                         >
@@ -548,10 +548,7 @@
                     id="qrBox"
                 >
 
-                    <img
-                        src="assets/payment-qr.png"
-                        alt="Payment QR Code"
-                    >
+                    <div id="dynamicQr"></div>
 
                 </div>
 
@@ -647,6 +644,8 @@
 </div>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <script>
 
     /* =====================================================
@@ -676,6 +675,9 @@
 
     const qrBox =
         document.getElementById("qrBox");
+
+    const dynamicQr =
+        document.getElementById("dynamicQr");
 
 
     /* =====================================================
@@ -805,6 +807,47 @@
 
 
     /* =====================================================
+       DYNAMIC UPI QR
+
+       The QR amount is automatically taken from the selected
+       pass category. The user does not need to type the amount
+       in the UPI app after scanning.
+    ===================================================== */
+
+    const UPI_ID =
+        "SHARDAUNIVERSITYSEMINAR@icici";
+
+    const UPI_PAYEE_NAME =
+        "SHARDA UNIVERSITY SEMINAR";
+
+    function generateDynamicQr(amount) {
+
+        dynamicQr.innerHTML = "";
+
+        const upiUrl =
+            "upi://pay?pa=" +
+            encodeURIComponent(UPI_ID) +
+            "&pn=" +
+            encodeURIComponent(UPI_PAYEE_NAME) +
+            "&am=" +
+            encodeURIComponent(amount) +
+            "&cu=INR";
+
+        new QRCode(dynamicQr, {
+            text: upiUrl,
+            width: 220,
+            height: 220,
+            correctLevel: QRCode.CorrectLevel.M
+        });
+    }
+
+    function clearDynamicQr() {
+
+        dynamicQr.innerHTML = "";
+    }
+
+
+    /* =====================================================
        PASS CATEGORY / DATE LOGIC
 
        BEFORE 1 NOVEMBER 2026:
@@ -886,6 +929,8 @@
 
                 qrBox.style.display =
                     "none";
+
+                clearDynamicQr();
             }
 
 
@@ -926,6 +971,8 @@
 
                 qrBox.style.display =
                     "none";
+
+                clearDynamicQr();
             }
 
 
@@ -948,35 +995,24 @@
         "change",
         function () {
 
-            const category =
-                this.value;
+            const selectedOption =
+                this.options[this.selectedIndex];
 
-            if (
-                category === "BLS - ACLS Course Only (Till 1st November 2026)" ||
-                category === "BLS - ACLS Course Only (After 1st November 2026)" ||
-                category === "BLS-ACLS Course with Conference Registration (Till 1st November 2026)" ||
-                category === "BLS-ACLS Course with Conference Registration (After 1st November 2026)" ||
-                category === "Early Bird IMUCON Registration (Till 1st November 2026)" ||
-                category === "IMUCON Registration (After 1st November 2026)" ||
-                category === "Virtual Conference Registration (12 CME Hrs)"
-            ) {
+            const amount =
+                selectedOption.dataset.amount;
 
-                let totalAmount = "";
+            if (amount) {
 
-                if (category === "BLS - ACLS Course Only (Till 1st November 2026)") totalAmount = "₹11,500";
-                else if (category === "BLS - ACLS Course Only (After 1st November 2026)") totalAmount = "₹12,000";
-                else if (category === "BLS-ACLS Course with Conference Registration (Till 1st November 2026)") totalAmount = "₹13,000";
-                else if (category === "BLS-ACLS Course with Conference Registration (After 1st November 2026)") totalAmount = "₹13,500";
-                else if (category === "Early Bird IMUCON Registration (Till 1st November 2026)") totalAmount = "₹2,000";
-                else if (category === "IMUCON Registration (After 1st November 2026)") totalAmount = "₹2,500";
-                else if (category === "Virtual Conference Registration (12 CME Hrs)") totalAmount = "₹12,000";
+                const formattedAmount =
+                    Number(amount).toLocaleString("en-IN");
 
                 paymentMessage.textContent =
-                    "Total Amount: " + totalAmount;
+                    "Total Amount: ₹" + formattedAmount;
 
                 qrBox.style.display =
                     "block";
 
+                generateDynamicQr(amount);
             }
 
             else {
@@ -986,6 +1022,8 @@
 
                 qrBox.style.display =
                     "none";
+
+                clearDynamicQr();
             }
 
         }
