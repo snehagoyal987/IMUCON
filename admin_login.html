@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IMUCON 2.0 | Admin Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Inter", sans-serif;
+            background: #1B2333;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 40px;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo h1 {
+            margin: 0;
+
+            color: #1B2333;
+
+            font-size: 28px;
+        }
+
+        .logo p {
+            margin-top: 8px;
+
+            color: #e66a0b;
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #333;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #d5d5d5;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #e66a0b;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #e66a0b;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.92;
+        }
+
+        button:disabled {
+            opacity: 0.65;
+
+            cursor: not-allowed;
+        }
+
+        .error {
+            display: none;
+
+            margin-bottom: 18px;
+
+            padding: 12px;
+
+            background: #fdecec;
+
+            border: 1px solid #f2b8b8;
+
+            color: #b42318;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+        .footer {
+            margin-top: 25px;
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="logo">
+        <h1>IMUCON 2.0</h1>
+
+        <p>ADMIN PANEL</p>
+    </div>
+
+    <div id="errorMessage" class="error"></div>
+
+    <form id="loginForm">
+
+        <div class="form-group">
+
+            <label for="username">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                required
+                autocomplete="username"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                required
+                autocomplete="current-password"
+            >
+
+        </div>
+
+        <button
+            type="submit"
+            id="loginButton"
+        >
+            Login
+        </button>
+
+    </form>
+
+    <div class="footer">
+        IMUCON 2.0 · Sharda Hospital
+    </div>
+
+</div>
+
+<script>
+
+document
+.getElementById("loginForm")
+.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const username =
+        document.getElementById("username").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    const loginButton =
+        document.getElementById("loginButton");
+
+    const errorMessage =
+        document.getElementById("errorMessage");
+
+    loginButton.disabled = true;
+
+    loginButton.textContent = "Logging in...";
+
+    errorMessage.style.display = "none";
+
+    try {
+
+        const response = await fetch(
+            "/admin/login",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                credentials: "same-origin",
+
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            }
+        );
+
+        const result =
+            await response.json();
+
+        if (result.success) {
+
+            window.location.href = "/admin";
+
+        } else {
+
+            errorMessage.textContent =
+                result.message ||
+                "Invalid username or password.";
+
+            errorMessage.style.display = "block";
+
+            loginButton.disabled = false;
+
+            loginButton.textContent = "Login";
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        errorMessage.textContent =
+            "Unable to connect to the server. Please try again.";
+
+        errorMessage.style.display = "block";
+
+        loginButton.disabled = false;
+
+        loginButton.textContent = "Login";
+    }
+
+});
+
+</script>
+
+</body>
+</html>
