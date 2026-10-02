@@ -1,3 +1,4 @@
+```python
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from pymongo import MongoClient, ReturnDocument
@@ -7,6 +8,8 @@ from werkzeug.utils import secure_filename
 
 import os
 import re
+import smtplib
+from email.message import EmailMessage
 from datetime import datetime
 
 
@@ -18,10 +21,135 @@ load_dotenv()
 
 
 # ============================================================
+# EMAIL CONFIGURATION
+# ============================================================
+
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
+
+def send_confirmation_email(
+    to_email,
+    registration_id,
+    name,
+    pass_name,
+    pass_amount
+):
+
+    try:
+
+        # Check that email environment variables exist
+        if not EMAIL_ADDRESS or not EMAIL_PASSWORD:
+
+            print(
+                "EMAIL_ADDRESS or EMAIL_PASSWORD "
+                "is not configured."
+            )
+
+            return False
+
+
+        # ----------------------------------------------------
+        # CREATE EMAIL
+        # ----------------------------------------------------
+
+        msg = EmailMessage()
+
+        msg["Subject"] = (
+            f"IMUCON 2.0 Registration Confirmation - "
+            f"{registration_id}"
+        )
+
+        msg["From"] = EMAIL_ADDRESS
+
+        msg["To"] = to_email
+
+
+        # ----------------------------------------------------
+        # EMAIL CONTENT
+        # ----------------------------------------------------
+
+        msg.set_content(
+            f"""
+Dear {name},
+
+Thank you for registering for IMUCON 2.0 –
+International Medicine Update Conference.
+
+Your registration has been successfully received.
+
+Registration Details
+--------------------------------
+
+Registration ID:
+{registration_id}
+
+Pass:
+{pass_name}
+
+Amount Paid:
+₹{pass_amount}
+
+Conference Dates:
+15th–18th December 2026
+
+Venue:
+College Council Room, 5th Floor,
+SMS&R & Sharda Hospital,
+Greater Noida
+
+Your registration is currently under verification.
+
+Please keep your Registration ID for future communication.
+
+Regards,
+IMUCON 2.0 Team
+Sharda Hospital
+"""
+        )
+
+
+        # ----------------------------------------------------
+        # CONNECT TO GMAIL SMTP
+        # ----------------------------------------------------
+
+        with smtplib.SMTP_SSL(
+            "smtp.gmail.com",
+            465
+        ) as smtp:
+
+            smtp.login(
+                EMAIL_ADDRESS,
+                EMAIL_PASSWORD
+            )
+
+            smtp.send_message(msg)
+
+
+        print(
+            f"Confirmation email sent successfully "
+            f"to {to_email}"
+        )
+
+        return True
+
+
+    except Exception as e:
+
+        print(
+            "EMAIL SENDING ERROR:",
+            str(e)
+        )
+
+        return False
+
+
+# ============================================================
 # IMUCON REGISTRATION BACKEND
 # ============================================================
 
 app = Flask(__name__)
+
 CORS(app)
 
 
@@ -29,20 +157,30 @@ CORS(app)
 # PATH CONFIGURATION
 # ============================================================
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(
+    os.path.abspath(__file__)
+)
 
 # Website files are inside the IMUCON folder
 WEBSITE_FOLDER = BASE_DIR
 
 # Vercel writable temporary uploads folder
-UPLOAD_FOLDER = os.path.join("/tmp", "uploads")
+UPLOAD_FOLDER = os.path.join(
+    "/tmp",
+    "uploads"
+)
 
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(
+    UPLOAD_FOLDER,
+    exist_ok=True
+)
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 # Maximum upload size = 10 MB
-app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
+app.config["MAX_CONTENT_LENGTH"] = (
+    10 * 1024 * 1024
+)
 
 
 # ============================================================
@@ -52,19 +190,23 @@ app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
 MONGO_URI = os.getenv("MONGO_URI")
 
 if not MONGO_URI:
+
     raise RuntimeError(
         "MONGO_URI environment variable is not set."
     )
 
 
 # Connect to MongoDB Atlas
-client = MongoClient(MONGO_URI)
+client = MongoClient(
+    MONGO_URI
+)
 
 # Database
 db = client["IMUCON_Registration"]
 
 # Collections
 registrations_collection = db["registrations"]
+
 counters_collection = db["counters"]
 
 # GridFS for payment screenshots
@@ -91,7 +233,11 @@ def allowed_file(filename):
 
     return (
         "." in filename
-        and filename.rsplit(".", 1)[1].lower()
+        and
+        filename.rsplit(
+            ".",
+            1
+        )[1].lower()
         in ALLOWED_EXTENSIONS
     )
 
@@ -131,13 +277,19 @@ def valid_mobile(mobile):
 def generate_registration_id():
 
     counter = counters_collection.find_one_and_update(
-        {"_id": "registration_id"},
+
+        {
+            "_id": "registration_id"
+        },
+
         {
             "$inc": {
                 "value": 1
             }
         },
+
         upsert=True,
+
         return_document=ReturnDocument.AFTER
     )
 
@@ -212,24 +364,38 @@ def api_status():
     try:
 
         # Test MongoDB connection
-        client.admin.command("ping")
+        client.admin.command(
+            "ping"
+        )
 
         return jsonify({
+
             "status": "running",
+
             "database": "connected",
+
             "message": (
                 "IMUCON Registration API is running "
                 "and MongoDB is connected."
             )
+
         })
+
 
     except Exception as e:
 
         return jsonify({
+
             "status": "running",
+
             "database": "disconnected",
-            "message": "MongoDB connection failed.",
+
+            "message": (
+                "MongoDB connection failed."
+            ),
+
             "error": str(e)
+
         }), 500
 
 
@@ -237,7 +403,10 @@ def api_status():
 # REGISTRATION API
 # ============================================================
 
-@app.route("/api/register", methods=["POST"])
+@app.route(
+    "/api/register",
+    methods=["POST"]
+)
 def register():
 
     screenshot_file_id = None
@@ -269,22 +438,33 @@ def register():
         # ====================================================
 
         allowed_categories = {
+
             "BLS - ACLS Course Only (Till 1st November 2026)",
+
             "BLS - ACLS Course Only (After 1st November 2026)",
+
             "BLS-ACLS Course with Conference Registration (Till 1st November 2026)",
+
             "BLS-ACLS Course with Conference Registration (After 1st November 2026)",
+
             "Early Bird IMUCON Registration (Till 1st November 2026)",
+
             "IMUCON Registration (After 1st November 2026)",
+
             "Virtual Conference Registration (12 CME Hrs)"
         }
+
 
         if pass_category not in allowed_categories:
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "Please select a valid pass category."
                 )
+
             }), 400
 
 
@@ -295,23 +475,36 @@ def register():
         # After-November passes become available from
         # 1 November 2026
 
-        activation_date = datetime(2026, 11, 1)
+        activation_date = datetime(
+            2026,
+            11,
+            1
+        )
+
 
         after_november_categories = {
+
             "BLS - ACLS Course Only (After 1st November 2026)",
+
             "BLS-ACLS Course with Conference Registration (After 1st November 2026)",
+
             "IMUCON Registration (After 1st November 2026)"
         }
 
+
         before_november_categories = {
+
             "BLS - ACLS Course Only (Till 1st November 2026)",
+
             "BLS-ACLS Course with Conference Registration (Till 1st November 2026)",
+
             "Early Bird IMUCON Registration (Till 1st November 2026)"
         }
 
 
-        # After-November categories cannot be selected
-        # before 1 November 2026
+        # ====================================================
+        # AFTER-NOVEMBER CATEGORIES
+        # ====================================================
 
         if (
             pass_category in after_november_categories
@@ -319,17 +512,19 @@ def register():
         ):
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "This pass category will be available "
                     "from 1 November 2026."
                 )
+
             }), 400
 
 
         # ====================================================
-        # 1-NOVEMBER CATEGORIES CANNOT BE SELECTED AFTER
-        # 1 NOVEMBER 2026
+        # BEFORE-NOVEMBER CATEGORIES
         # ====================================================
 
         if (
@@ -338,11 +533,14 @@ def register():
         ):
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "This pass category was available "
                     "until 31 October 2026."
                 )
+
             }), 400
 
 
@@ -350,35 +548,40 @@ def register():
         # BLS-ACLS COMBINED 30 SEAT CAPACITY
         # ====================================================
 
-        # These two categories share ONE combined capacity
-        # of 30 registrations:
-        #
-        # BLS - ACLS Course Only
-        # BLS-ACLS Course with Conference Registration
-        #
-        # Both are the "Till 1st November 2026" categories.
-
         bls_categories = {
+
             "BLS - ACLS Course Only (Till 1st November 2026)",
+
             "BLS-ACLS Course with Conference Registration (Till 1st November 2026)"
         }
 
+
         if pass_category in bls_categories:
 
-            bls_count = registrations_collection.count_documents({
-                "pass_category": {
-                    "$in": list(bls_categories)
-                }
-            })
+            bls_count = (
+                registrations_collection.count_documents({
+
+                    "pass_category": {
+                        "$in": list(
+                            bls_categories
+                        )
+                    }
+
+                })
+            )
+
 
             if bls_count >= 30:
 
                 return jsonify({
+
                     "success": False,
+
                     "message": (
                         "The BLS-ACLS course capacity "
                         "of 30 registrations has been reached."
                     )
+
                 }), 400
 
 
@@ -398,11 +601,14 @@ def register():
         if not transaction_id:
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "Please enter the Transaction ID / "
                     "UTR number."
                 )
+
             }), 400
 
 
@@ -414,23 +620,30 @@ def register():
             "paymentScreenshot"
         )
 
+
         if not screenshot:
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "Please upload your payment screenshot."
                 )
+
             }), 400
 
 
         if screenshot.filename == "":
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "Please select a payment screenshot."
                 )
+
             }), 400
 
 
@@ -439,12 +652,15 @@ def register():
         ):
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "Invalid image format. "
                     "Please upload PNG, JPG, JPEG "
                     "or WEBP."
                 )
+
             }), 400
 
 
@@ -454,25 +670,30 @@ def register():
 
         attendees = []
 
+
         name = request.form.get(
             "attendee_1_name",
             ""
         ).strip()
+
 
         dob = request.form.get(
             "attendee_1_dob",
             ""
         ).strip()
 
+
         gender = request.form.get(
             "attendee_1_gender",
             ""
         ).strip()
 
+
         email = request.form.get(
             "attendee_1_email",
             ""
         ).strip()
+
 
         mobile = request.form.get(
             "attendee_1_mobile",
@@ -487,10 +708,13 @@ def register():
         if not name:
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "Please enter the full name."
                 )
+
             }), 400
 
 
@@ -501,10 +725,13 @@ def register():
         if not dob:
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "Please enter the date of birth."
                 )
+
             }), 400
 
 
@@ -515,10 +742,13 @@ def register():
         if not gender:
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "Please select gender."
                 )
+
             }), 400
 
 
@@ -529,10 +759,13 @@ def register():
         if not valid_email(email):
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "Please enter a valid email."
                 )
+
             }), 400
 
 
@@ -543,11 +776,14 @@ def register():
         if not valid_mobile(mobile):
 
             return jsonify({
+
                 "success": False,
+
                 "message": (
                     "Mobile number must contain "
                     "exactly 10 digits."
                 )
+
             }), 400
 
 
@@ -587,6 +823,7 @@ def register():
             screenshot.filename
         )
 
+
         extension = original_filename.rsplit(
             ".",
             1
@@ -605,10 +842,15 @@ def register():
 
         # Store screenshot in MongoDB GridFS
         screenshot_file_id = fs.put(
+
             screenshot_data,
+
             filename=screenshot_filename,
+
             content_type=screenshot.content_type,
+
             registration_id=registration_id
+
         )
 
 
@@ -616,23 +858,37 @@ def register():
         # PASS AMOUNT
         # ====================================================
 
-        if pass_category == "BLS - ACLS Course Only (Till 1st November 2026)":
+        if (
+            pass_category ==
+            "BLS - ACLS Course Only (Till 1st November 2026)"
+        ):
 
             pass_amount = 11500
 
             pass_name = (
-                "BLS - ACLS Course Only (Till 1st November 2026)"
+                "BLS - ACLS Course Only "
+                "(Till 1st November 2026)"
             )
 
-        elif pass_category == "BLS - ACLS Course Only (After 1st November 2026)":
+
+        elif (
+            pass_category ==
+            "BLS - ACLS Course Only (After 1st November 2026)"
+        ):
 
             pass_amount = 12000
 
             pass_name = (
-                "BLS - ACLS Course Only (After 1st November 2026)"
+                "BLS - ACLS Course Only "
+                "(After 1st November 2026)"
             )
 
-        elif pass_category == "BLS-ACLS Course with Conference Registration (Till 1st November 2026)":
+
+        elif (
+            pass_category ==
+            "BLS-ACLS Course with Conference Registration "
+            "(Till 1st November 2026)"
+        ):
 
             pass_amount = 13000
 
@@ -641,7 +897,12 @@ def register():
                 "Registration (Till 1st November 2026)"
             )
 
-        elif pass_category == "BLS-ACLS Course with Conference Registration (After 1st November 2026)":
+
+        elif (
+            pass_category ==
+            "BLS-ACLS Course with Conference Registration "
+            "(After 1st November 2026)"
+        ):
 
             pass_amount = 13500
 
@@ -650,21 +911,34 @@ def register():
                 "Registration (After 1st November 2026)"
             )
 
-        elif pass_category == "Early Bird IMUCON Registration (Till 1st November 2026)":
+
+        elif (
+            pass_category ==
+            "Early Bird IMUCON Registration "
+            "(Till 1st November 2026)"
+        ):
 
             pass_amount = 2000
 
             pass_name = (
-                "Early Bird IMUCON Registration (Till 1st November 2026)"
+                "Early Bird IMUCON Registration "
+                "(Till 1st November 2026)"
             )
 
-        elif pass_category == "IMUCON Registration (After 1st November 2026)":
+
+        elif (
+            pass_category ==
+            "IMUCON Registration "
+            "(After 1st November 2026)"
+        ):
 
             pass_amount = 2500
 
             pass_name = (
-                "IMUCON Registration (After 1st November 2026)"
+                "IMUCON Registration "
+                "(After 1st November 2026)"
             )
+
 
         else:
 
@@ -682,35 +956,48 @@ def register():
 
         registration_document = {
 
-            "registration_id": registration_id,
+            "registration_id":
+                registration_id,
 
-            "pass_category": pass_category,
+            "pass_category":
+                pass_category,
 
-            "pass_name": pass_name,
+            "pass_name":
+                pass_name,
 
-            "pass_amount": pass_amount,
+            "pass_amount":
+                pass_amount,
 
-            "registration_type": registration_type,
+            "registration_type":
+                registration_type,
 
-            "attendee_count": attendee_count,
+            "attendee_count":
+                attendee_count,
 
-            "heard_from": heard_from,
+            "heard_from":
+                heard_from,
 
-            "transaction_id": transaction_id,
+            "transaction_id":
+                transaction_id,
 
             "payment_screenshot": {
 
-                "file_id": screenshot_file_id,
+                "file_id":
+                    screenshot_file_id,
 
-                "filename": screenshot_filename
+                "filename":
+                    screenshot_filename
 
             },
 
-            "status": "Pending",
+            "status":
+                "Pending",
 
-            "attendees": attendees,
+            "attendees":
+                attendees,
 
-            "created_at": datetime.utcnow()
+            "created_at":
+                datetime.utcnow()
 
         }
 
@@ -721,6 +1008,25 @@ def register():
 
         registrations_collection.insert_one(
             registration_document
+        )
+
+
+        # ====================================================
+        # SEND REGISTRATION CONFIRMATION EMAIL
+        # ====================================================
+
+        email_sent = send_confirmation_email(
+
+            email,
+
+            registration_id,
+
+            name,
+
+            pass_name,
+
+            pass_amount
+
         )
 
 
@@ -736,7 +1042,8 @@ def register():
                 "Registration submitted successfully!"
             ),
 
-            "registration_id": registration_id
+            "registration_id":
+                registration_id
 
         }), 201
 
@@ -746,6 +1053,7 @@ def register():
     # ========================================================
 
     except Exception as e:
+
 
         # If registration fails after screenshot upload,
         # remove the screenshot from GridFS.
@@ -777,7 +1085,8 @@ def register():
                 "Registration could not be completed."
             ),
 
-            "error": str(e)
+            "error":
+                str(e)
 
         }), 500
 
@@ -789,31 +1098,59 @@ def register():
 if __name__ == "__main__":
 
     print()
-    print("========================================")
-    print("      IMUCON REGISTRATION BACKEND")
-    print("========================================")
+
+    print(
+        "========================================"
+    )
+
+    print(
+        "      IMUCON REGISTRATION BACKEND"
+    )
+
+    print(
+        "========================================"
+    )
+
     print()
 
     print("Website:")
-    print("http://127.0.0.1:5000")
+
+    print(
+        "http://127.0.0.1:5000"
+    )
 
     print()
 
     print("Registration:")
-    print("http://127.0.0.1:5000/registration")
+
+    print(
+        "http://127.0.0.1:5000/registration"
+    )
 
     print()
 
     print("API:")
-    print("http://127.0.0.1:5000/api/status")
+
+    print(
+        "http://127.0.0.1:5000/api/status"
+    )
 
     print()
 
-    print("========================================")
+    print(
+        "========================================"
+    )
+
     print()
+
 
     app.run(
+
         host="0.0.0.0",
+
         port=5000,
+
         debug=True
+
     )
+```
