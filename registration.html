@@ -227,6 +227,30 @@
             word-break: break-word;
         }
 
+        .copy-upi-button {
+            display: inline-block;
+            margin: 10px 0 4px;
+            padding: 9px 16px;
+            border: 0;
+            border-radius: 8px;
+            background: #0f3057;
+            color: #ffffff;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .copy-upi-button:hover {
+            background: #1b4778;
+        }
+
+        #upiCopyStatus {
+            min-height: 18px;
+            color: #267344;
+            font-size: 12px;
+        }
+
         .upi-payment-note {
             color: #666 !important;
             font-size: 13px !important;
@@ -587,22 +611,28 @@
             <div class="payment-box">
 
                 <p>
-                    Please scan the QR code below to complete the payment.
+                    Scan the official college QR code below using your UPI app. Enter the amount manually in your payment app.
                 </p>
 
                 <div id="paymentMessage">
-                    Please select a pass category.
+                    Select a pass category, scan the official college QR, and enter the amount you paid.
                 </div>
 
 
-                <!-- QR CODE -->
+                <!-- OFFICIAL COLLEGE QR CODE -->
 
                 <div
                     class="qr-box"
                     id="qrBox"
+                    style="display: block;"
                 >
 
-                    <div id="dynamicQr"></div>
+                    <img
+                        src="/college-payment-qr.png"
+                        alt="Official Sharda University Seminar payment QR code"
+                        width="220"
+                        height="220"
+                    >
 
                 </div>
 
@@ -611,9 +641,19 @@
 
                     <p>
                         <strong>UPI ID:</strong>
-                        <span id="upiIdText">
-                            SHARDAUNIVERSITYSEMINAR@icici
-                        </span>
+                        <span id="upiIdText">SHARDAUNIVERSITYSEMINAR@icici</span>
+                    </p>
+                    <button
+                        type="button"
+                        class="copy-upi-button"
+                        id="copyUpiButton"
+                        onclick="copyCollegeUpiId()"
+                    >
+                        Copy UPI ID
+                    </button>
+                    <p id="upiCopyStatus" role="status" aria-live="polite"></p>
+                    <p class="upi-payment-note">
+                        Please confirm the recipient name in your UPI app before paying.
                     </p>
 
                 </div>
@@ -712,7 +752,7 @@
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 
 
 <script>
@@ -745,8 +785,28 @@
     const qrBox =
         document.getElementById("qrBox");
 
-    const dynamicQr =
-        document.getElementById("dynamicQr");
+    async function copyCollegeUpiId() {
+        const upiId = document.getElementById("upiIdText").textContent.trim();
+        const status = document.getElementById("upiCopyStatus");
+        try {
+            await navigator.clipboard.writeText(upiId);
+            status.textContent = "UPI ID copied. Verify the recipient before paying.";
+        } catch (error) {
+            // Fallback for browsers where Clipboard API is unavailable.
+            const temporaryInput = document.createElement("textarea");
+            temporaryInput.value = upiId;
+            temporaryInput.setAttribute("readonly", "");
+            temporaryInput.style.position = "absolute";
+            temporaryInput.style.left = "-9999px";
+            document.body.appendChild(temporaryInput);
+            temporaryInput.select();
+            const copied = document.execCommand("copy");
+            temporaryInput.remove();
+            status.textContent = copied
+                ? "UPI ID copied. Verify the recipient before paying."
+                : "Please select and copy the UPI ID manually.";
+        }
+    }
 
 
     /* =====================================================
@@ -876,49 +936,11 @@
 
 
     /* =====================================================
-       DYNAMIC UPI QR
+       OFFICIAL COLLEGE QR / MANUAL PAYMENT AMOUNT
     ===================================================== */
 
-    const UPI_ID =
-        "SHARDAUNIVERSITYSEMINAR@icici";
-
-    const UPI_PAYEE_NAME =
-        "SHARDA UNIVERSITY SEMINAR";
-
-
-    function generateDynamicQr(amount) {
-
-        dynamicQr.innerHTML = "";
-
-        const upiUrl =
-            "upi://pay?pa=" +
-            encodeURIComponent(UPI_ID) +
-            "&pn=" +
-            encodeURIComponent(UPI_PAYEE_NAME) +
-            "&am=" +
-            encodeURIComponent(amount) +
-            "&cu=INR";
-
-
-        new QRCode(dynamicQr, {
-
-            text: upiUrl,
-
-            width: 220,
-
-            height: 220,
-
-            correctLevel:
-                QRCode.CorrectLevel.M
-
-        });
-    }
-
-
     function clearDynamicQr() {
-
-        dynamicQr.innerHTML = "";
-
+        // The official college QR is static; nothing to regenerate.
     }
 
 
@@ -1062,52 +1084,31 @@
     ===================================================== */
 
     passCategory.addEventListener(
-
         "change",
-
         function () {
-
             const selectedOption =
                 this.options[this.selectedIndex];
 
-
-            const amount =
+            const suggestedAmount =
                 selectedOption.dataset.amount;
 
-
-            if (amount) {
-
+            if (suggestedAmount) {
                 const formattedAmount =
-                    Number(amount).toLocaleString("en-IN");
-
+                    Number(suggestedAmount).toLocaleString("en-IN");
 
                 paymentMessage.textContent =
-                    "Total Amount: ₹" +
-                    formattedAmount;
+                    "Suggested amount for this pass: ₹" +
+                    formattedAmount +
+                    ". Enter the amount you actually paid below.";
 
-
-                qrBox.style.display =
-                    "block";
-
-
-                generateDynamicQr(amount);
-
-            }
-
-            else {
-
+                qrBox.style.display = "block";
+            } else {
                 paymentMessage.textContent =
                     "Please select a pass category.";
 
-                qrBox.style.display =
-                    "none";
-
-                clearDynamicQr();
-
+                qrBox.style.display = "block";
             }
-
         }
-
     );
 
 
