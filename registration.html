@@ -471,7 +471,7 @@
                             value="BLS - ACLS Course Only (Till 1st November 2026)"
                             data-amount="11500"
                         >
-                            BLS - ACLS Course Only (Till 1st November 2026) - ₹11,500
+                            BLS - ACLS Course Only (Till 10th November 2026) - ₹11,500
                         </option>
 
                         <option
@@ -480,14 +480,14 @@
                             id="afterNovemberBlsOnlyOption"
                             disabled
                         >
-                            BLS - ACLS Course Only (After 1st November 2026) - ₹12,000
+                            BLS - ACLS Course Only (After 10th November 2026) - ₹12,000
                         </option>
 
                         <option
                             value="BLS-ACLS Course with Conference Registration (Till 1st November 2026)"
                             data-amount="13000"
                         >
-                            BLS-ACLS Course with Conference Registration (Till 1st November 2026) - ₹13,000
+                            BLS-ACLS Course with Conference Registration (Till 10th November 2026) - ₹13,000
                         </option>
 
                         <option
@@ -496,14 +496,14 @@
                             id="afterNovemberBlsOption"
                             disabled
                         >
-                            BLS-ACLS Course with Conference Registration (After 1st November 2026) - ₹13,500
+                            BLS-ACLS Course with Conference Registration (After 10th November 2026) - ₹13,500
                         </option>
 
                         <option
                             value="Early Bird IMUCON Registration (Till 1st November 2026)"
                             data-amount="2000"
                         >
-                            Early Bird IMUCON Registration (Till 1st November 2026) - ₹2,000
+                            Early Bird IMUCON Registration (Till 10th November 2026) - ₹2,000
                         </option>
 
                         <option
@@ -512,7 +512,7 @@
                             id="afterNovemberImuconOption"
                             disabled
                         >
-                            IMUCON Registration (After 1st November 2026) - ₹2,500
+                            IMUCON Registration (After 10th November 2026) - ₹2,500
                         </option>
 
                         <option
@@ -948,131 +948,99 @@
        PASS CATEGORY / DATE LOGIC
     ===================================================== */
 
-    function updatePassAvailability() {
-
-        const today =
-            new Date();
-
-        const afterNovemberDate =
-            new Date("2026-11-01T00:00:00");
-
-
-        if (today >= afterNovemberDate) {
-
-            afterNovemberBlsOnlyOption.disabled =
-                false;
-
-            afterNovemberBlsOption.disabled =
-                false;
-
-            afterNovemberImuconOption.disabled =
-                false;
-
-
-            const blsOnlyOption =
-                passCategory.querySelector(
-                    'option[value="BLS - ACLS Course Only (Till 1st November 2026)"]'
-                );
-
-
-            const blsConferenceOption =
-                passCategory.querySelector(
-                    'option[value="BLS-ACLS Course with Conference Registration (Till 1st November 2026)"]'
-                );
-
-
-            const imuconEarlyBirdOption =
-                passCategory.querySelector(
-                    'option[value="Early Bird IMUCON Registration (Till 1st November 2026)"]'
-                );
-
-
-            blsOnlyOption.disabled =
-                true;
-
-            blsConferenceOption.disabled =
-                true;
-
-            imuconEarlyBirdOption.disabled =
-                true;
-
-
-            if (
-
-                passCategory.value ===
-                    "BLS - ACLS Course Only (Till 1st November 2026)" ||
-
-                passCategory.value ===
-                    "BLS-ACLS Course with Conference Registration (Till 1st November 2026)" ||
-
-                passCategory.value ===
-                    "Early Bird IMUCON Registration (Till 1st November 2026)"
-
-            ) {
-
-                passCategory.value = "";
-
-                paymentMessage.textContent =
-                    "Please select a currently available pass category.";
-
-                qrBox.style.display =
-                    "none";
-
-                clearDynamicQr();
-
-            }
-
-
-            passNote.textContent =
-                "Registrations after 1 November 2026 are now active.";
-
-        }
-
-        else {
-
-            afterNovemberBlsOnlyOption.disabled =
-                true;
-
-            afterNovemberBlsOption.disabled =
-                true;
-
-            afterNovemberImuconOption.disabled =
-                true;
-
-
-            if (
-
-                passCategory.value ===
-                    "BLS - ACLS Course Only (After 1st November 2026)" ||
-
-                passCategory.value ===
-                    "BLS-ACLS Course with Conference Registration (After 1st November 2026)" ||
-
-                passCategory.value ===
-                    "IMUCON Registration (After 1st November 2026)"
-
-            ) {
-
-                passCategory.value = "";
-
-                paymentMessage.textContent =
-                    "Please select a currently available pass category.";
-
-                qrBox.style.display =
-                    "none";
-
-                clearDynamicQr();
-
-            }
-
-
-            passNote.textContent =
-                "Please select an available pass category.";
-
-        }
-
+    function getIndiaDateString() {
+        return new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Kolkata",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }).format(new Date());
     }
 
+
+    function updatePassAvailability() {
+
+        const indiaToday = getIndiaDateString();
+
+        // Date strings in YYYY-MM-DD format can be compared directly.
+        const oldRatesStart = "2026-11-01";
+        const newRatesStart = "2026-11-11";
+
+        const oldOptionsActive =
+            indiaToday >= oldRatesStart &&
+            indiaToday < newRatesStart;
+
+        const newOptionsActive =
+            indiaToday >= newRatesStart;
+
+        const blsOnlyOption = passCategory.querySelector(
+            'option[value="BLS - ACLS Course Only (Till 1st November 2026)"]'
+        );
+
+        const blsConferenceOption = passCategory.querySelector(
+            'option[value="BLS-ACLS Course with Conference Registration (Till 1st November 2026)"]'
+        );
+
+        const earlyBirdOption = passCategory.querySelector(
+            'option[value="Early Bird IMUCON Registration (Till 1st November 2026)"]'
+        );
+
+        const oldCategories = [
+            "BLS - ACLS Course Only (Till 1st November 2026)",
+            "BLS-ACLS Course with Conference Registration (Till 1st November 2026)",
+            "Early Bird IMUCON Registration (Till 1st November 2026)"
+        ];
+
+        const newCategories = [
+            "BLS - ACLS Course Only (After 1st November 2026)",
+            "BLS-ACLS Course with Conference Registration (After 1st November 2026)",
+            "IMUCON Registration (After 1st November 2026)"
+        ];
+
+        // Earlier-rate categories: 1 November through 10 November.
+        blsOnlyOption.disabled = !oldOptionsActive;
+        blsConferenceOption.disabled = !oldOptionsActive;
+        earlyBirdOption.disabled = !oldOptionsActive;
+
+        // Revised-rate categories: after 10 November.
+        afterNovemberBlsOnlyOption.disabled = !newOptionsActive;
+        afterNovemberBlsOption.disabled = !newOptionsActive;
+        afterNovemberImuconOption.disabled = !newOptionsActive;
+
+        // Clear a previously selected category if it is no longer active.
+        if (
+            oldCategories.includes(passCategory.value) &&
+            !oldOptionsActive
+        ) {
+            passCategory.value = "";
+            paymentMessage.textContent =
+                "Please select a currently available pass category.";
+            qrBox.style.display = "none";
+            clearDynamicQr();
+        }
+
+        if (
+            newCategories.includes(passCategory.value) &&
+            !newOptionsActive
+        ) {
+            passCategory.value = "";
+            paymentMessage.textContent =
+                "Please select a currently available pass category.";
+            qrBox.style.display = "none";
+            clearDynamicQr();
+        }
+
+        if (oldOptionsActive) {
+            passNote.textContent =
+                "These registration prices are available until 10 November 2026.";
+        } else if (newOptionsActive) {
+            passNote.textContent =
+                "Revised registration prices are active after 10 November 2026.";
+        } else {
+            passNote.textContent =
+                "Please select an available pass category.";
+        }
+    }
 
     /* Run date check when page loads */
 
@@ -1153,76 +1121,48 @@
                 }
 
 
-                /* Date validation */
+                /* Date validation (India time) */
 
-                const today =
-                    new Date();
+                const indiaToday = getIndiaDateString();
 
-                const afterNovemberDate =
-                    new Date(
-                        "2026-11-01T00:00:00"
-                    );
+                const oldRatesStart = "2026-11-01";
+                const newRatesStart = "2026-11-11";
 
+                const oldCategories = [
+                    "BLS - ACLS Course Only (Till 1st November 2026)",
+                    "BLS-ACLS Course with Conference Registration (Till 1st November 2026)",
+                    "Early Bird IMUCON Registration (Till 1st November 2026)"
+                ];
 
-                /* After 1 November categories */
+                const newCategories = [
+                    "BLS - ACLS Course Only (After 1st November 2026)",
+                    "BLS-ACLS Course with Conference Registration (After 1st November 2026)",
+                    "IMUCON Registration (After 1st November 2026)"
+                ];
 
                 if (
-
+                    oldCategories.includes(passCategory.value) &&
                     (
-
-                        passCategory.value ===
-                            "BLS - ACLS Course Only (After 1st November 2026)" ||
-
-                        passCategory.value ===
-                            "BLS-ACLS Course with Conference Registration (After 1st November 2026)" ||
-
-                        passCategory.value ===
-                            "IMUCON Registration (After 1st November 2026)"
-
+                        indiaToday < oldRatesStart ||
+                        indiaToday >= newRatesStart
                     )
-
-                    &&
-
-                    today < afterNovemberDate
-
                 ) {
-
                     alert(
-                        "This pass category will be available from 1 November 2026."
+                        "These pass categories are available only from 1 November to 10 November 2026."
                     );
-
+                    updatePassAvailability();
                     return;
-
                 }
 
-
-                /* Till 1 November categories */
-
                 if (
-
-                    today >= afterNovemberDate &&
-
-                    (
-
-                        passCategory.value ===
-                            "BLS - ACLS Course Only (Till 1st November 2026)" ||
-
-                        passCategory.value ===
-                            "BLS-ACLS Course with Conference Registration (Till 1st November 2026)" ||
-
-                        passCategory.value ===
-                            "Early Bird IMUCON Registration (Till 1st November 2026)"
-
-                    )
-
+                    newCategories.includes(passCategory.value) &&
+                    indiaToday < newRatesStart
                 ) {
-
                     alert(
-                        "This pass category is no longer available after 1 November 2026."
+                        "These pass categories will be available after 10 November 2026."
                     );
-
+                    updatePassAvailability();
                     return;
-
                 }
 
 
