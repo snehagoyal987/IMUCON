@@ -21,6 +21,7 @@ import hmac
 
 from email.message import EmailMessage
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 
 # ============================================================
@@ -1568,15 +1569,21 @@ def register():
 
 
         # ====================================================
-        # VALIDATE PASS ACTIVATION DATE
+        # VALIDATE PASS ACTIVATION DATE (INDIA TIME)
         # ====================================================
 
-        activation_date = datetime(
-            2026,
-            11,
-            1
+        india_timezone = ZoneInfo("Asia/Kolkata")
+        today = datetime.now(india_timezone)
+
+        old_rates_start = datetime(
+            2026, 11, 1,
+            tzinfo=india_timezone
         )
 
+        new_rates_start = datetime(
+            2026, 11, 11,
+            tzinfo=india_timezone
+        )
 
         after_november_categories = {
 
@@ -1590,7 +1597,6 @@ def register():
             "(After 1st November 2026)"
         }
 
-
         before_november_categories = {
 
             "BLS - ACLS Course Only "
@@ -1603,50 +1609,33 @@ def register():
             "(Till 1st November 2026)"
         }
 
-
-        # ====================================================
-        # AFTER-NOVEMBER CATEGORIES
-        # ====================================================
-
+        # Earlier-rate categories are available from 1 to 10 November.
         if (
-            pass_category
-            in after_november_categories
-            and
-            datetime.now()
-            < activation_date
+            pass_category in before_november_categories
+            and (
+                today < old_rates_start
+                or today >= new_rates_start
+            )
         ):
-
             return jsonify({
-
                 "success": False,
-
-                "message":
-                    "This pass category will be "
-                    "available from 1 November 2026."
-
+                "message": (
+                    "These pass categories are available "
+                    "only from 1 November to 10 November 2026."
+                )
             }), 400
 
-
-        # ====================================================
-        # BEFORE-NOVEMBER CATEGORIES
-        # ====================================================
-
+        # Revised-rate categories become available after 10 November.
         if (
-            pass_category
-            in before_november_categories
-            and
-            datetime.now()
-            >= activation_date
+            pass_category in after_november_categories
+            and today < new_rates_start
         ):
-
             return jsonify({
-
                 "success": False,
-
-                "message":
-                    "This pass category was "
-                    "available until 31 October 2026."
-
+                "message": (
+                    "These pass categories will be "
+                    "available after 10 November 2026."
+                )
             }), 400
 
 
@@ -1659,8 +1648,14 @@ def register():
             "BLS - ACLS Course Only "
             "(Till 1st November 2026)",
 
+            "BLS - ACLS Course Only "
+            "(After 1st November 2026)",
+
             "BLS-ACLS Course with Conference "
-            "Registration (Till 1st November 2026)"
+            "Registration (Till 1st November 2026)",
+
+            "BLS-ACLS Course with Conference "
+            "Registration (After 1st November 2026)"
         }
 
 
